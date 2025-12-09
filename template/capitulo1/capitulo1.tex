@@ -1,0 +1,60 @@
+\chapter{Introdução}
+\label{ch:introducao}
+
+Tipicamente, nessa parte, descrevemos o contexto, motivação e justificativa para o trabalhos proposto. Em essência, temos que tentar capturar a atenção do leitor para ele entenda o que está sendo proposto e de que forma isso é relevante e em que contexto. Também é comum fecharmos essa parte com uma questão problema: \textit{Como escrever o Trabalho de Conclusão de Curso (TCC) utilizando o \LaTeX}? Nesse trabalho será utilizado o conceito de Progressive Web App (PWA).
+
+\section{Objetivo}
+\label{sec:objetivo}
+
+Conforme explicitado no título da seção, aqui vamos colocar, inicialmente, o objetivo geral do trabalho. Por exemplo, o objetivo do presente trabalho é entender o funcionamento do \LaTeX para desenvolver o Trabalho de Conclusão de Curso.
+
+\subsection{Objetivos Específicos}
+\label{subsec:objespecificos}
+
+O presente trabalho tem os seguintes objetivos específicos (observar que aqui já temos um exemplo de listas no \LaTeX):
+
+\begin{itemize}
+\item Estudar os principais comandos do \LaTeX
+\item Transpor tudo que está escrito no Word para o \LaTeX
+\item Revisar todo o trabalho para verificar se ficou tudo certinho.
+\item Entregar o volume final bem correto para que ele seja catalogado na biblioteca.
+\end{itemize}
+
+\section{Organização do Trabalho}
+\label{sec:organizacao}
+
+Aqui, colocamos sucintamente o que vai ser apresentado ao longo do texto, da seguinte forma.
+
+O Capítulo~\ref{ch:trabalhos_relacionados} descreve os principais trabalhos relacionados à presente proposta. A análise foi realizada a partir de ferramentas de mesmo propósito, objetivando traçar seus pontos negativos e positivos. Ao final, é feita uma sumarização de tal análise em perspectiva do sistema proposto.
+
+O Capítulo~\ref{ch:solucao_proposta} descreve a metodologia aplicada no desenvolvimento do presente trabalho. Também são apresentadas as ferramentas tecnológicas utilizadas, destacando o motivo pelo qual tomou-se a decisão de empregar tais ferramentas. 
+
+Esta seção faz referência à Figura~\ref{fig:ex1} a título de exemplo. Essa é a forma mais comum de adicionar imagens no ~\LaTeX. Basta indicar o nome do arquivo e colocar o caption. O label é utilizado para que possamos referenciar a imagem ao longo do texto. Isso facilita bastante, pois toda vez que o código é compilado a numeração e índice de imagens é atualizado automaticamente. Outra coisa importante, se refere ao fato de que as imagens devem ter mencionada a fonte. Se a imagem foi criada pelo próprio autor do trabalho, deve aparecer ``Fonte: autoria própria''. Se a imagem foi obtida de alguma fonte, essa fonte deve ser apresentada. Poder uma citação ou mesmo o link de onde a imagem foi extraída.
+
+% exemplo de figura
+\begin{figure}[!h]
+        \centerline{\includegraphics[width=15em]{capitulo1/img/logo.png}}
+        \caption{Exemplo de figura importada de um arquivo \texttt{.png} e também exemplo de caption muito grande que ocupa mais de uma linha na Lista de~Figuras}
+        \label{fig:ex1}
+        \centerline{{Fonte: autoria própria.}}
+\end{figure}
+
+É interessante observar que o label pode ser utilizando também para identificar seções e capítulos. Por exemplo, abaixo da definição da seção de Figuras e tabelas, foi adicionado um label. Dessa forma, eu posso fazer assim para referenciar a Seção~\ref{sec:objetivo}.
+
+Abaixo é apresentado um exemplo de tabela. Para facilitar a criação, recomanda-se fortemente o uso de alguma ferramenta gráfica, tal como o https://www.tablesgenerator.com/. Observe abaixo o exemplo da Tabela~\ref{tab:table1}
+
+\begin{table}[h]
+\centering
+\caption{Aqui vai o caption da tabela, explicando o que ela apresenta.}
+\label{tab:table1}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+        & \multicolumn{4}{c|}{Atributos}                                                                                     \\ \hline
+        & \multicolumn{1}{c|}{Attr 1} & \multicolumn{1}{c|}{Attr 2} & \multicolumn{1}{c|}{Attr 3} & \multicolumn{1}{c|}{Attr 4} \\ \hline
+Linha 1 &       0                     &              1              &                0            &                           1 \\ \hline
+Linha 2 &       1                     &              1              &                1            &                           1 \\ \hline
+Linha 3 &       0                     &              1             &                 1          &                           1 \\ \hline
+\end{tabular}
+\end{table}
+
+Outra dica importante se refere ao uso de aspas no \LaTeX. Para colocar um texto entre aspas devemos fazer assim ``Texto entre aspas'', ou seja, duas crases para representar o início das aspas e dois acentos para representar o início das aspas. Se utilizarmos as aspas duplas diretamente não irá reproduzir o efeito correto.

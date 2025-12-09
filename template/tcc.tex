@@ -1,0 +1,169 @@
+%
+% exemplo genérico de uso da classe iiufrgs.cls
+% $Id: iiufrgs.tex,v 1.1.1.1 2005/01/18 23:54:42 avila Exp $
+%
+% This is an example file and is hereby explicitly put in the
+% public domain.
+%
+\documentclass[tc,oneside]{tcc}
+
+\usepackage[T1]{fontenc}        % pacote para conj. de caracteres correto
+\usepackage{float}
+\usepackage[chapter]{minted}
+\usepackage[utf8]{inputenc}     % pacote para acentuação
+\usepackage{graphicx}           % pacote para importar figuras
+\usepackage{times}              % pacote para usar fonte Adobe Times
+\usepackage{mathptmx}           % p/ usar fonte Adobe Times nas fórmulas
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{subfigure}
+\usepackage{array}
+\usepackage{tabu}
+\usepackage{placeins}
+\lstset{numbers=left,
+stepnumber=1,
+firstnumber=1,
+numberstyle=\tiny,
+extendedchars=true,
+lineskip=3pt,
+frame=tb,
+basicstyle=\footnotesize,
+stringstyle=\ttfamily,
+showstringspaces=true
+}
+
+\newmintedfile[jsoncode]{json}{
+frame=single,
+breaklines,
+breakanywhere,
+tabsize=2
+}
+
+\newmintedfile[jscode]{javascript}{
+frame=single,
+linenos,
+breaklines,
+breakanywhere,
+tabsize=2
+}
+
+\newmintedfile[htmlcode]{html}{
+frame=single,
+linenos,
+breaklines,
+breakanywhere,
+tabsize=2
+}
+
+\usepackage{appendix}			% pacote para usar o environment appendices (precisa usar por causa do pdfpages)
+\usepackage{pdfpages}			% pacote para incluir PDFs inteiros (soh funciona com pdflatex)
+
+\renewcommand\listingscaption{Código-fonte}
+\renewcommand\listoflistingscaption{Lista de Códigos-fonte}
+
+\newcommand{\apud}[4]{(\mkbibparens{\citeyear{#1},\space{#2}, apud \citeauthor{#3}, \citeyear{#3}, \space{#4}})}
+
+%
+% Informações gerais do TRABALHO DE CONCLUSÃO
+%
+\title{Título Do Anteprojeto}
+
+\author{Ciclano}{Fulano da Silva}
+
+\advisor[Prof.~Dr.]{Silva}{João José}
+\coadvisor[Prof.~Dr.]{Silva}{José João}
+
+%defina aqui os nomes dos convidados das bancas, para compor a folha de avaliacao
+\def\primeiroconvidadobanca{ Prof. Dr. Homer Simpson }%
+\def\segundoconvidadobanca{Prof. Dr. Jack Sparrow}
+
+
+% a data deve ser a da defesa; se nao especificada, são gerados
+% mes e ano correntes
+%\date{maio}{2001}
+
+
+% palavras-chave
+% iniciar todas com letras minúsculas, exceto no caso de abreviaturas
+\keyword{formatação eletrônica de documentos}
+\keyword{\LaTeX}
+\keyword{ABNT}
+
+
+% inicio do documento
+\begin{document}
+
+\maketitle
+
+\renewcommand{\titlepagespecificinfo}{Monografia apresentada como requisito parcial para obtenção do t\'itulo de Tecn\'ologo em Sistemas para Internet.}
+
+%\makefacepage
+
+\clearpage
+
+% Inclui a folha de avaliacao. Essa folha NAO deve estar presente na primeira versao entregue para a banca,
+% apenas para a versao final do texto, apos aprovacao. Mantenha o comando a seguir comentado ate a geracao
+% da versao final.
+%\makegradepage
+
+%epigrafe
+%\input{pretextuais/epigrafe.tex}
+
+% agradecimentos
+%\input{pretextuais/agradecimentos.tex}
+
+%resumo
+\input{pretextuais/resumo.tex}
+
+%abstract
+\input{pretextuais/abstract.tex}
+
+% lista de figuras
+\listoffigures
+
+% lista de tabelas
+\listoftables
+
+% lista de codigos-fonte.
+\listoflistings
+
+\input{pretextuais/abreviaturas.tex}
+
+% sumario
+\tableofcontents
+
+% aqui comecam as secoes e o texto propriamente dito
+
+
+\input{capitulo1/capitulo1.tex}
+\input{capitulo2/capitulo2.tex}
+\input{capitulo3/capitulo3.tex}
+\input{capitulo4/capitulo4.tex}
+\input{capitulo5/capitulo5.tex}
+
+\begin{singlespace}
+\begin{flushleft}
+% referencias
+% estilo de bibliografia no formato ABNT
+\bibliographystyle{abnt-ufrgs}
+
+% aqui chama as referências descritas no formato .bib
+% espeficamente é chamado o arquivo references.bib
+% observe que os arquivos .bib tem formato específico e basta
+% descrever as referências nesse formato e tudo será gerado automaticamente
+\bibliography{references}
+\end{flushleft}
+\end{singlespace}
+
+
+
+% apendices
+
+\renewcommand{\appendixname}{AP\^ENDICE~}
+\begin{appendices}
+	\input{apendices/apendice1.tex}
+	\input{apendices/apendice2.tex}
+\end{appendices}
+
+\end{document}

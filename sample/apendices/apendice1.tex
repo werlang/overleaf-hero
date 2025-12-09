@@ -1,0 +1,132 @@
+\chapter[\hspace{1mm}]{- Requisitos de Usuários} 
+\label{append:requistos}
+
+\begin{table}[h]
+\centering
+\caption{Requisitos Não-Funcionais}
+\label{tab:tabela_a1}
+\begin{tabular}{
+|>{\centering\arraybackslash}m{0.7cm}
+|>{\raggedright\arraybackslash}m{8.5cm}
+|>{\centering\arraybackslash}m{2.5cm}
+|>{\centering\arraybackslash}m{2.5cm}|}
+\hline
+\textbf{N°} & \textbf{Descrição do Requisito} & \textbf{Categoria} & \textbf{Referência} \\ \hline
+
+01
+& Os dados em trânsito devem ser criptografados utilizando protocolo seguro.
+& Segurança
+& Art. 20 IN 134 \\ \hline
+
+02
+& Dados críticos, como senhas de usuários, devem ser armazenados criptografados no banco de dados.
+& Segurança
+& Art. 20 IN 134 \\ \hline
+
+03
+& O sistema deve permitir a realização de \textit{backups} periódicos.
+& Segurança
+& Art. 30 IN 134 \\ \hline
+
+04
+& A interface do sistema deve ser intuitiva, com elementos visuais que favoreçam a experiência do usuário.
+& Usabilidade
+& Art. 20 IN 134 \\ \hline
+
+05
+& A interface deve ser responsiva e acessível em dispositivos móveis.
+& Usabilidade
+& Art. 20 IN 134 \\ \hline
+
+06
+& O sistema deve ser capaz de operar com múltiplos usuários logados e requisições simultâneas.
+& Escalabilidade
+& Art. 20 IN 134 \\ \hline
+
+07
+& O sistema deve possibilitar a restauração dos dados em caso de falhas graves, sem comprometimento da integridade dos dados.
+& Confiabilidade
+& Art. 30 IN 134 \\ \hline
+
+08
+& A solução deve funcionar em modo \textit{offline}, garantindo continuidade de operação mesmo em ambientes sem conexão à rede.
+& Disponibilidade
+& Art. 20 IN 134 \\ \hline
+
+09
+& A solução deve estar em conformidade com os princípios do ALCOA++, garantindo a integridade, rastreabilidade e controle dos dados.
+& Integridade de Dados
+& Art. 20 IN 134 \\ \hline
+
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Requisitos Funcionais}
+\label{tab:tabela_a2}
+\begin{tabular}{
+|>{\centering\arraybackslash}m{0.7cm}
+|>{\raggedright\arraybackslash}m{8.5cm}
+|>{\centering\arraybackslash}m{2.5cm}
+|>{\centering\arraybackslash}m{2.5cm}|}
+\hline
+\textbf{N°} & \textbf{Descrição do Requisito} & \textbf{Categoria} & \textbf{Referência} \\ \hline
+
+01 
+& O sistema deve possuir login para acesso, com diferentes grupos de usuários, sendo eles: Utilizador, Gestor e Administrador.
+& Gestão de Acesso
+& Art. 10 IN 134 \\ \hline
+
+02
+& Grupo Utilizador deve possuir privilégios apenas para acesso aos formulários para submissão e visualização de respostas.
+& Gestão de Acesso
+& Art. 36 IN 134 \\ \hline
+
+03
+& Grupo Gestor deve possuir privilégios para cadastro/gestão dos formulários e acesso de visualização de respostas.
+& Gestão de Acesso
+& Art. 10 IN 134 \\ \hline
+
+04
+& Grupo Administrador deve possuir privilégios para cadastro e gestão de usuários do sistema.
+& Gestão de Acesso
+& Art. 10 IN 134 \\ \hline
+
+05
+& Formulários devem possuir campos para preenchimento de informação de "Descrição", "Objetivo" e campos para cadastro das perguntas.
+& Estrutura dos Formulários
+& Art. 20 IN 134 \\ \hline
+
+06
+& Formulários devem conter registros relativos à sua criação e modificações, incluindo a identificação do usuário responsável pela ação e registro de data/hora.
+& Estrutura dos Formulários
+& Art. 33 IN 134 \\ \hline
+
+07
+& Formulários devem possuir um identificador exclusivo, informação de status (Elaboração / Ativo / Obsoleto / Cancelado), versão e histórico de revisão.
+& Estrutura dos Formulários
+& Art. 20 IN 134  \\ \hline
+
+08
+& Usuário do grupo Gestor deve poder alterar o status dos formulários de "Elaboração" para "Ativo" e de "Ativo" para "Cancelado".
+& Estrutura dos Formulários
+& Art. 20 IN 134  \\ \hline
+
+09
+& Deve ser possível editar os formulários com status de "Elaboração" ou "Ativo". Para formulário ativo, o sistema deve alterar o status para "Obsoleto" e criar uma nova versão do formulário. Nova versão do formulário deve possuir status "Elaboração", versão atualizada de modo incremental e histórico de revisão.
+& Alteração dos Formulários
+& Art. 20 IN 134  \\ \hline
+
+10
+& Somente formulários com status de "Ativo" devem estar disponíveis para submissão de respostas.
+& Submissão de Respostas
+& Art. 20 IN 134  \\ \hline
+
+11
+& O sistema deve possuir funcionalidade de trilha de auditoria, para registro detalhado de ações de cadastro e alterações, incluindo a identificação do objeto, ação realizada, valores alterados (antes e depois) e a identificação do usuário responsável pela ação e registro de data/hora.
+& Trilha de Auditoria
+& Art. 33 IN 134  \\ \hline
+\end{tabular}
+\end{table}
+

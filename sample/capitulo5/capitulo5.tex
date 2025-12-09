@@ -1,0 +1,104 @@
+\chapter{Resultados Parciais}
+\label{ch:resultados_discussoes}
+
+Com base no desenvolvimento parcial da solução, é possível observar o cumprimento de alguns dos objetivos previamente estabelecidos. Entre eles, destacam-se a implementação de um meio centralizado para a coleta e o armazenamento de informações heterogêneas, comprovada pelas funcionalidades já desenvolvidas relacionadas à obtenção e à persistência dos dados, e o atendimento aos requisitos de integridade, considerado um dos objetivos mais relevantes do projeto, dada a sua importância na indústria farmacêutica, onde a confiabilidade das informações é essencial para garantir segurança, rastreabilidade e conformidade regulatória.
+
+\section{Coleta de Informações Heterogêneas}
+
+Por meio das funcionalidades para cadastro de formulários e para submissão das respectivas respostas, evidencia-se a possibilidade de, em uma única aplicação, trabalhar com diferentes estruturas de dados de forma centralizada, permitindo a coleta de informações heterogêneas de maneira organizada e consistente. 
+
+Essa característica pode ser observada na Figura \ref{fig:5.1}, que apresenta a lista de formulários cadastrados com estruturas distintas em formato \textit{JSON}, exibidas por meio da função \textit{preview} do \textit{Postman}, de modo a facilitar a visualização do exemplo. Neste caso, existem três formulários cadastrados: um deles contendo apenas uma pergunta de verdadeiro ou falso (dado do tipo \textit{boolean}); outro composto por oito perguntas diversas, com diferentes tipos de conteúdo de resposta; e um terceiro com três perguntas voltadas para a medição de temperatura (dado do tipo \textit{float}).
+
+\begin{figure}[!h]
+        \centerline{\includegraphics[width=35em]
+        {capitulo5/img/formularios.png}}
+        \caption{Consulta de formulários cadastrados na aplicação.}
+        \label{fig:5.1}
+        \centerline{Fonte: Autoria própria}
+\end{figure}
+
+As Figuras \ref{fig:5.2}, \ref{fig:5.3} e \ref{fig:5.4} apresentam a lista de respostas dos formulários cadastrados, permitindo observar as variações na composição dos objetos \textit{JSON} conforme o conteúdo de cada formulário. Essas variações estão diretamente relacionadas ao tipo de dado esperado para cada resposta e à quantidade de perguntas do formulário, refletindo as particularidades da estrutura definida em cada um deles.
+
+\begin{figure}[!h]
+        \centerline{\includegraphics[width=35em]
+        {capitulo5/img/respostasForm1.png}}
+        \caption{Exemplo de resposta ao formulário de Pesquisa de opinião.}
+        \label{fig:5.2}
+        \centerline{Fonte: Autoria própria}
+\end{figure}
+
+\begin{figure}[!h]
+        \centerline{\includegraphics[width=35em]
+        {capitulo5/img/respostasForm2.png}}
+        \caption{Exemplo de resposta ao formulário de \textit{checklist} de monitoramento.}
+        \label{fig:5.3}
+        \centerline{Fonte: Autoria própria}
+\end{figure}
+
+\begin{figure}[!h]
+        \centerline{\includegraphics[width=35em]
+        {capitulo5/img/respostasForm3.png}}
+        \caption{Exemplo de resposta ao formulário de Monitoramento de Temperatura.}
+        \label{fig:5.4}
+        \centerline{Fonte: Autoria própria}
+\end{figure}
+
+\section{Persistência dos Dados}
+\label{sec:persistenciaDados}
+
+A persistência dos dados está funcional e foi implementada por meio do banco de dados \textit{MongoDB}, conforme descrito Seção \ref{sec:banco-de-dados}. As informações relacionadas aos formulários são organizadas em três coleções distintas, conforme apresentado na Figura \ref{fig:5.5}, que exibe a visualização da estrutura do banco de dados \textit{TrackForms} por meio do \textit{MongoDB Compass}, interface gráfica utilizada para o acesso e a inspeção dos dados armazenados.
+
+\begin{itemize}
+  \item A coleção \textit{formularios} é responsável por armazenar a estrutura dos formulários criados, bem como seus metadados;
+  \item A coleção \textit{respostas} é utilizada para registrar as respostas submetidas pelos usuários. Para cada submissão, é criado um objeto contendo as respostas individuais, acompanhadas de metadados que as correlacionam ao respectivo formulário;
+  \item A coleção \textit{logs\_audit\_trail} é destinada ao armazenamento de eventos e ações realizadas no sistema, operando como trilha de auditoria da aplicação.
+\end{itemize}
+
+\begin{figure}[!h]
+        \centerline{\includegraphics[width=35em]
+        {capitulo5/img/mongodb.png}}
+        \caption{Base de dados TrackForms no MongoDB Compass}
+        \label{fig:5.5}
+        \centerline{Fonte: Autoria própria}
+\end{figure}
+
+\section{Integridade dos Dados}
+
+Em conformidade com os princípios de integridade de dados e alinhada aos atributos estabelecidos pelo modelo ALCOA++, a aplicação foi projetada e implementada com o propósito de atender aos requisitos, conforme estabelecido na Tabela \ref{tab:table_3_1}.
+
+Conforme ilustrado nas Figuras \ref{fig:5.2}, \ref{fig:5.3} e \ref{fig:5.4}, os objetos criados na aplicação incorporam os campos específicos “criado por” e “modificado por”, que permitem identificar o responsável pela criação e alteração dos dados, vinculando-os ao usuário autenticado no momento da ação e atendendo ao atributo \textbf{Rastreável}.
+Além desses campos, os objetos também incluem metadados e carimbos de data e hora, que viabilizam a rastreabilidade temporal das operações realizadas. Dessa forma, a aplicação atende ao atributo \textbf{Completo}, por meio da implementação de registros abrangentes que contemplam tanto os dados principais quanto os elementos complementares.
+
+O atributo \textbf{Legível} é atendido pela implementação da solução informatizada, que, por meio da persistência dos registros digitais, viabiliza a digitalização dos processos. Essa abordagem favorece a interpretação das informações, promovendo maior confiabilidade na análise dos dados e contribuindo para a mitigação de erros recorrentes em registros manuscritos, como rasuras e caligrafia ilegível
+
+O atributo \textbf{Original} é atendido por meio do registro dos dados em ambiente controlado, representado pelo banco de dados, garantindo a preservação e a segurança das respostas submetidas. Essa abordagem assegura que não ocorram alterações posteriores à submissão, mantendo a autenticidade e a confiabilidade das informações registradas.
+
+O atributo \textbf{Consistente} é assegurado por meio do fluxo estruturado para gestão dos formulários, estabelecido para controlar tanto a criação quanto a revisão dos formulários, além do controle de submissão de respostas. 
+
+Sob a perspectiva deste processo, estabeleceram-se regras que garantem a utilização apenas de documentos válidos, a rastreabilidade do histórico de revisões e a manutenção de todas as versões existentes dos formulários.
+
+Conforme apresentado na Figura \ref{fig:5.6}, cada formulário é inicialmente criado com o status de \textit{Elaboração} e deve passar por aprovação de um usuário de nível Gestor. O status do documento pode ser alterado para \textit{Ativo} se a aprovação for concedida, o que está condicionado à existência de perguntas no formulário, ou ser reprovado, tendo seu status alterado para \textit{Cancelado}. A utilização para coleta de dados somente pode ser realizada se o formulário estiver com status \textit{Ativo}. Quando houver necessidade de revisão, o usuário Gestor poderá criar uma nova versão do formulário, a qual incorpora automaticamente o histórico do documento que a originou. O formulário revisado tem seu status alterado para \textit{Obsoleto}, bloqueando seu uso e garantindo que apenas documentos válidos e atualizados sejam empregados no processo. Esses mecanismos foram concebidos com base em uma lógica voltada para preservar a originalidade das informações, mitigar potenciais falhas operacionais e assegurar o funcionamento adequado da aplicação.
+
+\begin{figure}[!h]
+        \centerline{\includegraphics[width=30em]
+        {capitulo5/img/fluxoStatus.png}}
+        \caption{Fluxograma de status do Formulário}
+        \label{fig:5.6}
+        \centerline{Fonte: Autoria própria}
+\end{figure}
+
+O atributo \textbf{Rastreável} é plenamente atendido por meio da funcionalidade de trilha de auditoria implementada na aplicação, a qual permite o monitoramento detalhado de todas as ações críticas realizadas, incluindo o cadastro, as alterações nos formulários e as submissões de respostas. Essa funcionalidade promove a rastreabilidade e a transparência das ações executadas no sistema, conforme ilustrado na Figura \ref{fig:5.7}, contribuindo para a rastreabilidade das ações e a garantia da integridade dos dados.
+
+\begin{figure}[!h]
+        \centerline{\includegraphics[width=35em]
+        {capitulo5/img/trilhaAuditoria.png}}
+        \caption{Registros da Trilha de Auditoria}
+        \label{fig:5.7}
+        \centerline{Fonte: Autoria própria}
+\end{figure}
+
+A conformidade com o atributo \textbf{Duradouro} e \textbf{Disponível} é assegurada pela persistência dos dados em um banco de dados não relacional, conforme demonstrado na seção \ref{sec:persistenciaDados}. No entanto, destaca-se a necessidade de implementação de mecanismos complementares de \textit{backup} e recuperação, a fim de garantir que os dados permaneçam acessíveis e íntegros durante todo o ciclo de vida da informação.
+
+Por fim, o atributo \textbf{Contemporâneo} será contemplado em uma etapa posterior, por meio da implementação de mecanismos de controle temporal para a submissão dos formulários. Essa funcionalidade garantirá que as informações sejam registradas no banco de dados dentro de um intervalo de tempo definido após o preenchimento das informações na aplicação, assegurando a temporalidade e a conformidade com os requisitos regulatórios.
+
+

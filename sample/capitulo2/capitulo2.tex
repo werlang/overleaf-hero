@@ -1,0 +1,93 @@
+\chapter{Referencial Teórico}
+\label{ch:referencial_teorico}
+
+O referencial teórico apresenta os principais conceitos e diretrizes adotadas para o desenvolvimento da aplicação, fornecendo o embasamento conceitual e técnico necessário à condução deste trabalho. A compreensão dos aspectos relacionados à Integridade de Dados e à Validação de Sistemas Computadorizados é fundamental para garantir que a solução esteja alinhada aos objetivos propostos, bem como às exigências regulatórias estabelecidas para o setor farmacêutico nos quesitos anteriormente citados.
+
+\section{Integridade de Dados}
+
+A integridade de dados no âmbito farmacêutico é uma característica essencial para garantir a qualidade dos produtos e assegurar a conformidade dos processos. O cumprimento desse aspecto é crucial para assegurar a confiabilidade e a consistência das informações ao longo do seu ciclo de vida --- da geração à utilização, retenção e destruição --- conforme apresentado por \citet{vieira2023contribuiccao}.
+
+Inicialmente abordada por meio de Boas Práticas de Fabricação e Boas Práticas de Distribuição, a integridade de dados fez parte da evolução regulatória nas últimas décadas, passando a ser tratada de forma mais ampla, considerando todo o ciclo de vida do produto. Essa mudança trouxe requisitos mais rigorosos para o controle e a segurança das informações, reforçando sua relevância e consolidando-a como um requisito regulatório \cite{rattan2018data}.
+
+Marcos importantes incluem a publicação do documento \textit{Electronic Records; Electronic Signatures – Scope and Application, 21 CFR Part 11}, em 2003, pela agência reguladora FDA dos Estados Unidos. Esse documento teve como objetivo esclarecer o escopo e as implicações deste regulamento, publicado anteriormente em 1997. Ambos abordaram os primeiros conceitos e requisitos relacionados à integridade dos dados. Posteriormente, esses conceitos foram consolidados no acrônimo ALCOA\footnote{Atribuível, Legível, Contemporâneo, Original e Acurado} \cite{vieira2023contribuiccao, FDA2003part11}.
+
+Como parte de um processo de melhoria contínua, esse modelo foi aprimorado em 2010, quando a agência reguladora EMA da União Europeia publicou o documento \textit{Reflection Paper on Expectations for Electronic Source Data and Data Transcribed to Electronic Data Collection Tools in Clinical Trials}. Essa publicação expandiu os princípios do modelo ALCOA, dando origem ao ALCOA+, ao adicionar os atributos Completo, Consistente, Duradouro e Disponível \cite{vieira2023contribuiccao, EMA_INS_GCP_454280_2010}.
+
+Posteriormente, em 2023, a EMA reforçou esses requisitos ao publicar o \textit{Guideline on Computerised Systems and Electronic Data in Clinical Trials}, que introduziu o modelo ALCOA++, conforme apresentado na Tabela~\ref{tab:table_2_1}. Com essa atualização, foi incorporado o atributo Rastreável, ampliando os requisitos necessários para garantir a integridade dos dados \cite{european2023guideline}.
+
+Essa trajetória regulatória consolidou a integridade de dados como um pilar essencial na indústria farmacêutica, sustentando práticas para assegurar a qualidade dos medicamentos e a conformidade dos processos. Os princípios associados, atualmente formalizados no modelo ALCOA++, estabelecem exigências normativas relacionadas à integridade de dados, que as empresas devem atender para garantir a segurança, a eficácia dos medicamentos e o alinhamento com as regulamentações vigentes.
+
+\begin{table}[h]
+\centering
+\caption{Princípios do ALCOA++.}
+\label{tab:table_2_1}
+\begin{tabular}{|l|p{11cm}|}
+\hline
+\textbf{Atributo}   & \textbf{Requerimento} \\ \hline
+Atribuível (A)      & Deve ser possível identificar o indivíduo ou sistema informatizado que executou uma atividade registrada e quando isso ocorreu. Isso também se aplica a quaisquer alterações nos registros. \\ \hline
+
+Legível (L)         & Todos os registros devem ser claros e compreensíveis para garantir seu entendimento e utilização. \\ \hline
+
+Contemporâneo (C)   & Evidências de ações, eventos ou decisões devem ser registradas no momento em que ocorrem. \\ \hline
+
+Original (O)        & O registro original pode ser descrito como a primeira captura de informação, seja em papel ou eletronicamente.\\ \hline
+
+Acurado (A)         & Os registros devem refletir fielmente os fatos para garantir sua exatidão. \\ \hline
+
+Completo (+)        & Todas as informações essenciais para reconstituir um evento são indispensáveis para sua compreensão. Um registro eletrônico completo inclui metadados e trilhas de auditoria. \\ \hline
+
+Consistente (+)     & A criação, processamento e armazenamento de informações devem seguir um padrão lógico e coerente. \\ \hline
+
+Duradouro (+)       & Os registros devem ser mantidos de forma segura e acessível durante todo o período exigido. Isso significa que precisam permanecer intactos e legíveis como registros permanentes e duráveis. \\ \hline
+
+Disponível (+)      & Os registros devem estar acessíveis para consulta durante todo o período de retenção exigido. Eles precisam ser legíveis e disponíveis para consulta por auditorias, inspeções e órgãos reguladores. \\ \hline
+
+Rastreável (++)     & Os dados devem permanecer rastreáveis durante todo o seu ciclo de vida, com qualquer alteração devidamente documentada e sem comprometer a informação original. Caso necessário, modificações devem ser explicadas e registradas nos metadados\footnotemark, incluindo a trilha de auditoria. \\ \hline
+\end{tabular}
+\footnotesize{Fonte: \cite{european2023guideline}.}
+\end{table}
+
+\footnotetext{Dados que descrevem os atributos de outros dados, fornecendo contexto e significado.
+ }
+
+\section{Validação de Sistemas Computadorizadores}
+
+A validação de sistemas computadorizados é um processo essencial para garantir a confiabilidade de sistemas informatizados em ambientes regulados. Segundo a Resolução RDC Nº 658 \cite{ANVISARDC658}, o termo validação é definido como a ``ação de provar, de acordo com os princípios das Boas Práticas de Fabricação, que qualquer procedimento, processo, equipamento, material, atividade ou sistema realmente leva aos resultados esperados''.
+
+O processo de validação é realizado por meio de atividades de verificação, incluindo testes relacionados aos requisitos de instalação e à avaliação funcional, além da comprovação documentada de todas as atividades executadas. A partir disso, é possível evidenciar que o sistema atende aos requisitos dos usuários e às especificações técnicas do fornecedor, demonstrando que opera conforme suas funcionalidades previstas. Dessa forma, assegura-se o funcionamento correto e seguro, em conformidade com as normas regulatórias aplicáveis e alinhado com as necessidades do usuário \cite{qualidade360}.
+
+De acordo com o Guia nº 33 \cite{guia33ANVISA2025}, a validação de um sistema computadorizado é caracterizada pela obtenção e manutenção da conformidade aos requisitos regulatórios e ao uso pretendido. Isso é alcançado por meio da adoção das atividades pertinentes ao ciclo de vida do sistema, conforme os planos estabelecidos e os resultados obtidos na validação, além da aplicação de controles operacionais. Esse controle é fundamental para assegurar que o sistema mantenha seu estado validado ao longo do tempo.
+
+O ciclo de vida de um sistema computadorizado, em ambiente regulado, deve seguir um fluxo em cascata composto por quatro fases, conforme ilustrado na Figura \ref{fig:2.1}. Cada uma dessas etapas contempla atividades específicas, com o objetivo de garantir a conformidade do sistema desde sua aquisição até sua aposentadoria.
+
+\begin{figure}[!h]
+        \centerline{\includegraphics[width=35em]{capitulo2/img/cicloVida.png}}
+        \caption{As fases do Ciclo de Vida}
+        \label{fig:2.1}
+        \centerline{{Fonte: Guia n° 33 \cite{guia33ANVISA2025}}}
+\end{figure}
+
+As quatro fases do ciclo de vida de um sistema computadorizado são descritas a seguir:
+
+\begin{itemize}
+    \item \textbf{Conceito}: Definição dos requisitos do sistema, avaliação de soluções potenciais e viabilidade do projeto, de modo a garantir que atendam às necessidades do negócio e às exigências regulatórias.
+    \item \textbf{Projeto}: Avaliação do impacto quanto às Boas Práticas (BPx), seleção do fornecedor, aquisição e implementação do sistema, validação e liberação para uso. A abordagem adotada para cada sistema é definida com base na avaliação de impacto.
+    \item \textbf{Operação}: Utilização do sistema e manutenção do estado validado, com possibilidade de alterações controladas, de modo a assegurar que ele continue operando em conformidade com os requisitos necessários, requisitos iniciais e novas necessidades de negócio.
+    \item \textbf{Aposentadoria}: Descontinuação planejada do sistema, incluindo tratativas para preservação, migração ou descarte dos dados do sistema, garantindo a conformidade com requisitos regulatórios.
+\end{itemize}
+
+Dentre elas, a fase de Conceito pode ser considerada uma das mais importantes, pois é nela que são definidos os requisitos do sistema, considerando as necessidades do processo, os requerimentos normativos e os aspectos relacionados à gestão de riscos. Essas definições impactam diretamente as demais fases do ciclo de vida do sistema computadorizado. Sob a perspectiva da gestão de riscos e da definição de requisitos, a Instrução Normativa Nº 134 \cite{IN134_2022} estabelece:
+
+\begin{quote}
+Art. 8°. A gestão de riscos deve ser aplicada durante todo o ciclo de vida do sistema computadorizado, levando em consideração a segurança do paciente, a integridade dos dados e a qualidade do produto.
+
+Art. 29°. O acesso aos dados armazenados deve ser garantido durante todo o período de armazenamento.
+
+Art. 30°. Devem ser feitos backups de todos os dados relevantes.
+
+Art. 33°. Baseada em análise de risco, deve ser considerada a construção de um sistema de trilha de auditoria de todas as deleções ou alterações relevantes às Boas Práticas de Fabricação.
+
+Art. 36°. Devem existir controles físicos ou lógicos que assegurem que o acesso ao sistema computadorizado é permitido apenas às pessoas autorizadas.
+\end{quote}
+
+Dessa forma, os requisitos definidos na fase de Conceito devem ser suficientemente detalhados, contemplando os requisitos regulatórios e as necessidades do negócio, considerando os riscos envolvidos, a fim de garantir a conformidade do projeto e oferecer suporte adequado às atividades subsequentes do ciclo de vida. Entre os requisitos indispensáveis para que um sistema seja considerado passível de validação, destacam-se: o controle de acesso, assegurando que o acesso ao sistema computadorizado seja permitido apenas a pessoas autorizadas e de forma controlada; a trilha de auditoria, garantindo a rastreabilidade das ações e alterações relevantes na aplicação; e a implementação de mecanismos de disponibilidade e integridade, que preservem as informações e assegurem a continuidade operacional mesmo diante de falhas. Tais requisitos estão devidamente fundamentados nos artigos normativos previamente mencionados, garantindo a conformidade regulatória e assegurando a robustez do sistema.

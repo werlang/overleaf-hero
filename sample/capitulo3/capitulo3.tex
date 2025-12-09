@@ -1,0 +1,125 @@
+\chapter{Trabalhos Relacionados}
+\label{ch:trabalhos_relacionados}
+
+Para a construção desta seção, foram realizadas pesquisas de trabalhos relacionados na base acadêmica \textit{Google Scholar}, além da análise de documentação de soluções digitais amplamente utilizadas para a coleta de dados. Em relação à busca de trabalhos acadêmicos, a pesquisa foi conduzida utilizando as palavras-chave Coleta de Dados Digital, Formulário e Questionário, considerando publicações dos últimos dez anos relacionadas aos objetivos deste trabalho. Foram identificados inúmeros trabalhos relacionados aos termos específicos da pesquisa. A partir da leitura de aproximadamente 30 resumos de trabalhos voltados ao uso de ferramentas eletrônicas para coleta de dados, selecionaram-se 10 estudos considerados mais relevantes, os quais foram analisados integralmente. Dessa seleção, dois trabalhos se destacaram por apresentarem maior aderência aos objetivos deste estudo: um voltado ao desenvolvimento de um método alternativo para a coleta digital de dados e outro que discute os principais desafios associados ao uso de formulários eletrônicos nesse processo.
+
+\section{Trabalhos Acadêmicos}
+
+A análise da literatura revelou diferentes iniciativas voltadas à implementação da coleta eletrônica de dados, desde a utilização de ferramentas já existentes até o desenvolvimento de novos métodos. Os trabalhos selecionados demonstram tanto os avanços quanto os desafios enfrentados na informatização desse processo.
+
+O trabalho conduzido por \cite{oliveira2017desenvolvimento} destaca-se por propor a criação de um método alternativo para a coleta e análise de dados, com o objetivo de mitigar as limitações do \textit{Google Forms}, identificadas durante um projeto de pesquisa voltado à análise social de alunos da Universidade do Paraná, Brasil. As limitações observadas referiam-se à necessidade de utilização de campos de texto livre para a coleta de respostas destinadas à descrição da origem geográfica dos alunos, como forma de evitar o uso de seções do tipo “mostrar as perguntas com base nas respostas”, que desviavam o entrevistado do formulário principal. No entanto, essa abordagem gerou inconsistências, uma vez que as respostas relacionadas a cidades e estados apresentavam variações de escrita, dificultando a compilação e a análise dos dados.
+
+De modo a solucionar esse problema, os autores propuseram desenvolver um formulário web específico para o propósito da pesquisa, corrigindo as limitações encontradas. Para isso, foi elaborado um formulário com campos para informação de estado e cidade, estruturados a partir de menus de seleção: o usuário escolhe primeiro um estado e, somente então, as cidades vinculadas a ele são exibidas no campo seguinte. Posteriormente, essas duas informações eram concatenadas, criando um padrão para a representação do local geográfico e evitando inconsistências nos dados decorrentes de possíveis ambiguidades geradas durante o fornecimento da informação da localidade pelo aluno.
+
+A solução foi construída utilizando recursos como o \textit{framework Bootstrap} para a customização do layout, a ferramenta \textit{Sheetrock.js} para restringir mais de uma resposta por aluno e scripts do \textit{Google Apps Script} para manipulação e armazenamento das informações em planilhas eletrônicas do Google, seguindo um padrão de armazenamento dos dados semelhante ao \textit{Google Forms}. Como sugestão para trabalhos futuros, os autores propõem explorar a estrutura adotada, de modo a possibilitar a edição do formulário por meio de uma interface de fácil acesso e controle, permitindo que usuários sem conhecimento de programação realizem alterações sempre que necessário. Dessa forma, a gestão do formulário não ficaria restrita apenas a desenvolvedores web.
+
+Outra contribuição relevante é um estudo sobre a utilização de formulários eletrônicos para a coleta e análise de dados, que aborda desafios inerentes a esse processo. Segundo \citet[apud \citet{peixoto2025utilizaccao}]{negroponte1995vida}, os principais desafios na utilização de formulários para pesquisas incluem: a acessibilidade e inclusão, ressaltando a necessidade de garantir que os formulários sejam acessíveis a todos; a interface do usuário, que deve ser intuitiva e fácil de usar para evitar que os participantes desistam durante o preenchimento; a segurança e privacidade, fundamentais para a proteção dos dados dos participantes e para o cumprimento de regulações vigentes; por fim, a confiabilidade e validade das informações coletadas, o que exige estratégias adequadas para minimizar erros de entrada, evitar falsificações de respostas e assegurar que os participantes compreendam corretamente as questões propostas.
+
+\section{Formulários Eletrônicos}
+
+A utilização de formulários eletrônicos é uma metodologia amplamente adotada para a realização de pesquisas e coleta de dados. Esse método facilita tanto a distribuição das pesquisas aos entrevistados quanto a subsequente organização e análise dos dados coletados \cite{oliveira2017desenvolvimento}.
+
+Entre as soluções disponíveis, o \textit{Google Forms} destaca-se como uma ferramenta gratuita e amigável para a criação e compartilhamento de formulários personalizáveis para a coleta de dados. Como requisito para a criação de formulários, é necessário possuir uma conta da Google, o que possibilita o armazenamento das respostas na ferramenta, vinculadas à conta do proprietário, e a organização das informações em planilhas do \textit{Google Sheets}.
+
+O compartilhamento para a coleta das respostas pode ser realizado por meio de links, com acesso diretamente pelo navegador de internet de qualquer dispositivo, e até mesmo por sites onde os formulários podem ser incorporados. Além disso, a ferramenta permite o compartilhamento dos formulários com outras pessoas para colaboração e análise dos dados em tempo real \cite{site:google_forms}. 
+
+Outra ferramenta é o \textit{Microsoft Forms}, que oferece funcionalidades similares para a criação e compartilhamento de formulários eletrônicos. Um diferencial dessa solução é sua integração com a plataforma \textit{Microsoft 365}, permitindo a conexão com outras ferramentas da Microsoft e possibilitando diversos modos de uso, como a inclusão dos resultados diretamente em um arquivo do \textit{Excel} ou em uma lista do \textit{SharePoint}, o que proporciona maior controle de acesso e segurança. Além disso, viabiliza a criação de fluxos de trabalho automatizados por meio do \textit{Power Automate}, possibilitando o armazenamento das informações até mesmo em um banco de dados.
+
+No entanto, para a criação de formulários e a utilização de determinados recursos, é necessário que o usuário possua uma conta paga do \textit{Microsoft 365}, uma vez que a ferramenta exige autenticação para a criação e a configuração de certos elementos dos formulários \cite{site:microsoft_support}.
+
+\subsection{Análise das ferramentas}
+
+Com base na análise das informações disponibilizadas pelo desenvolvedor em seu site oficial \cite{site:google_forms}, o \textit{Google Forms} apresenta limitações quanto ao atendimento integral aos atributos do ALCOA++.
+
+O atributo ``Atribuível'' pode ser atendido caso o formulário esteja configurado para exigir a coleta do e-mail do usuário, assegurando que as respostas foram enviadas por um indivíduo autenticado em sua conta Google. No entanto, essa configuração limita o usuário a apenas um envio de resposta.
+
+O atributo ``Completo'' não é atendido, pois as respostas submetidas não dispõem de metadados da submissão, como identificador exclusivo de resposta ou trilha de auditoria que assegure a confiabilidade e rastreabilidade das informações.
+
+Quanto aos atributos ``Duradouro'' e ``Disponível'', ambos apresentam fragilidades, uma vez que o proprietário do formulário pode alterá-lo após a publicação sem controle de versões. Além disso, é possível excluir respostas submetidas pelos usuários ou editar os dados salvos na planilha eletrônica \textit{Google Sheets}, o que compromete a integridade das informações.
+
+Com relação ao \textit{Microsoft Forms}, com base na avaliação das informações disponíveis no site oficial do desenvolvedor \cite{site:microsoft_support}, é possível atender a um número maior de atributos do ALCOA++ por meio da integração com outras ferramentas da \textit{Microsoft}.
+
+De modo semelhante à ferramenta da \textit{Google}, o atributo ``Atribuível'' pode ser garantido no \textit{Microsoft Forms} caso o formulário esteja configurado para aceitar apenas respostas de usuários autenticados. Por outro lado, os atributos ``Completo'' e ``Rastreável'' não são atendidos, uma vez que a ferramenta não disponibiliza metadados da submissão nem trilha de auditoria que assegure a confiabilidade e rastreabilidade dos dados.
+
+Quanto aos atributos ``Duradouro'' e ``Disponível'', esses requisitos podem ser atendidos caso os dados sejam preservados em um banco de dados por meio de integrações, como o \textit{Power Automate}. No entanto, o armazenamento padrão do \textit{Microsoft Forms}, diretamente na aplicação, não oferece essa garantia.
+
+Na análise das duas ferramentas, destacam-se aspectos relevantes quanto aos atributos de integridade de dados. O atributo ``Legível'' é plenamente atendido, evidenciando uma vantagem das soluções digitais em relação aos registros manuscritos. O atributo ``Consistente'' também pode ser contemplado, desde que os formulários sejam devidamente estruturados, permitindo que a criação, o processamento e o armazenamento das informações sigam a lógica operacional das ferramentas. Por outro lado, os atributos ``Contemporâneo'', ``Original'' e ``Acurado'' não são plenamente atendidos, o que pode comprometer a confiabilidade dos dados registrados.
+
+Em relação ao atributo ``Contemporâneo'', ele não é atendido porque o formulário pode ser submetido em momento distinto daquele em que as respostas foram efetivamente preenchidas. Isso ocorre devido à possibilidade de os usuários manterem suas respostas armazenadas no formulário sem garantia de submissão imediata após o preenchimento.
+
+Já em relação ao atributo ``Acurado'', não é possível assegurar que os dados reflitam fielmente os fatos, uma vez que em sistemas de coleta manual de informações a confiabilidade depende diretamente da veracidade das informações fornecidas pelos usuários ao sistema e não propriamente das funcionalidades da ferramenta.
+
+Por fim, o atributo ``Original'' não é atendido, pois não há garantia de integridade do registro inicial. Os dados coletados podem ser alterados posteriormente, sem a presença de mecanismos eficazes de controle de mudanças e rastreabilidade.
+
+\section{Contribuições dos Trabalhos Relacionados}
+
+\cite{oliveira2017desenvolvimento} identificou limitações no \textit{Google Forms}, onde a ausência de padronização nas respostas pode gerar inconsistências durante a compilação das informações geográficas dos entrevistados. Como solução, os autores desenvolveram um método alternativo garantindo a padronização e o controle na entrada de dados. Essa abordagem proporcionou uma melhoria para a análise das informações, tornando seu uso mais adequado às necessidades do projeto de pesquisa, além de evidenciar um potencial ponto para aprimoramento da ferramenta avaliada.
+
+\cite{peixoto2025utilizaccao} analisou e evidenciou os desafios na utilização de formulários eletrônicos, destacando aspectos como acessibilidade e inclusão, segurança e privacidade, além da confiabilidade e validade das informações. O estudo reforça a importância da segurança dos dados como elemento fundamental para garantir a confiabilidade e a validade das informações coletadas.
+
+A avaliação das ferramentas \textit{Google Forms} e \textit{Microsoft Forms} evidenciou lacunas, demonstrando que ambas não atendem integralmente aos atributos de integridade de dados. No que se refere à possibilidade de validação dessas ferramentas, as limitações identificadas quanto ao controle de acesso, à segurança da integridade dos dados e à ausência de rastreabilidade indicam que não seria possível validá-las para utilização em ambientes regulados.
+
+\begin{table}[ht]
+\centering
+\caption{Atendimento à integridade de dados (ALCOA++)}
+\label{tab:table_3_1}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|p{4.8cm}
+|>{\centering\arraybackslash}m{0.45cm}
+|>{\centering\arraybackslash}m{0.45cm}
+|>{\centering\arraybackslash}m{0.45cm}
+|>{\centering\arraybackslash}m{0.45cm}
+|>{\centering\arraybackslash}m{0.45cm}
+|>{\centering\arraybackslash}m{0.45cm}
+|>{\centering\arraybackslash}m{0.45cm}
+|>{\centering\arraybackslash}m{0.45cm}
+|>{\centering\arraybackslash}m{0.45cm}
+|>{\centering\arraybackslash}m{0.45cm}|}
+\hline
+
+\textbf{Soluções Existentes e Proposta de Projeto} &
+\rotatebox{90}{\textbf{Atribuível}} &
+\rotatebox{90}{\textbf{Legível}} &
+\rotatebox{90}{\textbf{Contemporâneo}} &
+\rotatebox{90}{\textbf{Original}} &
+\rotatebox{90}{\textbf{Acurado}} &
+\rotatebox{90}{\textbf{Completo}} &
+\rotatebox{90}{\textbf{Consistente}} &
+\rotatebox{90}{\textbf{Duradouro}} &
+\rotatebox{90}{\textbf{Disponível}} &
+\rotatebox{90}{\textbf{Rastreável}}
+\\ \hline
+
+%                                       A        L       C       O    A    COMP    CONS    DUR     DIS     RAST \\ \hline
+Google Forms                        & \ticV & \ticV & \ticX & \ticX & - & \ticX & \ticV & \ticX & \ticX & \ticX \\ \hline
+Microsoft Forms                     & \ticV & \ticV & \ticX & \ticX & - & \ticX & \ticV & \ticV & \ticV & \ticX \\ \hline
+Track Forms                         & \ticV & \ticV & \ticV & \ticV & - & \ticV & \ticV & \ticV & \ticV & \ticV \\ \hline
+
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Resumo Avaliativo de Trabalhos Relacionados e Projeto}
+\label{tab:table_3_2}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|p{6cm}
+|>{\centering\arraybackslash}m{2cm}
+|>{\centering\arraybackslash}m{2cm}
+|>{\centering\arraybackslash}m{2cm}|}
+\hline
+
+\textbf{Soluções / Quesitos de Avaliação} &
+\textbf{ALCOA++} &
+\textbf{Validável}&
+\textbf{Licença \tablefootnote{Modelo de licenciamento empresarial na versão padrão.}} \\ \hline
+
+\cite{oliveira2017desenvolvimento}  & N/A & Sim & Gratuita \\ \hline
+Google Forms                        & 3 de 10 & Não & Gratuita \\ \hline
+Microsoft Forms                     & 5 de 10 & Não & Paga \tablefootnote{Necessário assinatura do Microsoft 365.} \\ \hline
+Track Forms                            & 9 de 10 & Sim & Gratuita \\ \hline
+
+\end{tabular}
+\end{table}
+
+Em síntese, a Tabela \ref{tab:table_3_1} apresenta a análise comparativa quanto ao atendimento aos princípios de integridade de dados, conforme os critérios estabelecidos no ALCOA++. Por sua vez, a Tabela \ref{tab:table_3_2} sintetiza a avaliação dos trabalhos relacionados e da solução proposta, considerando três dimensões fundamentais: aderência aos princípios de integridade de dados, condição de sistema passível de validação em ambientes regulados e características da licença de uso. Essa abordagem permite identificar as limitações das ferramentas existentes e destacar os aprimoramentos que serão incorporados ao projeto proposto.

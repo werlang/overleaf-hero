@@ -1,0 +1,9 @@
+% Resumo (idioma do documento) - Limpo
+
+\begin{abstract}
+Ferramentas digitais de coleta eletrônica de dados, como o \textit{Google Forms}, são amplamente utilizadas em diversos contextos. Entretanto, em setores regulados, como a indústria farmacêutica, o uso dessas ferramentas apresenta limitações relacionadas aos requisitos de integridade de dados e à viabilidade de validação de sistema computadorizado. Diante disso, o presente trabalho propõe a arquitetura e um protótipo da plataforma Track Forms, destinada à coleta e ao armazenamento de dados heterogêneos em processos regulados da indústria farmacêutica, com o objetivo de garantir a integridade de dados em conformidade com o modelo ALCOA++ (Atribuível, Legível, Contemporâneo, Original, Acurado, Completo, Consistente, Duradouro, Disponível e Rastreável).
+
+A solução foi implementada utilizando Java (Spring Boot) no \textit{back-end} e MongoDB para persistência (banco de dados não relacional). A arquitetura RESTful contempla controle de acesso por perfis, trilha de auditoria, registro de metadados, suporte a formulários dinâmicos com estruturas heterogêneas e mecanismos para funcionamento \textit{offline} (PWA), garantindo rastreabilidade e preservação do registro original.
+
+Como resultado parcial, o protótipo Track Forms permite a criação de formulários dinâmicos, a submissão de respostas e a persistência de informações com metadados que suportam os atributos do ALCOA++. Trabalhos futuros incluem a implementação de controle temporal de submissões, \textit{backups} programados e melhorias nas funcionalidades administrativas.
+\end{abstract}

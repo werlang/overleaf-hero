@@ -1,0 +1,148 @@
+\chapter{Solução proposta}
+\label{ch:solucao_proposta}
+
+De modo a atender aos objetivos apresentados no Capítulo~\ref{ch:introducao}, fundamentando-se no referencial teórico do Capítulo~\ref{ch:referencial_teorico} e nas contribuições dos trabalhos relacionados do Capítulo~\ref{ch:trabalhos_relacionados}, propõe-se o desenvolvimento da solução Web denominada Track Forms.
+
+A proposta caracteriza-se pela adoção de uma abordagem flexível e controlada, viabilizada pela criação de formulários com estruturas personalizadas para a coleta de dados, com controle de acesso à aplicação e rastreabilidade das informações, por meio da implementação de mecanismos de autenticação e de funcionalidade de trilha de auditoria. A flexibilidade da estrutura dos formulários possibilita a adaptação da ferramenta a diferentes contextos operacionais, favorecendo a coleta centralizada de informações e assegurando a integridade dos dados em conformidade com as exigências dos órgãos reguladores do setor farmacêutico. Entretanto, em ambientes com conectividade limitada, a ausência de recursos adequados pode inviabilizar o uso da ferramenta; por isso, prevê-se a implementação de funcionalidades para operação \textit{offline}, garantindo que o sistema permaneça útil e funcional mesmo em situações de restrição de acesso à internet.
+
+Embora inicialmente voltada para atender às necessidades específicas deste setor, a solução poderá ser aplicada em diversas áreas, especialmente naquelas que exigem armazenamento de dados em ambiente controlado, segurança quanto à integridade das informações e rastreabilidade das ações realizadas no sistema.
+
+\section{Metodologia de Desenvolvimento}
+
+A metodologia adotada para o desenvolvimento da solução fundamenta-se no modelo cascata, que se caracteriza por uma abordagem linear e estruturada, com fases bem definidas para o desenvolvimento e manutenção do software, conforme ilustrado na Figura \ref{fig:4.1}. Essa estrutura apresenta forte similaridade com o ciclo de vida de sistemas computadorizados, conforme descrito no Guia nº 33 \cite{guia33ANVISA2025} e representado na Figura \ref{fig:2.1}, reforçando a aderência da metodologia às boas práticas preconizadas para setores regulados, como o caso da indústria farmacêutica.
+
+\begin{figure}[!ht]
+        \centerline{\includegraphics[width=33em]{capitulo4/img/modeloCascata.png}}
+        \caption{Modelo Cascata}
+        \label{fig:4.1}
+        \centerline{{Fonte: \cite{sommerville2011engenharia}}}
+\end{figure}
+
+Segundo \cite{sommerville2011engenharia}, o modelo em cascata considera as atividades fundamentais do processo de especificação, desenvolvimento, validação e evolução, e representa cada uma delas como fases distintas, como: especificação de requisitos, projeto de software, implementação, teste e assim por diante. Trata-se de uma abordagem sequencial que promove o desenvolvimento estruturado, no qual cada fase deve ser concluída antes do início da seguinte. Essa característica facilita a formalização da documentação correspondente a cada etapa do projeto e contribui para o acompanhamento do progresso do desenvolvimento.
+
+\subsection{Definições de Requisitos}
+
+Considerando que o objetivo principal deste projeto é disponibilizar uma solução para a coleta e o armazenamento de dados heterogêneos, com foco em integridade dos dados conforme ALCOA++, e que ele não está sendo desenvolvido para fins comerciais ou para uma aplicação específica em ambiente corporativo, os requisitos mínimos do sistema foram definidos com base nos princípios de integridade de dados, além de contemplarem aspectos de usabilidade, segurança dos dados da aplicação e controles específicos para assegurar o atendimento regulatório. A definição desses requisitos baseou-se em referências normativas vigentes, conforme apresentado nas Tabelas \ref{tab:tabela_a1} e \ref{tab:tabela_a2} presentes no Apêndice \ref{append:requistos}.
+
+\subsection{Projeto do Sistema/ Software}
+
+Após a definição dos requisitos do sistema, foi realizada a seleção das tecnologias a serem adotadas no desenvolvimento do projeto. Essa escolha considerou os requisitos definidos para a aplicação, as boas práticas de desenvolvimento de software e o domínio técnico do desenvolvedor. O objetivo foi assegurar a entrega de uma solução de qualidade, alinhada aos objetivos estabelecidos para o projeto.
+
+\subsubsection{Arquitetura do Sistema}
+
+% A arquitetura do sistema foi definida com base no modelo de comunicação \textit{RESTful}. Essa decisão fundamentou-se no requisito funcional que envolvem a necessidade de permitir o funcionamento da aplicação em modo offline, além de viabilizar a implementação futura de interfaces com outros sistemas. A utilização da \textit{API RESTful} permitirá que os dados sejam disponibilizados de forma estruturada e acessível, facilitando o consumo da API, a integração com os recursos adotados para o funcionamento offline e a sincronização dos dados. Além disso, essa abordagem favorece a compatibilidade com diferentes interfaces, como navegadores e aplicações móveis.
+A arquitetura do sistema foi definida com base no modelo de comunicação \textit{RESTful}, cuja abordagem facilita a interoperabilidade e a compatibilidade com diferentes interfaces, como navegadores e aplicativos móveis, além de favorecer futuras integrações com outros sistemas. A utilização da \textit{API RESTful} permite organizar os dados em formato padronizado, como JSON, o que simplifica o consumo das informações e torna mais eficiente a sincronização entre cliente-servidor.
+
+\subsubsection{Camada de Back-end}
+
+Para o desenvolvimento da camada de \textit{back-end}, optou-se pela linguagem de programação Java, amplamente utilizada pela comunidade de desenvolvedores e reconhecida por sua abordagem orientada a objetos. A utilização de programação orientada a objetos favorece a organização da lógica da aplicação e a definição estruturada dos modelos de dados por meio de classes, possibilitando modularidade, reutilização de código e maior eficiência no processo de desenvolvimento e manutenção do software.
+
+Além disso, foi adotado o uso do \textit{framework Spring Boot}, com o objetivo de otimizar o desenvolvimento do projeto, aproveitando sua ampla gama de dependências e configurações automatizadas. Essa escolha visou facilitar a implementação de funcionalidades essenciais, como autenticação, integração com o banco de dados e criação de APIs.
+
+\subsubsection{Banco de Dados}
+\label{sec:banco-de-dados}
+
+No que tange à persistência de dados, foi adotado um banco de dados não relacional, o MongoDB, devido à sua capacidade de armazenar informações no formato de documentos. Essa abordagem oferece maior liberdade para modelar os diferentes tipos de formulários que possam vir a ser criados na aplicação, permitindo que cada um contenha uma estrutura específica de acordo com as necessidades do processo. 
+
+A escolha mostrou-se especialmente adequada diante da natureza dinâmica da aplicação, sobretudo no que se refere à variação na quantidade de perguntas que cada formulário venha a ter. A flexibilidade exigida por essa característica, ou seja, a possibilidade de os formulários apresentarem estruturas variáveis e não padronizadas, dificultaria o uso de bancos de dados relacionais, baseados em esquemas fixos e tabelas previamente estruturadas, que imporiam limitações significativas à implementação da solução proposta.
+
+\subsubsection{Camada de Front-end}
+
+A camada de \textit{front-end} será estruturada como um módulo independente, desacoplado da camada de \textit{back-end}, em conformidade com a arquitetura baseada em \textit{API RESTful}.
+
+Para o desenvolvimento das interfaces, estão sendo consideradas abordagens que favoreçam a reutilização de componentes visuais e a construção de elementos dinâmicos, em razão da estrutura não padronizada dos formulários quanto ao número de perguntas. Entre as tecnologias avaliadas, destaca-se a biblioteca \textit{React JS}, pela sua capacidade de lidar com estados e componentes interativos. Como alternativa, também é considerada a utilização de \textit{JavaScript} puro, com manipulação direta do \textit{DOM}, em cenários de menor complexidade.
+
+\subsubsection{Funcionalidade Offline com PWA}
+
+Visando possibilitar o funcionamento offline da aplicação, será incorporada a abordagem de \textit{Progressive Web App (PWA)}. A implementação desse recurso tecnológico tem como objetivo garantir a acessibilidade em ambientes sem conexão à rede, permitindo o uso da aplicação mesmo em condições de conectividade limitada, como ocorre em grandes plantas industriais.
+
+\subsubsection{Modelagem do Sistema}
+
+Com base nos requisitos funcionais e no fluxo de gestão de documentações, elaborado em referência ao Capítulo V da \cite{ANVISARDC658}, foi realizada a modelagem do sistema. Esses documentos encontram-se apresentados nos Apêndices \ref{tab:tabela_a2} e \ref{fig:diagramProcesso}
+
+A modelagem está representada graficamente por meio de um diagrama UML, apresentado no Apêndice \ref{fig:diagramaUML}, o qual evidencia a sequência lógicas das atividades, bem como as interações entre os atores e as funcionalidades previstas.
+
+Para representar a estrutura interna do sistema, foi elaborado o diagrama de classes, apresentado no Apêndice \ref{fig:diagramaClasse}, o qual demonstra as principais classes da aplicação, seus respectivos atributos, métodos e os relacionamentos entre elas. Este modelo orientado a objetos foi construído com base nos casos de uso e nos requisitos do sistema, com o objetivo de assegurar uma implementação coerente e adequada da aplicação.
+
+\subsection{Implementação}
+
+Nesta seção são apresentadas as etapas que compõem a implementação da solução proposta. O processo de desenvolvimento foi conduzido de maneira estruturada, iniciando pela criação da base do projeto a partir de um \textit{framework de back-end}, passando pela construção dos modelos e concluindo com o desenvolvimento das funcionalidades da aplicação.
+
+\subsubsection{Projeto Spring Boot}
+
+A implementação do sistema teve início com a criação da base lógica e estrutural da aplicação, estabelecida na camada de back-end. Utilizou-se a ferramenta web \textit{Spring Initializr} \footnote{Disponível em: https://start.spring.io/} para gerar o projeto com base no \textit{framework Spring Boot}. Nessa etapa, foram definidos os parâmetros mínimos e essenciais para a criação da estrutura básica do projeto, como o sistema de \textit{build}, a linguagem de programação e a versão do \textit{framework} adotado, além da inclusão das dependências desejadas. Optou-se pelo sistema de gerenciamento \textit{Maven}, pela linguagem Java (versão 17) e pela versão 3.5.6 do \textit{framework}, conforme demonstrado na Figura \ref{fig:4.2}.
+
+A integração com os principais componentes necessários do ecossistema Spring Boot para o desenvolvimento da solução foi estabelecida por meio da inclusão das dependências: \textit{Spring Security}, \textit{Spring Web} e \textit{Spring Data MongoDB}. Além das dependências principais, foram incluídas dependências auxiliares, como \textit{Spring Boot DevTools}, \textit{Lombok} e \textit{Validation}, com o objetivo de facilitar e otimizar o desenvolvimento da solução.
+
+\begin{itemize}
+  \item \textbf{Spring Security}: utilizada para a implementação de autenticação e controle de acesso;
+  \item \textbf{Spring Web}: utilizada para a estruturação da camada de controle da aplicação, por meio de APIs RESTful e do tratamento de requisições HTTP;
+  \item \textbf{Spring Data MongoDB}: utilizada para a comunicação e persistência dos dados no banco de dados não relacional MongoDB.
+  \item \textbf{Spring Boot DevTools}: utilizada para possibilitar atualizações automáticas durante o desenvolvimento e a execução do projeto.
+  \item \textbf{Lombok}: utilizada para reduzir a verbosidade do código, evitando a criação manual de construtores e métodos padrão, como \textit{getters} e \textit{setters}.
+  \item \textbf{Validation}: utilizada para validar os dados fornecidos pelos usuários antes do processamento das requisições na API.
+\end{itemize}
+
+\begin{figure}[!h]
+        \centerline{\includegraphics[width=30em]
+        {capitulo4/img/frameWork.png}}
+        \caption{Configuração do projeto definida no Spring Initializr}
+        \label{fig:4.2}
+        \centerline{Fonte: Autoria própria}
+\end{figure}
+
+Com o objetivo de auxiliar no desenvolvimento da aplicação, principalmente no controle de alterações, e de modo a mantê-la como parte do portfólio do desenvolvedor, foi criado um repositório privado no GitHub: \url{https://github.com/rodr1golm/TrackForms.git}. Esse repositório serve como base para a gestão e acompanhamento do progresso do projeto, além de permitir o controle das alterações realizadas.
+
+A decisão de manter o repositório privado foi motivada pelo fato de que, embora a aplicação não tenha sido concebida com fins comerciais, a proposta do projeto apresenta potencial relevante na área farmacêutica, podendo ser aprimorada futuramente para uso comercial.
+
+\subsubsection{Desenvolvimento}
+
+O desenvolvimento do projeto foi realizado utilizando o \textit{Visual Studio Code (VS Code)} como ambiente de desenvolvimento, em conjunto com a extensão \textit{Spring Boot Dashboard}, responsável por facilitar a execução do projeto e a inicialização do servidor interno do Spring Boot de maneira simplificada. Além disso, foi utilizado o \textit{Postman} para a execução de testes das requisições enviadas à API, possibilitando a validação dos endpoints e o monitoramento das respostas.
+
+\subsubsection{Estrutura do Projeto}
+
+A estrutura interna do projeto na camada de \textit{back-end} foi desenvolvida com base na arquitetura \textit{MVC (Model-View-Controller)}, adaptada ao contexto de uma \textit{API RESTful}, com o objetivo de promover a separação de responsabilidades entre as camadas da aplicação. Essa abordagem permite que a lógica de negócio, a interface de usuário e o controle de fluxo sejam desenvolvidos de forma independente, resultando em um código mais organizado, modular e de fácil manutenção.
+
+A camada \textit{Model} é responsável por representar as entidades do domínio da aplicação. Ela é composta pelas classes principais \textit{Formulario}, \textit{Resposta}, \textit{TrilhaAuditoria} e \textit{Usuario}, que definem a estrutura central dos objetos da aplicação. Complementarmente, ela inclui as classes auxiliares \textit{Pergunta} e \textit{Historico}, utilizadas na composição da entidade Formulário.
+
+As classes \textit{Formulario}, \textit{Resposta} e \textit{Usuario} incorporam campos de metadados que contribuem diretamente para a rastreabilidade das alterações, em conformidade com o atributo Rastreável, conforme definido pelo princípio ALCOA++. Um exemplo dessa estrutura pode ser verificado na classe \textit{Formulario}, conforme analisado no Código-fonte \ref{codigo-fonte:modeloFormulario}, que demonstra a implementação dos metadados na classe que representa o objeto de domínio.
+
+\begin{listing}[!h]
+\jscode{capitulo4/codigos/Formulario.java}
+\caption{Objeto de domínio da classe Formulário}
+\label{codigo-fonte:modeloFormulario}
+\end{listing}
+
+Entre os componentes desenvolvidos, a classe \textit{Formulario} tem grande importância na aplicação, pois ela é a responsável por viabilizar a criação de formulários com estruturas heterogêneas, por meio da composição com a classe Pergunta. Essa composição permite a definição de uma lista de perguntas, criadas conforme as necessidades específicas do usuário, e que serão persistidas no banco de dados junto ao respectivo formulário.
+
+A classe \textit{TrilhaAuditoria} também tem grande relevância, pois ela é a encarregada de estruturar o modelo utilizado para o registro das ações realizadas na aplicação, conforme apresentado no Código-fonte \ref{codigo-fonte:modeloTrilhaAuditoria}. Essa estrutura integra a implementação da funcionalidade de trilha de auditoria, composta pelo histórico de atividades relevantes, como cadastros, alterações de formulários, submissões de respostas e eventos críticos. Ao implementar essa funcionalidade, o sistema passa a atender plenamente ao atributo de Rastreabilidade, garantindo a disponibilidade das informações sobre as ações executadas pelos usuários. Essa implementação possibilita o registro e o acompanhamento de eventos relevantes, em conformidade com o Requisito Funcional item 11 da tabela \ref{tab:tabela_a2}, presente no Apêndice \ref{append:requistos}, o qual integra os requisitos de usuários que fundamentam o desenvolvimento do projeto.
+
+\begin{listing}[!h]
+\jscode{capitulo4/codigos/TrilhaAuditoria.java}
+\caption{Objeto de domínio da classe Trilha de Auditoria}
+\label{codigo-fonte:modeloTrilhaAuditoria}
+\end{listing}
+
+Considerando a relevância do requisito relacionado ao atributo Rastreabilidade, será utilizado a funcionalidade da Trilha de Auditoria para exemplificar a estrutura das demais camadas da aplicação.
+
+A camada \textit{View} é responsável pela interface de usuário, atuando como ponte entre o processo de solicitação e a renderização das informações na aplicação. Em uma arquitetura baseada em \textit{API RESTful}, essa camada não está presente no \textit{back-end}, mas sim no \textit{front-end}, que consome os dados fornecidos pela API e os apresenta ao usuário por meio de componentes visuais e interativos. Essa camada será desenvolvida em uma etapa posterior, durante a segunda fase do desenvolvimento do Trabalho de Conclusão de Curso.
+
+A camada \textit{Controller} é responsável por intermediar a comunicação entre o cliente e as demais camadas da aplicação, processando as requisições recebidas e coordenando as respostas apropriadas. Como exemplificado pela classe \textit{TrilhaAuditoriaController} no código-fonte \ref{codigo-fonte:TrilhaAuditoriaController}, o Controller não se comunica diretamente com a View, mas sim com a camada \textit{Service}. Esta, por sua vez, centraliza a lógica de negócio da aplicação, atuando como intermediária entre  os \textit{Controllers} e os \textit{Repositories}.
+
+\begin{listing}[!h]
+\jscode{capitulo4/codigos/TrilhaAuditoriaController.java}
+\caption{Controller da classe Trilha de Auditoria}
+\label{codigo-fonte:TrilhaAuditoriaController}
+\end{listing}
+
+Conforme o exemplo demonstrado na classe \textit{TrilhaAuditoriaService}, código-fonte \ref{codigo-fonte:TrilhaAuditoriaService}, essa classe é a responsável por criar e registrar os logs de trilha de auditoria por meio do método \textit{Registrar}, utilizando a \textit{TrilhaAuditoriaFactory} para a construção dos objetos e o \textit{TrilhaAuditoriaRepository} para a persistência dos dados. Além disso, é responsável por realizar a busca dos registros por meio do método \textit{ListarTrilhas}, que retornará os logs serializados em formato \textit{JSON}, posteriormente consumidos pela interface de usuário no \textit{front-end}.
+
+O método \textit{Registrar} desempenha um papel central na implementação, sendo reutilizado em todos os eventos de alteração realizados por meio dos métodos \textit{POST}, \textit{PUT} e \textit{DELETE}, bem como em consultas críticas via \textit{GET}. Seu objetivo é registrar no histórico as atividades relevantes, incluindo cadastros, modificações de formulários, submissões de respostas e buscas de informações de acesso restrito.
+
+\begin{listing}[!h]
+\jscode{capitulo4/codigos/TrilhaAuditoriaService.java}
+\caption{Service Trilha de Auditoria}
+\label{codigo-fonte:TrilhaAuditoriaService}
+\end{listing}
+
+E por fim, a camada \textit{Repository} é responsável pela lógica de acesso aos dados, incluindo a persistência e recuperação de informações no banco de dados não relacional \textit{MongoDB}. Essa funcionalidade é viabilizada por meio da dependência \textit{Spring Data MongoDB}, integrada ao \textit{framework} de \textit{back-end}, que fornece abstrações e interfaces para simplificar operações de leitura, escrita e consulta dos dados.
