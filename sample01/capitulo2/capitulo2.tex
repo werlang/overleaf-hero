@@ -1,0 +1,195 @@
+\chapter{Referencial Teórico}
+\label{ch:referencial_teorico}
+
+O presente capítulo reúne os fundamentos teóricos necessários para embasar o desenvolvimento deste trabalho, articulando conceitos essenciais das áreas de nutrição, fisiologia do exercício e inteligência artificial. A compreensão desses elementos é indispensável para contextualizar a proposta do sistema e justificar as escolhas metodológicas adotadas.
+
+Inicialmente, são apresentados os princípios nutricionais relacionados ao ganho de massa muscular, destacando-se a importância dos macronutrientes, do superávit calórico e da estimativa do gasto energético total na estruturação de dietas voltadas à hipertrofia. Subsequentemente, discute-se o papel das proteínas, carboidratos e lipídios, bem como os métodos utilizados para calcular suas necessidades diárias, considerando fatores individuais e objetivos específicos.
+
+Posteriormente, aborda-se o campo do aprendizado de máquina, explorando suas principais categorias: supervisionado, não supervisionado e por reforço, evidenciando como esses modelos são capazes de extrair padrões e gerar recomendações inteligentes com base em dados. Por fim, o capítulo trata dos sistemas de recomendação baseados em IA, apresentando sua relevância em contextos nutricionais e explicando de que maneira podem ser integrados a aplicações práticas, como a proposta desenvolvida neste trabalho.
+
+Dessa forma, o referencial teórico aqui estabelecido fornece o embasamento necessário para compreender as decisões técnicas e conceituais da pesquisa, sustentando a criação de um sistema capaz de oferecer recomendações alimentares mais personalizadas, dinâmicas e alinhadas às necessidades do usuário.
+
+
+\section{Ganho de massa muscular}
+
+Para que ocorra o desenvolvimento de massa muscular, é essencial que a alimentação forneça nutrientes e energia em quantidade suficiente para suportar os processos fisiológicos associados ao treinamento resistido. A síntese proteica muscular, principal mecanismo de hipertrofia, depende diretamente da disponibilidade de aminoácidos fornecidos pela ingestão adequada de proteínas, além de energia suficiente para que o organismo entre em estado anabólico. Portanto, a ingestão calórica total deve superar o gasto energético diário, caracterizando o denominado superávit calórico, condição indispensável para promover o crescimento muscular de forma consistente e eficiente \cite{menon2012proteina}.
+
+Nesse contexto, o cálculo preciso dos macronutrientes — proteínas, gorduras e carboidratos — torna-se uma ferramenta indispensável no planejamento nutricional, seja com o objetivo de promover o ganho de massa magra, seja para a redução do percentual de gordura corporal. A adequada distribuição desses macronutrientes impacta diretamente os processos metabólicos e hormonais do organismo. Por exemplo, a ingestão adequada de proteínas é fundamental para estimular a síntese de novas fibras musculares, enquanto os carboidratos garantem o suprimento energético necessário para o desempenho físico e a recuperação, e as gorduras são essenciais para o equilíbrio hormonal e para a absorção de vitaminas lipossolúveis \cite{2023distribuicaoMacronutrientes}.
+
+
+\subsection{Proteínas}
+Entende-se que, para a obtenção de ganhos significativos de massa muscular, a ingestão adequada de proteínas é um dos fatores determinantes no processo de hipertrofia. De acordo com o estudo realizado por Menon e Santos (2012), que avaliou praticantes de musculação do sexo masculino com idades entre 19 e 33 anos, observou-se que a média recomendada de ingestão proteica diária para promover a síntese proteica muscular eficaz está entre \textit{1,6} a \textit{1,7} gramas de proteína por quilograma de peso corporal. A pesquisa demonstrou que indivíduos que consumiram proteínas dentro dessa faixa, ou até acima (até 3,4 g/kg/dia), apresentaram aumentos significativos na massa magra, indicando que essa quantidade é eficaz para atender às demandas anabólicas induzidas pelo treinamento de resistência. Assim, esse valor pode ser utilizado como referência segura e cientificamente fundamentada para o cálculo da ingestão proteica diária em indivíduos que visam a hipertrofia muscular.
+
+Com base nas evidências apresentadas, é possível estabelecer um parâmetro confiável para a estimativa da ingestão proteica diária em indivíduos que visam o ganho de massa muscular:
+
+\begin{equation}
+\label{eq:proteina}
+P = M \times F
+\end{equation}
+
+
+\begin{flushleft}
+\textbf{Onde:}
+\begin{itemize}
+    \item $P$ = necessidade diária de proteína (g/dia)
+    \item $M$ = massa corporal (kg)
+    \item $F$ = fator de proteína (g/kg)
+\end{itemize}
+\end{flushleft}
+
+
+\subsection{Carboidratos}
+
+A partir da análise dos estudos realizados, é possível compreender com maior profundidade a importância da ingestão adequada de carboidratos para indivíduos que buscam otimizar seus resultados no ganho de massa muscular. Os carboidratos são macronutrientes essenciais, cuja principal função é fornecer energia ao corpo, especialmente durante atividades físicas de alta intensidade, como os treinos de musculação. Durante o exercício, o corpo utiliza as reservas de glicogênio como forma armazenada de carboidrato nos músculos como fonte primária de energia. Quando essas reservas estão adequadas, o desempenho nos treinos tende a ser melhor, permitindo maior volume, intensidade e recuperação. Ademais, uma ingestão insuficiente de carboidratos pode comprometer o processo de recuperação muscular, aumentar o risco de lesões e prejudicar os ganhos de hipertrofia \cite{oliveira2014Carboidrato}.
+
+Portanto, o consumo correto desse macronutriente torna-se um fator determinante para quem deseja resultados mais eficientes na academia. Os estudos indicam que praticantes de musculação devem ingerir de cinco a sete gramas de carboidratos por quilograma de peso corporal por dia. Essa recomendação leva em consideração o nível de atividade física, a intensidade dos treinos e as metas individuais de cada praticante.
+
+A estimativa da necessidade diária de carboidratos pode ser expressa pela seguinte fórmula:
+
+
+\begin{equation}
+\label{eq:carboidrato}
+C = M \times F
+\end{equation}
+
+\begin{flushleft}
+\textbf{Onde:}
+\begin{itemize}
+    \item $C$ = quantidade diária de carboidratos (g/dia)
+    \item $M$ = massa corporal (kg)
+    \item $F$ = fator de carboidrato (g/kg)
+\end{itemize}
+\end{flushleft}
+
+
+
+Por exemplo, para uma pessoa que pesa 70 kg e adota uma recomendação média de 6 g/kg, o cálculo será:
+
+
+\[
+70\,\text{kg} \times 6\,\text{g/kg} = 420\,\text{g/dia}
+\]
+
+
+Esse valor orienta a adequação da dieta à demanda energética individual, contribuindo para melhor desempenho, recuperação e progresso na hipertrofia muscular.
+
+
+\subsection{GET: Estimativa de gastos energéticos totais diários}
+
+O Gasto Energético Total (GET), também conhecido como TDEE (Total Daily Energy Expenditure), refere-se à quantidade total de energia que um indivíduo consome em um período de 24 horas para manter as funções básicas do organismo, processar alimentos e realizar atividades físicas. Esse valor é essencial para o planejamento de dietas individualizadas, especialmente para pessoas com objetivos específicos, como o ganho de massa muscular. \cite{loureiro2014gastoEnergetico}
+
+O GET é composto por três componentes principais:
+
+\begin{itemize}
+    \item \textbf{Gasto Energético Basal (GEB)} \label{item:GEB}– representa de 60\% a 75\% do GET total. Trata-se da energia mínima necessária para a manutenção das funções vitais em estado de repouso, como respiração, circulação sanguínea, funcionamento dos órgãos internos e manutenção da temperatura corporal. \cite{rocha2006geb, dglab2021geb}
+    
+    \item \textbf{Efeito Térmico dos Alimentos (ETA)\label{item:ETA}} – refere-se ao gasto energético associado à digestão, absorção e metabolismo dos nutrientes, representando cerca de 10\% do GET. \cite{carvalho2015eta, nutritotal2022eta}
+    
+    \item \textbf{Gasto Energético em Atividades Físicas (GEAF)\label{item:GEAF}} – varia amplamente entre indivíduos, dependendo do nível de atividade física e do tipo de exercício praticado. Pode representar entre 15\% a 30\% do GET ou até mais, no caso de atletas e praticantes de musculação. \cite{scielo2014geaf, bambui2008idosos}
+\end{itemize}
+
+Para o cálculo do GET, utiliza-se primeiramente a estimativa da taxa metabólica basal (TMB\label{item:TMB}), que pode ser feita por meio de equações preditivas como Harris-Benedict, Mifflin-St. Jeor ou a fórmula de Cunningham.\cite{harris1918, mifflin1990,cunningham1991}
+
+\begin{equation}
+\label{eq:GET: GASTO ENERGETICO TOTAL}
+\text{GET} = \text{TMB} \times \text{FAF}
+\end{equation}
+
+Os valores típicos de FAF\label{item:FAF} (Fator de Atividade Física) variam de acordo com o nível de atividade do indivíduo~\cite{hall2005}. Os valores típicos são:
+
+\begin{itemize}
+    \item 1{,}2 – sedentário
+    \item 1{,}375 – atividade leve
+    \item 1{,}55 – atividade moderada/alta
+\end{itemize}
+
+\newpage
+\subsection{Distribuição de macronutrientes}
+
+Para alcançar bons resultados para o desenvolvimento de massa muscular e hipertrofia muscular, é necessário uma dieta bem estruturada que traga como base necessidades energéticas individuais e objetivos específicos de cada pessoa \cite{helms2014,aragon2017position}.
+
+Para a distribuição dos macronutrientes considerando o objetivo individual como o desenvolvimento de massa magra e hipertrofia muscular, deve-se basear-se nas proporções do valor calórico total, onde para o exemplo consideramos:
+
+\begin{equation}
+\label{eq:VCT: valor calórico total}
+VCT = GET
+\end{equation}
+
+
+\begin{itemize}
+    \item Proteínas: \text{15 - 20\%} do VCT.
+    \item Carboidratos: \text{50 - 60\%} do VCT.
+    \item Lipídios: \text{20 - 30\%} do VCT.
+\end{itemize}
+
+A principal diferença entre os objetivos nutricionais (como ganho de massa muscular, emagrecimento ou manutenção de peso) está na relação entre o Valor Calórico Total (VCT) e o Gasto Energético Total (GET), e consequentemente na distribuição dos macronutrientes \cite{leite2023nutricao}. 
+
+Objetivo: Aumentar a massa magra (músculos) com mínima ou nenhuma elevação da gordura corporal.
+
+
+\textbf{Ganho de Massa Muscular / Hipertrofia}
+
+Estratégia calórica:
+Para que ocorra a síntese proteica e o desenvolvimento muscular, é necessário um superávit calórico moderado. Nesse caso, o VCT deve ser maior que o GET, geralmente entre +300 a +500 kcal/dia.
+
+\begin{itemize}
+    \item Proteínas: \text{15 – 20\%} do VCT.
+    \item Carboidratos: \text{50 – 60\%} do VCT.
+    \item Lipídios: \text{20 – 30\%} do VCT.
+\end{itemize}
+
+
+\textbf{Emagrecimento / Perda de Gordura Corporal}
+
+
+Objetivo: Redução da gordura corporal, mantendo o máximo possível da massa muscular magra.
+
+Estratégia calórica:
+Para ocorrer emagrecimento, é necessário um déficit calórico, onde o VCT é menor que o GET, geralmente entre -300 a -500 kcal/dia.
+
+
+\begin{itemize}
+    \item Proteínas: \text{25 - 30\%} do VCT (aumentada para preservar massa magra).
+    \item Carboidratos: \text{40–50\%} do VCT.
+    \item Lipídios: \text{ 20 – 30\%} do VCT.
+\end{itemize}
+
+\section{Aprendizado de máquina}
+
+O aprendizado de máquina constitui uma área da ciência da computação voltada ao desenvolvimento de sistemas inteligentes capazes de aprender padrões e tomar decisões fundamentadas em dados históricos e experiências anteriores. Em vez de seguir regras pré-programadas de forma rígida, esses sistemas são projetados para analisar grandes volumes de informações, identificar relações e inferir comportamentos, realizando previsões ou classificações de forma autônoma. O principal objetivo consiste em permitir que o sistema evolua a partir da entrada contínua de dados, tornando-se progressivamente mais preciso e eficiente em suas respostas. Essa abordagem mostra-se particularmente útil em contextos nos quais os dados apresentam variações constantes, exigindo que o sistema se adapte e ofereça soluções personalizadas a cada situação observada. Dessa forma, o aprendizado de máquina destaca-se como uma ferramenta poderosa na criação de aplicações inteligentes que tomam decisões baseadas em dados \cite{cerri2017aprendizadoDeMaquina}.
+
+Para ilustrar esse conceito, considere o problema de identificação de espécies de flores com base em suas características morfológicas. Em vez de codificar um programa utilizando todo o conhecimento acerca das variedades da flor em questão, características botânicas de três flores são apresentadas a um programa que implementa um algoritmo de aprendizado de máquina, que, por meio de um processo de treinamento, vai aprender a caracterizar uma flor baseado em suas características. De maneira análoga ao processo de aprendizagem humano, o algoritmo também aprenderá a tarefa por meio da análise das características dos exemplos fornecidos \cite{faceli2011}.
+
+\subsection{Aprendizado supervisionado} 
+
+O aprendizado supervisionado é uma abordagem na qual cada dado apresentado ao sistema acompanha uma resposta correta, ou seja, um rótulo. Por exemplo, ao treinar o sistema com uma imagem de um gato, essa imagem deve ser descrita por um vetor de características (como cor, formato, tamanho, etc.) e rotulada como "gato". Dessa forma, o sistema é capaz de aprender a reconhecer padrões e características comuns entre imagens rotuladas da mesma forma. Após este processo de aprendizado, o sistema torna-se capaz de identificar corretamente novas imagens de gatos, mesmo que nunca as tenha visto antes.
+
+Quando os rótulos são categorias fixas e distintas, como “gato”, “cachorro” ou “pássaro”, o problema é classificado como um problema de classificação. Já quando os rótulos correspondem a valores numéricos contínuos, como o peso de uma pessoa, a altura ou a quantidade de calorias de uma refeição, o problema é chamado de regressão. \cite{scielo2019TiposAprendizadoDeMaquina}
+
+\subsection{Aprendizado não supervisionado} 
+
+No aprendizado não supervisionado também teremos o vetor de características (cor, tamanho, formato, etc.), contudo, sem apresentar rótulos. Ou seja, nesse tipo de abordagem, os exemplos apresentados ao algoritmo não vêm acompanhados da resposta correta ou da identificação explícita do que cada dado representa, o algoritmo ficará encarregado de utilizar alguma das características para definir quais dados podem ser agrupados e de que maneira, por exemplo, dado um grupo de alimentos fornecido pelo usuário, este tipo de aprendizado definiria grupos como 'ricos em carboidrato', 'ricos em proteína'.
+Contudo, é importante destacar que, no aprendizado não supervisionado, o sistema não atribui automaticamente nomes ou significados a esses grupos. Ele apenas organiza os dados com base nas semelhanças observadas. A interpretação do que cada grupo representa como rotular um grupo como "alimentos ricos em proteína" depende de uma análise posterior, que pode ser feita por um especialista ou combinada com outro método de aprendizado supervisionado. \cite{scielo2019TiposAprendizadoDeMaquina}
+
+\subsection{Aprendizado por reforço} 
+
+O aprendizado por reforço é uma técnica de aprendizado de máquina em que um sistema, chamado de agente, aprende a tomar decisões a partir da interação com o ambiente. Ele não recebe exemplos com respostas corretas, como no aprendizado supervisionado, nem busca padrões sem orientação, como no aprendizado não supervisionado. Em vez disso, o agente realiza ações e, com base nos resultados dessas ações, recebe uma “recompensa” ou uma “punição”. A partir desse retorno, ele aprende, por tentativa e erro, quais ações tendem a trazer melhores resultados ao longo do tempo \cite{scielo2019TiposAprendizadoDeMaquina}
+
+No contexto do projeto BiteUp, o aprendizado por reforço pode ser aplicado diretamente ao sistema de recomendações. Por exemplo, se um usuário frequentemente relata sensação de mal-estar após consumir pão no café da manhã, o sistema interpreta isso como uma "punição". Dessa forma, ele aprende que, para aquele perfil específico, sugerir pão no café não é uma boa estratégia. Com o tempo, o sistema deixará de recomendar esse alimento e poderá até sugerir substituições mais adequadas.
+
+Além disso, a técnica de aprendizado por reforço também permite equilibrar um comportamento interessante de testar novas opções de alimentos que o usuário ainda não experimentou e continuar recomendando o que já demonstrou bons resultados. 
+
+
+\section{Sistema de recomendação baseado em IA}
+
+Sistemas de recomendação inteligentes são ferramentas computacionais que analisam dados do usuário — tais como preferências, hábitos e \textit{feedbacks} — para sugerir mudanças, ações ou decisões alternativas. Esses sistemas podem ser baseados em técnicas de inteligência artificial (IA), como aprendizado supervisionado, algoritmos heurísticos, redes neurais ou integração com serviços externos especializados.
+
+No contexto nutricional, esses sistemas buscam transcender a simples prescrição de dietas padronizadas, oferecendo orientações alimentares ajustadas ao perfil, aos objetivos e até mesmo às respostas subjetivas dos indivíduos, como sensações físicas após refeições. Isso torna-se possível graças à coleta de dados estruturados (como peso, altura, refeições registradas) e não estruturados (como o \textit{feedback} do usuário), que, analisados em conjunto, fornecem uma base rica para inferências mais inteligentes.
+
+A utilização de APIs externas baseadas em IA tem se mostrado uma alternativa viável e eficaz para projetos que desejam incorporar funcionalidades de recomendação sem, necessariamente, treinar modelos próprios. Essas APIs costumam ser alimentadas por grandes bases de dados e já implementam algoritmos robustos de análise, aprendizado e inferência. Quando integradas a sistemas personalizados como o aplicativo em desenvolvimento neste trabalho, elas permitem que sugestões nutricionais levem em conta tanto os dados fisiológicos do usuário quanto seu histórico alimentar e emocional.
+
+Portella et al. destacam que o uso de algoritmos de inteligência artificial, como os algoritmos genéticos, já tem sido aplicado com sucesso para elaborar dietas personalizadas, considerando múltiplos fatores simultâneos, como preferências, restrições e objetivos \cite{portella2024}. Adicionalmente, trabalhos como o de Silva mostram que sistemas de recomendação para aconselhamento alimentar podem utilizar abordagens simples de inferência para adaptar as sugestões a partir da evolução do usuário ao longo do tempo \cite{silva2021}.
+
+Outros projetos brasileiros, como o NutrIA, já implementam esse tipo de recomendação de forma prática, integrando interfaces simples com processamento inteligente dos dados do usuário \cite{henriques2024}. A revisão sistemática conduzida por Armand et al. reforça o crescente espaço da inteligência artificial na atuação de nutricionistas e na construção de soluções digitais voltadas à saúde e ao bem-estar \cite{armand2024}.
+
+Com base nesse cenário, este trabalho propõe o uso de uma API de recomendação nutricional baseada em IA como solução técnica viável e alinhada às tendências atuais. Embora não seja adotado, neste momento, um modelo de aprendizado supervisionado ou por reforço treinado especialmente para o sistema, a integração com serviços externos permite explorar padrões baseados em feedback do usuário (como "me senti fraco" ou "me senti bem") para sugerir ajustes alimentares progressivamente mais personalizados.

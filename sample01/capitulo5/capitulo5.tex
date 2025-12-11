@@ -1,0 +1,215 @@
+
+\chapter{Desenvolvimento}
+\label{ch:desenvolvimento}
+
+Neste Capítulo são apresentadas as principais etapas práticas da construção da aplicação, passando pela implementação de telas principais, componentes visuais do Vue, interação com a API, e módulos de lógica responsáveis por registrar dados, processar informações e gerar avaliações inteligentes. Cada seção tem por objetivo detalhar uma parte específica do sistema e demonstrar como as funcionalidades foram desenvolvidas e qual a lógica envolvida por meio do código, desde o fluxo básico até o mecanismo de \textit{feedback}, a análise dos padrões e integração com a API de IA da \textit{DeepSeek}.
+
+
+\section{Cadastro e Login}
+Iniciado o desenvolvimento do view de cadastro e do view de login com o intuito e progredir na plataforma no que se diz a usuário, a implementação inicial fazia uso de atributos como o idUsuario de forma estática, simulando sempre o mesmo usuário para propósito de efetuar os devidos de teste, a plataforma utilizada estes fins de ensáios de requisição e de API foi o insomnia.
+
+Foram utilizados nesta primeira versão \textit{inputs} de tipo texto e \textit{inputs} do tipo \textit{radio} para o cadastro de informações de usuário por meio de interface interativa, ao preencher os dados e pressionar o botão responsável pelo cadastro, ocorre uma chamada de requisição do tipo POST por meio do \textit{Axios} à rota usuários, onde será passado como JSON as informações preenchidas pelo usuário no formulário presente na \textit{view}, após o ato o usuário será levado para a \textit{view} de \textit{login} por meio do comando router.push('/login') que força a troca de tela assim que a requisição ocorre.
+
+Desenvolveu-se a \textit{view Login} com o intuito de permitir que usuários previamente cadastrados no banco de dados possam acessar a plataforma. A implementação constitui-se de um formulário simples composto por dois campos, sendo eles respectivamente \textit{e-mail} e senha, vinculados por \textit{v-model} às variáveis reativas do componente, permitindo captura direta dos valores digitados pelo usuário.
+Ao pressionar o botão de envio ocorre o evento @submit.prevent que aciona o método fazerLogin responsável por realizar a requisição à API. Para isso, foi utilizado o Axios em uma chamada do tipo GET à rota /usuarios. Como a estrutura retornada pela API era composta por arrays aninhados, foi aplicada a função flat() a fim de unificar os dados em um único array de objetos.
+Em seguida, ocorre a busca pelo usuário informado no formulário por meio do método find, que percorre os objetos e realiza a comparação entre o email e a senha. Caso seja encontrado um usuário válido, a função setUsuarioLogado é chamada para armazenar o estado da sessão, e em seguida é realizado o redirecionamento automático para a tela principal através do comando router.push('/').
+
+\section{Componentes da Home View}
+
+A \textit{view Home} possui dois componentes principais que representam grande parte da aplicação, sendo eles o componente de macronutrientes e o componente de refeições que terá um papel fundamental para o desenvolvimento da parte inteligente da aplicação.
+
+% TODO: Inserir imagem da Home View
+
+O componente \textbf{Macronutrientes} é responsável por exibir na interface uma visualização dinâmica do consumo de proteínas, carboidratos e gorduras ao longo do dia, em comparação com os objetivos nutricionais previamente definidos pelo usuário no momento do cadastro.
+
+A implementação utiliza dos recursos do Vue 3, recursos como ref, onMounted e computed. Ao ser carregado, o componente executa a função carregarResumo, que realiza uma chamada via Axios à rota /resumo/:idUsuario da API, recuperando os valores de objetivos diários e de consumo acumulado dos alimentos já registrados. Esses dados são armazenados nas variáveis reativas objetivos e consumido, e passam a ser exibidos de forma imediata na interface.
+
+O componente \textbf{RefeiçãoLista} tem como objetivo apresentar ao usuário a lista de refeições cadastradas no dia atual e permitir o registro de \textit{feedback} sobre como ele se sentiu após cada refeição. Essa funcionalidade se conecta diretamente ao módulo de aprendizado do sistema, fornecendo dados que podem ser utilizados posteriormente para identificar padrões de bem-estar relacionados à alimentação.
+
+Na montagem do componente (onMounted), é realizada uma chamada à API através do Axios, onde, a partir do usuário logado, recupera-se o resumo diário e o identificador do dia corrente. Com essa informação, é feita uma nova requisição para a rota /refeicao/dia/:idDia, que retorna todas as refeições já cadastradas para aquele dia específico. Esses dados são então armazenados em uma lista reativa (refeicoes), garantindo a atualização automática da interface.
+
+Cada refeição é exibida em um item estilizado, apresentando o tipo da refeição (exemplo: café da manhã, almoço, jantar). Ao lado, há um botão “+” que, quando pressionado, abre um pequeno card de feedback. Nesse card, o usuário encontra cinco opções numéricas (de 1 a 5) que representam diferentes níveis de sensação pós-refeição, desde “me senti muito mal” até “me senti muito bem”.
+
+Quando o usuário seleciona uma dessas opções, é disparada a função enviarFeedback, que monta um objeto contendo o idUsuario, o idRefeicao, o valor selecionado e uma descrição correspondente. Esse objeto é então enviado via requisição POST à rota /feedback da API, registrando a sensação no banco de dados. Após a confirmação, o card de feedback é fechado automaticamente e o usuário recebe um alerta informando que o feedback foi registrado com sucesso.
+
+
+\section{Componentes da daily view} 
+A view Daily é composta por um componente cuja principal função é apresentar ao usuário a lista de alimentos que já foram consumidos ao longo do dia. Cada alimento exibido contém suas respectivas informações nutricionais, como a quantidade de proteínas, carboidratos e gorduras, permitindo que o usuário acompanhe de forma clara os macronutrientes ingeridos. Além disso, para evitar que algum dado permaneça incorretamente registrado, cada item da lista conta com um ícone de exclusão que possibilita remover alimentos que tenham sido adicionados por engano ou por um clique acidental na interface.
+
+O funcionamento desse componente ocorre de maneira encadeada. Inicialmente, a aplicação identifica o usuário logado e, a partir do seu identificador, realiza uma requisição à API para obter a lista de composições de alimentos associadas a ele. Com esses dados em mãos, uma nova chamada é feita para a rota alimentos/{idAlimento}, com o objetivo de recuperar os detalhes nutricionais completos de cada alimento. Essas informações são, então, processadas e exibidas em tela, tornando a experiência mais rica e informativa para o usuário.
+
+Quando o ícone de lixeira é acionado, o sistema dispara uma requisição do tipo axios.delete direcionada à rota composicao/{idRefeicao}/{idAlimento}, o que garante a exclusão precisa do alimento específico dentro da composição registrada. Assim que a operação é concluída, o componente executa novamente o carregamento da lista, de modo que a interface seja imediatamente atualizada e reflita o estado mais recente dos dados. Esse fluxo garante não apenas a consistência das informações exibidas, mas também uma interação intuitiva e dinâmica para o usuário, que pode gerenciar seus registros com rapidez e segurança.
+
+\section{Sistema de \textit{feedback}}
+O sistema de \textit{feedback} implementado até o presente momento conta com a coleta de dados a partir da \textit{view home}, onde, na interface de usuário há um componente nomeado refeições, no qual o usuário poderá visualizar cada uma das refeições criadas ao longo do dia a partir do horário em que um alimento é registrado; nesta interface, o usuário poderá selecionar uma determinada refeição e registrar uma nota para a mesma, sendo ela de 1 a 5, onde 1 o usuário apresenta indisposição após uma refeição, e 5 o usuário considera-se muito disposto e se sentindo muito bem com aquela refeição.
+
+A partir do registro de \textit{feedbacks} do usuário, o sistema conta com uma análise, onde o programa buscará no banco um determinado alimento, contabilizará quantas vezes o mesmo aparece nos \textit{feedbacks}, contando quantas vezes o mesmo representa um \textit{feedback} negativo e quantas vezes representa um \textit{feedback} positivo, retornando um \textit{array} de objetos onde cada objeto é um alimento com quantidade, negativo e positivo.
+
+A partir da contabilização o sistema buscará os dados, criará um \textit{array} de \textit{insights} e calculará a proporção de negativos e positivos, sendo o cálculo dado por:
+
+\[ \frac{item.negativo}{qtd}\]
+
+sendo item.negativo o \textit{feedback} negativo de um determinado alimento, e qtd a quantidade de vezes em que um determinado alimento está relacionado a um \textit{feedback}.
+Se um determinado alimento apresenta mais de 60\% negativo, isto é, o mesmo está relacionado diretamente a refeições com \textit{feedbacks} negativos, logo, o alimento não faz bem para o usuário e não deve ser recomendado.
+
+\section{API de IA} 
+
+\subsection{Estruturação dos dados}
+
+O primeiro passo para a implementação de uma avaliação inteligente funcional trata-se de alimentar a IA com dados que possam ser avaliados, com este objetivo, o sistema buscará no banco de dados todos os alimentos consumidos pelo usuário, através das refeições e feebacks relacionados conforme section anterior.
+
+\begin{lstlisting}
+
+    const getResumoMes = async (idUsuario) => {
+        const [dias] = await connection.execute(
+        `SELECT id, data FROM dia 
+         WHERE idUsuario = ? 
+         AND MONTH(data) = MONTH(CURDATE()) 
+         AND YEAR(data) = YEAR(CURDATE())`,
+        [idUsuario]
+    );
+    let refeicoesCompletas = [];
+    for (const dia of dias){
+        const [refeicoes] = await connection.execute(
+        'SELECT id, data FROM refeicao WHERE idDia = ?',
+        [dia.id]
+    );
+    for (const refeicao of refeicoes) {
+        const [alimentos] = await connection.execute(
+        `SELECT a.nome, cr.quantidade
+            FROM composicaoRefeicao cr
+            JOIN alimentos a ON cr.idAlimento = a.id
+            WHERE cr.idRefeicao = ?`,
+        [refeicao.id]
+        );
+    const [feedbacks] = await connection.execute(
+    `SELECT descricao, sensacao 
+        FROM feedback 
+        WHERE idUsuario = ? AND idRefeicao = ?`,
+    [idUsuario, refeicao.id]
+    );
+\end{lstlisting}
+
+\textbf{Descrição da função de Coleta de Dados:}
+ O trecho de código apresentado define a função getResumoMes, que é o módulo central de coleta e agregação de dados do sistema em um período de 1 mês.
+
+O fluxo de execução da função é sequencial e baseado em consultas aninhadas ao banco de dados:
+
+\textbf{Filtro do período de tempo e Usuário:}
+ Inicialmente, a função realiza uma consulta à tabela dia para recuperar todos os identificadores (id) e datas que correspondem ao usuário autenticado (idUsuario) e que estão contidos dentro dos limites do mês e ano atuais (MONTH(CURDATE()) e YEAR(CURDATE())).
+
+\textbf{Busca por Refeição:}
+ A seguir, o código itera sobre cada dia recuperado. Para cada dia, é executada uma nova consulta à tabela refeicao para obter todas as refeições associadas ao respectivo idDia.
+
+\textbf{Detalhamento dos Alimentos:}
+Para cada refeicao identificada, o sistema realiza uma consulta JOIN com a tabela composicaoRefeicao e a tabela alimentos. Este passo é necessário para detalhar o conteúdo da refeição, permitindo a recuperação do nome e da quantidade de cada alimento consumido.
+
+\textbf{Recuperação de \textit{Feedbacks} do usuário sobre às refeições: }
+Em seguida, é efetuada uma consulta à tabela \textit{feedback} para associar as informações de bem-estar. O objetivo é obter a descricao e a sensacao registradas para a idRefeicao e o idUsuario em questão.
+
+\textbf{Estruturação de dados:}
+Após a recuperação dos componentes, a função procede à fase de agregação:
+
+\textbf{Criação do Objeto:} O código constrói um objeto refeicoesCompletas que encapsula o agrupamento de idRefeicao, data, o \textit{array} de alimentos consumidos e os respectivos \textit{feedbacks} associados.
+
+\subsection{Módulo de comunicação com a IA}
+
+Com o intuito de gerar uma avaliação inteligente a respeito dos dados armazenados foi estudado e percebido que fazer o uso de uma API de IA seria muito mais viável e apresentaria resultados bastante satisfatórios.
+
+A IA selecionada para a conclusão da tarefa foi o \textit{DeepSeek} devido à competência, desempenho e custo-benefício da mesma.
+
+O arquivo iaService.js traz consigo a representação de uma camada de comunicação direta com o modelo de IA selecionado, a principal função deste arquivo é garantir uma comunicação direta com o provedor de IA (\textit{DeepSeek}), garantindo uma solicitação e resposta que seja corretamente formatada e validada.
+
+\begin{lstlisting}
+const apiKey = '#';
+const url = '#';
+
+async function gerarAnaliseIa(dados) {
+
+  try {
+        const listaAlimentos = dados.map(a => `
+            Nome: ${a.nome}
+            - Total de feedbacks: ${a.qtd}
+            - Feedbacks negativos: ${a.negativos ?? 0}
+            - Feedbacks positivos: ${a.positivos ?? 0}
+            - Alerta: ${a.alerta ?? 'N/A'}
+        `).join('\n\n');
+             const prompt = `#`
+            const body = {
+            model: 'deepseek-chat',
+            stream: false,
+            messages: [
+                { role: 'system', content: `#`},
+                            { role: 'user', content: prompt }
+            ]
+        };
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify(body)
+        });
+        const data = await response.json();
+        const iaResponseString = data?.choices?.[0]?.message?.content;
+        if (iaResponseString) {
+            try {
+                // Tenta decodificar o JSON
+                return JSON.parse(iaResponseString); 
+            } catch (e) {
+                console.error('[iaService] ERRO ao decodificar JSON da IA:', e);
+                return { erro
+                };
+            }
+\end{lstlisting}
+
+O modelo de código acima representa o modelo de comunicação com a API utilizado, o mesmo inicia-se solicitando as credenciais para a conexão com a API, seguindo da função principal responsável por gerar a análise de IA.
+
+\textbf{função gerarAnaliseIa:} A função responsável por gerar a análise inicia-se efetuando as devidas validações, verificando se os dados estão em formato de array, e verificando a integridade dos objetos dentro do array, em seguida contém a const prompt, onde o sistema interage diretamente com a IA, então é necessário indicar os dados que a IA deve analisar, descrever para a IA de que forma ela deve analisar, indicando que tipo de avaliação deve ser feita, e também que tipo de resposta se espera, sendo inclusive necessário indicar o formato de resposta que se espera, podendo indicar exemplos.
+
+\textbf{Chamada da API:} A comunicação com o serviço externo é estabelecida por meio de uma requisição do tipo HTTP POST. A principal característica desta requisição reside na sua seção de mensagens (messages), que é essencial para definir e controlar o comportamento e as regras de output da IA.
+
+\textbf{Instrução User:} O prompt de usuário detalha as exigências da aplicação: identificar correlações não óbvias, propor sugestões de substituição que mantenham a paridade nutricional e sumarizar o padrão predominante, como intolerância a um macronutriente ou padrão de horário no campo.
+
+\textbf{Instrução System:} Esta é a seção de controle do formato. Utilizando linguagem imperativa, o módulo impõe regras estritas à IA: o retorno deve ser EXCLUSIVAMENTE o objeto JSON puro, sem qualquer texto introdutório, \textit{markdown} ou explicações. Além disso, garante que o \textit{array insights} seja preenchido com objetos que contenham as chaves obrigatórias titulo e descricao, resolvendo problemas de \textit{output} vazio.
+
+\textbf{decodificação:} A string de resposta da IA é extraída e submetida à função JSON.parse(). Este processo tenta converter o texto bruto em um objeto JavaScript consumível.
+
+\subsection{Coordenação de dados} O arquivo analiseMiddleware.js desempenha o papel de coordenar os dados, atuando como um intermediário entre os dados que entram e a IA.
+
+\begin{lstlisting}
+
+
+const geraInsights = async () => {
+    const dados = await getAnaliseFeedback(); 
+
+    const alimentosComAlertas = dados.map(item => {
+        let alerta = '';
+        if (item.qtd > 0) {
+            const proporcaoNegativo = item.negativos / item.qtd;
+            alerta = proporcaoNegativo > 0.6
+                ? 'muitos feedbacks negativos'
+                : 'geralmente bem aceito';
+        } else {
+            alerta = 'sem dados suficientes';
+        }
+        return { ...item, alerta };
+    });
+    const objetoAnaliseIa = await gerarAnaliseIa(alimentosComAlertas); 
+    return objetoAnaliseIa; 
+};
+\end{lstlisting}
+
+A função geraInsights() é a função principal deste módulo e pode ser vista a partir do seu fluxo de chamadas:
+
+ É chamada a função \textbf{getAnaliseFeedback} para obter os dados agregados dos alimentos, como contagem total de vezes em que um determinado alimento aparece, quantas vezes ele está associado a um \textit{feedback} positivo e quantas vezes está associado a um \textit{feedback} negativo.
+
+\textbf{Enriquecimento dos dados para facilitar a aplicação à IA:} Após ser obtido os dados agregados dos alimentos, é utilizado um \textit{map} nos mesmos para adicionar a chave 'alerta' em cada registro. O algoritmo verifica a proporção de \textit{feedbacks} negativos em relação ao total. Se essa proporção for superior a 60\%, o alimento recebe um alerta de "muitos \textit{feedbacks} negativos". Caso contrário, é classificado como "geralmente bem aceito", esta verificação de proporção de \textit{feedbacks} auxilia a IA a efetuar uma avaliação com precisão.
+
+\textbf{Chamada do serviço de IA:} O \textit{array} criado no enriquecimento de dados (alimentosComAlertas é então passado como argumento para a função gerarAnaliseIa, por fim, o módulo retorna o objeto de análise ou de erro recebido do serviço de IA, permitindo o envio da resposta para o \textit{front-end} para que o usuário possa visualizar o retorno no componente Vue iaFeedbacks.vue.
+
+
+
+
+

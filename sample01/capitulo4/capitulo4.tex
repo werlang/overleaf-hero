@@ -1,0 +1,169 @@
+\chapter{Solução proposta}
+\label{ch:solucao_proposta}
+
+Com o objetivo de facilitar a consulta de macronutrientes por parte de usuários, sejam atletas ou indivíduos que buscam manter uma alimentação saudável, e também de otimizar a prescrição dietética por profissionais da área de nutrição, este projeto propõe o desenvolvimento de uma plataforma capaz de fornecer informações nutricionais detalhadas de cada alimento. A partir dos dados fornecidos pelos usuários, a aplicação calcula automaticamente metas nutricionais personalizadas, alinhadas aos objetivos individuais definidos por cada usuário, tais como ganho de massa muscular ou perda de gordura corporal.
+
+A plataforma oferece uma interface prática e intuitiva, voltada para o uso diário, permitindo o acompanhamento em tempo real do impacto de cada alimento na meta nutricional estabelecida. Dessa forma, o usuário pode visualizar como suas escolhas alimentares contribuem positiva ou negativamente para o alcance de seus objetivos.
+
+Com base em três fontes de dados: os alimentos consumidos informados pelo próprio usuário, um banco de dados nutricional pré-definido e alimentos cadastrados manualmente pelo usuário, o sistema calcula os macronutrientes principais: proteínas, carboidratos e gorduras totais. Esses valores são atualizados em tempo real na interface do usuário, permitindo uma visão clara do progresso diário em relação às metas.
+
+Um dos principais diferenciais do projeto reside na implementação de uma funcionalidade baseada em aprendizado de máquina. A aplicação coleta, analisa e interpreta os hábitos alimentares do usuário ao longo do tempo, aprendendo continuamente com os dados registrados. Com isso, torna-se capaz de gerar recomendações personalizadas e inteligentes, que consideram tanto os objetivos definidos quanto o histórico de alimentação e o bem-estar relatado pelo próprio usuário.
+
+Essa funcionalidade não apenas sugere ajustes pontuais na dieta, mas também propõe versões alternativas de refeições, combinações de alimentos mais adequadas e até planos alimentares completos adaptados a restrições específicas, tais como intolerâncias, alergias ou preferências alimentares. Com essa abordagem dinâmica e personalizada, o sistema visa promover uma experiência única para cada usuário, elevando a qualidade do acompanhamento nutricional e a aderência às metas traçadas.
+
+\section{Tecnologias utilizadas}
+
+Para a implementação da plataforma proposta, foram escolhidas tecnologias amplamente consolidadas no mercado e com boa curva de aprendizado, visando facilitar o desenvolvimento, os testes e a futura manutenção da aplicação. A arquitetura geral adotada é baseada no modelo cliente-servidor, com uma clara separação entre \textit{front-end}, \textit{back-end} e banco de dados.
+
+\\textbf{\\textit{Back-end}:} Desenvolvido com \\textit{Node.js}\\footnote{\\url{https://nodejs.org}} e \\textit{Express}\\footnote{\\url{https://expressjs.com}}. A escolha dessa \\textit{stack} se deu por sua leveza, grande ecossistema de bibliotecas e facilidade de construção de \\textit{APIs RESTful}. O \\textit{Express} permite criar rotas, \\textit{middlewares} e controladores de forma organizada, possibilitando uma manutenção mais simples do código.
+
+Os modelos e controladores da API já estão funcionando para as entidades existentes, com rotas \textit{REST} implementadas e testadas com sucesso através da ferramenta \textit{Insomnia}. As seguintes operações estão disponíveis, para cada entidade presente no projeto:
+    \begin{itemize}
+        \item GET / lista todos elementos da entidade;
+        \item GET / :id busca elemento da entidade através do id;
+        \item POST / – cria um novo elemento com os dados informados.
+        \item PUT /:id – atualiza os dados do elemento;
+        \item DELETE /:id – exclui um determinado elemento através do Id.
+    \end{itemize}
+    
+
+
+\textbf{Banco de Dados:} Utiliza \textit{MySQL}\footnote{\url{https://www.mysql.com}} para armazenamento relacional. A modelagem do banco segue um esquema estruturado com tabelas relacionadas, garantindo integridade referencial e eficiência em consultas. O \textit{XAMPP}\footnote{\url{https://www.apachefriends.org}} está sendo utilizado como ambiente local para facilitar o gerenciamento do servidor \textit{MySQL} durante o desenvolvimento.
+
+A estrutura do banco de dados relacional foi implementada conforme o modelo lógico previamente elaborado (Figura~\ref{fig:er_diagrama}), com tabelas normalizadas que representam as entidades essenciais do sistema: usuários, alimentos, refeições, \textit{feedbacks} e registros diários. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{capitulo4/img/er1.png}
+    \caption{Modelo entidade-relacionamento do banco de dados da aplicação}
+    \label{fig:er_diagrama}
+\end{figure}
+
+O relacionamento entre as entidades permite associar alimentos a refeições por meio da tabela intermediária \textit{ComposicaoRefeicao}, que registra a quantidade de cada alimento em uma refeição. As refeições estão vinculadas a dias específicos, e todos os registros são associados a um usuário, permitindo um controle individualizado. Além disso, a resposta fornecida pelo usuário é relacionada a uma refeição específica, possibilitando a coleta de dados sobre a experiência alimentar. Essas informações são fundamentais para o funcionamento do sistema de recomendação inteligente, que utilizará esses dados para sugerir melhorias nas escolhas alimentares do usuário.
+
+
+
+\\textbf{\\textit{Front-end}:} Desenvolvido com \\textit{Vue.js}\\footnote{\\url{https://vuejs.org}}, um \\textit{framework JavaScript} progressivo que oferece uma abordagem reativa e modular para construção de interfaces dinâmicas. \\textit{Vue} foi escolhido pela sua curva de aprendizado amigável, forte comunidade e capacidade de criar componentes reutilizáveis.
+
+O protótipo da aplicação desenvolvido faz uso do conceito de \textit{mobile first}, onde o foco inicial da arquitetura e desenvolvimento é direcionado aos dispositivos móveis, a tela de protótipo apresenta uma implementação inicial da ideia de consumos, onde o usuário é capaz de visualizar os macronutrientes diários e registrar alimentos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{capitulo4/img/front.png}
+    \caption{protótipo front-end}
+    \label{fig:front}
+\end{figure}
+
+O botão "Bite+" presente no \textit{navbar} executa um evento \textit{emit} que é ouvido pelo \textit{App.vue} e através da diretiva \textit{v-if} exibe o componente com os alimentos disponíveis no banco de dados. Ao selecionar um alimento, seus valores nutricionais são automaticamente somados aos totais exibidos na parte superior da interface, que apresenta a ingestão acumulada e as metas diárias de cada macronutriente (proteína, carboidrato e gordura). A Figura \ref{fig:front} ilustra a estrutura atual da interface, destacando a barra de navegação com o botão de ativação do evento, bem como as \textit{views home} e \textit{daily}, já integradas ao sistema de roteamento da aplicação. Este último é gerenciado pelo componente \textit{Vue Router}, responsável pelo controle de rotas e pela navegação fluida entre as diferentes páginas da aplicação.
+
+
+\textbf{Ferramentas de desenvolvimento:} Para simulação e testes de requisições \textit{REST}, utiliza-se o \textit{Insomnia}\footnote{\url{https://insomnia.rest}}, que permite validar endpoints e testar fluxos de autenticação, registro de dados e consultas. O \textit{XAMPP} também auxilia no gerenciamento local do servidor e do banco de dados.
+
+Essas tecnologias, em conjunto, possibilitam o desenvolvimento de uma aplicação moderna, modular e escalável, alinhada aos objetivos do projeto.
+
+\section{Fluxo do sistema BiteUp}
+
+A aplicação proposta visa gerenciar e processar informações nutricionais de forma personalizada para cada usuário, acompanhando suas metas diárias de macronutrientes com base em dados pessoais e no histórico de consumo. O fluxo de funcionamento do sistema pode ser dividido em algumas etapas principais que se conectam para entregar uma experiência completa e personalizada.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{capitulo4/img/cadastrar.png}
+    \caption{cadastro}
+    \label{fig:cadastro}
+\end{figure}
+
+\textbf{Cadastro e perfil do usuário:} No primeiro acesso, o usuário é convidado a criar seu perfil, preenchendo informações essenciais como nome, idade, sexo, altura, peso atual e objetivo (ganho de massa muscular ou perda de peso) conforme \ref{fig:cadastro}.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{capitulo4/img/login.png}
+    \caption{login}
+    \label{fig:login}
+\end{figure}
+
+Após o cadastro do perfil de usuário, já é possível efetuar o login utilizando email e senha conforme figura \ref{fig:login}, caso não haja cadastro, há a opção de efetuar o cadastro logo abaixo.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{capitulo4/img/menu.png}
+    \caption{menu da aplicação}
+    \label{fig:menu}
+\end{figure}
+
+\textbf{Cálculo automático de metas nutricionais:} Após o cadastro, o sistema utiliza das informações pessoais para calcular as metas diárias de macronutrientes (carboidratos, proteínas e gorduras). Esse cálculo baseia-se em fórmulas nutricionais validadas por estudos acadêmicos (Capítulo \ref{ch:referencial_teorico}), considerando fatores como gasto energético basal \ref{item:GEB}, nível de atividade física e objetivo definido. As metas geradas são salvas e apresentadas ao usuário como seu objetivo diário, na tela menu presente na figura \ref{fig:menu} estes objetivos diários podem ser visualizados no component com título "Macronutrientes" na parte superior do menu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{capitulo4/img/listaAlimentos.png}
+    \caption{lista de alimentos}
+    \label{fig:lista}
+\end{figure}
+
+\textbf{Registro diário de alimentos:} Para acompanhar o progresso em direção às metas, o usuário deve registrar diariamente os alimentos consumidos. Isto pode ser feito selecionando alimentos personalizados inseridos por ele mesmo, ou pré-cadastrados no banco de dados nutricional, com informações já padronizadas sobre porções e macronutrientes, a funcionalidade pode ser visualizada na figura \ref{fig:lista}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{capitulo4/img/bananaSelecionado.png}
+    \caption{alimento selecionado}
+    \label{fig:selecao}
+\end{figure}
+
+Cada alimento registrado é vinculado a uma refeição de forma automática pelo sistema, de acordo com o horário de registro (café da manhã, almoço, jantar ou lanche), possibilitando ao usuário uma interface visualmente satisfatória do consumo ao longo do dia, ao selecionar o alimento 'banana' por exemplo, ocorre a \textbf{atualização em tempo real do consumo diário} e é criado a refeição 'almoço' presente na figura \ref{fig:selecao} juntamente a um botão com ícone de lâmpada, que permite ao usuário registrar um feedback para a refeição. Conforme os alimentos são registrados, o sistema soma automaticamente os macronutrientes consumidos e atualiza em tempo real o progresso em relação à meta diária. O usuário pode acompanhar essa evolução através da barra de progresso e do valor numérico na interface de macro-nutrientes, visualizando claramente quanto ainda falta consumir ou se já excedeu algum macronutriente conforme figura \ref{fig:selecao}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{capitulo4/img/dailyBanana.png}
+    \caption{view daily}
+    \label{fig:daily}
+\end{figure}
+
+
+\textbf{Visualização e gestão do histórico:} Todos os registros diários são salvos no banco de dados associado ao usuário e acessados através da view Daily presente na figura \ref{fig:daily}, permitindo consultar os alimentos consumidos, acompanhar tendências ou corrigir uma inserção acidental. Esse histórico é essencial para análises futuras e para o funcionamento do sistema de recomendação inteligente.
+
+
+\textbf{Personalização com aprendizado de máquina:} O diferencial da aplicação está em sua capacidade de aprendizado contínuo. À medida que o usuário registra refeições e fornece \textit{feedback} sobre o seu bem-estar, o sistema armazena estas informações e utiliza algoritmos de aprendizado de máquina para identificar padrões e ajustar recomendações.
+
+Isso permite que o sistema sugira combinações de alimentos mais adequadas, substituições inteligentes para restrições alimentares ou intolerâncias, e até mesmo planos alimentares personalizados com base no histórico e nos objetivos do usuário, tornando o acompanhamento nutricional progressivamente mais individualizado. A funcionalidade pode ser acessada com um clique do usuário no botão 'gerar insight' presente no componente 'Análise inteligente' do menu ilustrado na figura \ref{fig:menu}.
+
+\section{Funcionamento do sistema de recomendação}
+
+O principal diferencial da aplicação está na funcionalidade de recomendações personalizadas baseadas em aprendizado de máquina. Essa parte do sistema visa analisar o histórico alimentar do usuário, seu perfil e o feedback subjetivo para propor ajustes inteligentes. Os dados armazenados pelo sistema são o \textbf{perfil do usuário} (peso, altura, objetivo), \textbf{registros diários de alimentos e refeições} e \textbf{resposta pessoal sobre sensação e bem-estar}.
+
+A ideia central é permitir que, após registrar um alimento consumido e identificar alguma alteração, como se sentir indisposto por exemplo, o usuário poderá interagir com a plataforma entregando um \textit{feedback} negativo a uma determinada refeição.
+
+Estas respostas serão armazenadas e utilizadas como uma fonte de dados para aprendizado sobre quais alimentos e combinações funcionam melhor para aquele usuário. 
+Esse histórico de \textit{feedbacks} passa por um filtro de dados no \textit{back-end}, unindo alimentos relacionados a refeições com \textit{feedbacks} negativos, e, posteriormente entregando estes dados em formato de \textit{prompt} para uma API de IA, que é responsável por identificar padrões mais a fundo e recomendar alterações adequadas e substituições inteligentes que consideram as necessidades individuais do usuário.
+
+
+\textbf{Lógica por trás da aplicação:}
+
+Para a devida implementação da funcionalidade capaz de auxiliar no controle de macronutrientes, foi desenvolvido um fluxograma responsável por descrever o fluxo da aplicação no quesito de desenvolvimento, facilitando também o entendimento do fluxo de utilização por meio do mesmo (Figura \ref{fig:fluxograma de desenvolvimento}) 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{capitulo4/img/fluxog.png}
+    \caption{fluxograma explicativo do funcionamento inicial do sistema}
+    \label{fig:fluxograma de desenvolvimento}
+    
+\end{figure}
+
+O fluxograma (Figura \ref{fig:fluxograma de desenvolvimento}) acima ilustra o funcionamento do sistema como foi pensado e como foi desenvolvido.
+observando-o é perceptível que um determinado alimento A é ligado a uma tabela intermediária chamada composição refeição cujo intuito trata de intermediar a tabela alimentos com a tabela refeição, já que, uma determinada refeição pode conter diversos alimentos com id's distintos ligados a uma mesma refeição. Cada refeição é controlada pelo id do usuário responsável e pelo id do dia que a mesma foi criada.
+
+\textbf{A tabela usuário} contém todas as informações relacionadas a um determinado usuário, considerando peso, altura, sexo, idade e objetivo, dados que posteriormente são utilizados para calcular os macronutrientes necessários para cada usuário atingir seu objetivo através da aplicação.
+
+\textbf{A tabela dia} contém as colunas data e idUsuario, visto para cada usuário é inserido um dia com id diferente.
+
+\textbf{A tabela Resumo Dia} é responsável por pegar no banco de dados as refeições vinculadas a um determinado dia e somar todos os macronutrientes dos alimentos ligados a Composição Refeição com aquele id de refeição.
+
+\textbf{A tabela \textit{feedback}} possui as colunas descrição e sensação, permitindo ao usuário informar como se sente em relação a uma determinada refeição (informações utilizadas posteriormente para calcular a quantidade de alimentos ligados a uma refeição com \textit{feedback} negativo ou positivo) e mapear quais são responsáveis por mal-estar, ou bem-estar do usuário.
+
+ 
+ 
+
+ 
+
+ 
+

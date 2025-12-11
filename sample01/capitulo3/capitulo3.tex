@@ -1,0 +1,147 @@
+\chapter{Trabalhos Relacionados}
+\label{ch:trabalhos_relacionados}
+
+Para a elaboração deste capítulo, foi realizada uma análise de soluções tecnológicas e trabalhos acadêmicos relacionados ao monitoramento nutricional e ao uso de tecnologias digitais para o apoio em práticas alimentares. As fontes consultadas incluem artigos indexados no \textit{Google Scholar}, além da análise de aplicativos amplamente utilizados no mercado.
+
+A busca priorizou publicações dos últimos dez anos e soluções tecnológicas de destaque, com foco em aplicações que ofereçam funcionalidades voltadas ao registro alimentar, recomendação nutricional, integração com dispositivos de rastreamento de atividade física e uso de técnicas de inteligência artificial para personalização das recomendações. Os principais critérios para inclusão foram a relevância da solução no contexto de monitoramento alimentar e o alinhamento com os objetivos do presente trabalho, especialmente no que se refere ao apoio ao usuário na adoção de hábitos alimentares mais saudáveis e ao acompanhamento de metas nutricionais.
+
+Este capítulo apresenta um panorama crítico das soluções analisadas, destacando seus pontos fortes e limitações, de modo a subsidiar o desenvolvimento da aplicação proposta, considerando os aprendizados obtidos com as abordagens existentes.
+
+
+\section{MyFitnessPal}
+
+MyFitnessPal apresenta-se como uma das principais aplicações nutricionais disponíveis no mercado, com um vasto número de usuários em todo o mundo \cite{myfitnesspal}. O aplicativo oferece uma série de funcionalidades voltadas a indivíduos que buscam alcançar objetivos específicos relacionados à saúde e ao condicionamento físico, como perda de peso, manutenção ou ganho de massa muscular.
+Entre os principais recursos da plataforma, destaca-se o contador de calorias, que é configurado com base nas informações fornecidas pelo usuário no momento do cadastro, como peso, altura, idade, sexo e objetivo (perda, manutenção ou ganho de peso). A partir desses dados, o sistema estima automaticamente a ingestão calórica diária recomendada.
+Além disso, o app possui uma funcionalidade para acompanhar a ingestão de macros (proteínas, carboidratos e gorduras) ao longo do dia. Contudo, vale ressaltar que o monitoramento mais detalhado dos macronutrientes só está disponível na versão paga, o que pode limitar a experiência de usuários da versão gratuita.
+
+Para registrar um alimento consumido, o usuário deve selecionar uma das opções disponíveis no banco de dados da aplicação, escolher o tamanho da porção e alocar esse alimento em uma das categorias de refeição do dia, como café da manhã, almoço, jantar ou lanches. No entanto, o sistema impede a edição dos valores nutricionais de alimentos previamente cadastrados e obriga o usuário a selecionar uma das categorias preexistentes, não permitindo uma customização mais livre do diário alimentar.
+
+\textbf{Pontos fortes do MyFitnessPal:}
+\begin{itemize}
+    \item Ampla base de dados de alimentos, com suporte a alimentos industrializados.
+    \item Integração com dispositivos de rastreamento de atividade física, como Apple Watch, entre outros.
+    \item Registro por escaneamento de código de barras.
+        
+\end{itemize}
+
+
+\textbf{Pontos fracos:}
+\begin{itemize}
+    \item Funcionalidade principal restrita à versão paga, como acompanhamento detalhado de macronutrientes.
+    \item Impossibilidade de editar os valores nutricionais de alimentos cadastrados no banco de dados, limitando a precisão do controle.
+    \item Obrigatoriedade de escolher categorias predefinidas para refeições, reduzindo a flexibilidade de registro e a particularidade do usuário.
+    \item Falta de análise qualitativa e contextual dos alimentos consumidos. O app não oferece, por exemplo, alertas sobre combinações alimentares inadequadas ou efeitos subjetivos pós-refeição.
+    \item Interface não amigável, com muita informação na tela e pouco foco no que é relevante. Também não possibilita uma edição de interface para algo mais simplificado.
+    
+\end{itemize}
+
+\section{Sistema de Raciocínio Baseado em Casos para
+Recomendação de Programa Alimentar}
+
+O artigo analisado apresenta o desenvolvimento de um sistema inteligente baseado em técnicas de aprendizado de máquina, utilizando o Raciocínio Baseado em Casos (RBC), com o intuito de auxiliar nutricionistas na tomada de decisões mais assertivas em relação à prescrição de programas alimentares personalizados. A proposta visa oferecer recomendações nutricionais padronizadas, considerando as características individuais de cada paciente, com base em históricos de atendimentos e consultas anteriores.
+
+O funcionamento do sistema baseia-se na comparação de novos casos com registros previamente armazenados, identificando padrões que possam ser reutilizados de forma adaptada. Primeiramente, o sistema realiza a recuperação de casos anteriores que apresentem semelhança com o novo caso em análise. Em seguida, reutiliza as soluções aplicadas anteriormente, realizando as devidas adaptações para atender às especificidades do paciente atual. Após isso, a solução gerada passa por uma etapa de revisão, onde é avaliada para garantir coerência e adequação. Por fim, o novo caso e sua respectiva solução são armazenados no banco de dados, enriquecendo o sistema com mais conhecimento e contribuindo para recomendações futuras.
+
+Essa abordagem permite que o sistema aprenda continuamente com os dados inseridos, tornando-se progressivamente mais eficiente e preciso na geração de recomendações nutricionais personalizadas, ao mesmo tempo em que apoia o profissional nutricionista com base em evidências concretas. \cite{telles_rbc}
+
+Ao adotar uma abordagem semelhante à descrita no artigo, especialmente no uso de raciocínio baseado em casos, a plataforma proposta neste trabalho pode se beneficiar de uma lógica inteligente e adaptativa para recomendação alimentar. Assim como o sistema estudado oferece suporte aos nutricionistas ao aprender com situações passadas, a aplicação em desenvolvimento pode utilizar os registros de consumo alimentar e o \textit{feedback} subjetivo dos usuários (por exemplo, como se sentiram após uma refeição) para construir um histórico capaz de gerar sugestões mais assertivas no futuro. Esse tipo de modelagem contribui para um aprendizado contínuo e personalizado, em que a tecnologia se adapta de maneira dinâmica ao usuário, potencializando os resultados como o ganho de massa muscular por meio de ajustes alimentares baseados em padrões previamente identificados.
+
+\section{Alimente-se}
+O alimente-se é um aplicativo voltado para o acompanhamento alimentar diário com foco em facilitar o controle alimentar e criar melhores hábitos, o diferencial do uso é ser um app simples de usar, a interface é amigável e tem técnicas de UI/UX bem definidas já no menu principal.
+
+Outro diferencial é ter a possibilidade de salvar alimentos frequentes com vínculo ao perfil de usuário, com essa função é possível registrar alimentos frequentes com poucos toques, facilitanto a utilização frequente do App com um uso mais fluído para quem tem uma alimentação estruturada e bem definida.
+
+A inteligência artificial também é um dos pontos diferenciais do app, ela promove uma avaliação individual para cada refeição do usuário, destacando observações simples baseadas no objetivo nutricional personalizado de cada usuário, como alto percentual de sódio, baixa ingestão de fibras em um café da manhã por exemplo. \cite{alimentese}
+
+\textbf{Pontos fortes:}
+\begin{itemize}
+    \item Interface intuitiva que facilita o uso diário do app para usuários com uma rotina bem definida.
+    \item Agilidade ao salvar refeições, possibilitando o usuário salvar itens favoritos no perfil para que sejam acessados de forma facilitada em um uso rotineiro.
+\end{itemize}
+
+\textbf{Pontos fracos:}
+\begin{itemize}
+    \item Base de dados mais fraca em relação a outros aplicativos
+    \item A avaliação da IA pode ser genérica as vezes, principalmente para usuários com alguma restrição alimentar.
+    \item Há recursos funcionais e importantes que não são de possível acesso para usuários da versão gratuita, limitando o usuário e obrigando-o a adquirir a versão paga do aplicativo.
+\end{itemize}
+
+
+\section{Growth - Dieta e Treino}
+
+A aplicação da Growth é voltada para praticantes de musculação e treino de força, oferecendo uma gama de recursos para o acompanhamento nutricional e também recursos voltados ao treino. Um dos principais diferenciais do aplicativo é a possibilidade de acessar a ficha de treino de profissionais renomados patrocinados pela marca, permitindo assim que o usuário se inspire e utilize a ficha de treino dos atletas, fato que apresenta-se como um estímulo à prática das atividades físicas e também uma orientação, já que os usuários têm a opção de acompanhar as técnicas e estratégias que seus ídolos do esporte estão aplicando e utilizar como inspiração no seu próprio treino.
+
+No que diz respeito ao registro de nutrientes, o aplicativo apresenta diversas limitações. A interface é confusa e pouco intuitiva, o que dificulta o uso diário e desmotiva até mesmo os usuários mais pacientes, levando-os a buscar alternativas. Ademais, o banco de dados não é bem estruturado, obrigando o usuário a cadastrar os alimentos a cada utilização, mesmo em caso de itens simples e recorrentes, prática semelhante ao uso de planilhas. Também não há possibilidade de salvar alimentos para uso posterior, o que torna necessário repetir o processo de registro a cada acesso, aumentando o tempo e o esforço despendidos. \cite{growth}
+
+\textbf{Pontos fortes:}
+\begin{itemize}
+    \item Fichas de treino oficiais dos atletas da Growth
+    \item Boa integração com a marca, permitindo visualização de suplementos e demais conteúdos
+\end{itemize}
+
+\textbf{Pontos fracos:}
+\begin{itemize}
+    \item Registro alimentar pouco/nada prático.
+    \item Não possui um banco de dados com alimentos básicos pré-cadastrados.
+    \item Interface confusa para usuários iniciantes.
+    \item Pouca personalização na parte da dieta, comprometendo a utilização da função para objetivos mais específicos.
+\end{itemize}
+
+\section{Comparativo}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+    
+        \hline
+             & \textbf{Registro alimentar} & \textbf{Banco de dados} & \textbf{Análise de dados} & \textbf{Menu principal} \\
+        \hline
+
+        \hline
+            \textbf{Alimente-se} & Muito bom, mas obriga a escolher tipo de refeição & Limitado, mas funciona &     Analisa refeições trazendo insigts com IA & informações importantes na versão paga \\
+        \hline
+
+        \hline
+            \textbf{Growth} & Confuso e manual & Quase inexistente & Não existe & Muitas informações, cada tipo de refeição ocupa quase meia tela \\
+        \hline
+
+        \hline 
+            \textbf{MyFitnessPal} & Bom, mas obriga a escolher tipo de refeição, não permite que seja livre & Ótima base de dados & Análise básica na versão paga & Informações de macronutrientes na versão paga \\
+        \hline
+    
+        \hline
+            \textbf{Solução Proposta (BiteUp)} & Registro alimentar simplificado com a opção de tipo, não obrigação & Baseado na ideia do MyFitnessPal, com padrão e opção de incremento para os usuários & Análise de dados baseado no \textit{feedback} do usuário & Simplificado a informações mais importantes no menu principal\\
+        \hline
+    \end{tabular}
+    \caption{Comparativo entre aplicações semelhantes}
+    \label{tab:comparativo}
+\end{table}
+
+
+A partir da análise de trabalhos relacionados e de aplicativos similares, foi possível identificar diversos aspectos relevantes que contribuem para a compreensão dos diferenciais, limitações e potencialidades das soluções já disponíveis no mercado. Os critérios de avaliação adotados foram relacionados à usabilidade, com ênfase na comparação da facilidade e praticidade em diferentes aspectos, tais como:
+
+\begin{itemize}
+    \item Registro de alimentos em cada aplicação.
+    \item Existência, funcionalidade, e abrangência dos bancos de dados das aplicações.
+    \item Personalização da aplicação para o usuário, com base na análise de dados coletados.
+    \item Facilidade de acesso aos itens comumente mais utilizados.
+\end{itemize}
+
+Esses critérios serviram de base para a construção de um quadro comparativo entre as soluções analisadas, apresentado na Tabela~\ref{tab:comparativo}, o qual sintetiza os principais pontos observados e permite uma visualização clara das vantagens e limitações de cada alternativa.
+
+
+No que se refere à avaliação do aplicativo Alimente-se, observa-se que se trata de uma ferramenta bastante promissora. A interface é bem desenvolvida e claramente pensada para dispositivos móveis, com boa usabilidade e organização dos menus. A base de dados de alimentos, embora não seja muito extensa, é funcional para o uso cotidiano. Um ponto positivo é a possibilidade de salvar alimentos para registros futuros, o que otimiza o tempo do usuário. Por outro lado, um ponto de atenção é que as informações detalhadas sobre os macronutrientes só estão disponíveis na versão paga, o que limita a experiência de quem utiliza o app gratuitamente.
+
+Já a aplicação da Growth Supplements apresenta dificuldades significativas em termos de usabilidade. O processo de registro alimentar é bastante complexo e exige que o usuário insira manualmente todos os dados dos alimentos, já que não há um banco de dados disponível. Além disso, a interface é sobrecarregada com informações mal distribuídas, o que compromete a experiência, especialmente para usuários que buscam algo mais prático e direto. Apesar dessas limitações, o grande diferencial do aplicativo está na seção de treinos: é possível acessar fichas de treino utilizadas por atletas patrocinados pela marca, o que pode ser um atrativo importante para praticantes de musculação que buscam inspiração ou orientação baseada em referências reais do meio esportivo.
+
+Por fim, o MyFitnessPal se destaca como uma aplicação bastante completa, especialmente em sua versão premium. Ele oferece uma ampla gama de funcionalidades, com uma interface intuitiva e bem organizada. Um dos seus maiores pontos fortes é o banco de dados extremamente robusto, que inclui tanto alimentos básicos quanto itens cadastrados por outros usuários da comunidade. Essa contribuição coletiva enriquece significativamente o app, tornando o processo de registro de refeições mais rápido e preciso. Embora a versão gratuita apresente suas limitações.
+
+A análise dos trabalhos relacionados e dos aplicativos estudados traz a possibilidade de evidenciar que, embora existam funcionalidades disponíveis para o registro alimentar, todas elas apresentam limitações que impactam diretamente a praticidade e a personalização necessárias para um uso diário, características fundamentais para esse tipo de solução. Enquanto o MyFitnessPal destaca-se pela ampla base de dados, ele restringe funcionalidades importantes — inclusive funcionalidades principais — a uma versão paga, além de limitar a flexibilidade do registro. O Alimente-se oferece uma boa experiência visual e usabilidade sólida, mas possui banco de dados limitado e análises que nem sempre se adaptam ao perfil do usuário. Já o aplicativo da Growth apresenta sérias barreiras de uso, tornando o registro alimentar pouco viável na prática.
+
+Neste cenário, a aplicação BiteUp posiciona-se como uma alternativa mais equilibrada ao unir simplicidade no registro, possibilidade de personalização para cada usuário, uso de \textit{feedback} subjetivo para uma análise individualizada e um menu principal focado na simplicidade e usabilidade, destacando informações verdadeiramente relevantes por meio de uma interface intuitiva e fácil de utilizar. Dessa forma, a proposta busca ocupar um espaço intermediário entre robustez e usabilidade, oferecendo aquilo que os principais concorrentes prometem mas não conseguem entregar: uma aplicação de fácil uso diário, porém completa, por meio de praticidade real com personalização individual acessível.
+
+
+
+
+
+% COMMENT

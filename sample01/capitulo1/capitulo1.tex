@@ -1,0 +1,60 @@
+\chapter{Introdução}
+\label{ch:introducao}
+
+A busca por uma alimentação equilibrada e personalizada tem se tornado progressivamente mais relevante, impulsionada pelo crescente interesse em nutrição e bem-estar. Apesar dessa consciência ampliada, muitas pessoas ainda encontram dificuldades significativas para monitorar o consumo de macronutrientes ao longo do dia, comprometendo assim o alcance de seus objetivos nutricionais. Entre os principais obstáculos identificados destacam-se a falta de tempo, limitações financeiras e a dificuldade em modificar hábitos alimentares profundamente enraizados \cite{almeida2020, fernandes2019}.
+
+Embora exista amplo conhecimento científico sobre os impactos da alimentação na saúde, e apesar da disponibilidade de aplicativos destinados ao acompanhamento nutricional, observa-se que muitos usuários relatam dificuldades em manter o controle consistente de suas refeições. A ciência já esclareceu por meio de diversas pesquisas quais alimentos trazem benefícios e quais podem ser prejudiciais quando consumidos em excesso; entretanto, transformar esse conhecimento em hábito diário permanece como um desafio significativo. As aplicações de registro alimentar podem auxiliar nesse processo, porém muitas apresentam limitações que dificultam sua adoção contínua, tais como interfaces pouco intuitivas, excesso de funcionalidades pouco práticas, ausência de personalização efetiva e escassa atenção ao bem-estar subjetivo do usuário após o consumo das refeições.
+
+Consequentemente, identifica-se um problema residual relevante: mesmo com acesso à informação e a ferramentas tecnológicas, persiste a dificuldade de muitos indivíduos em monitorar o consumo de macronutrientes de forma simples e ajustar suas escolhas alimentares com base no modo como cada refeição afeta seu organismo. Adicionalmente, as aplicações mais populares focam quase exclusivamente em calorias e macronutrientes, negligenciando a percepção individual de cada usuário sobre energia, disposição, humor ou desconfortos, fatores que possuem forte impacto na adesão a hábitos mais saudáveis.
+
+Nesse contexto, o desenvolvimento de uma aplicação voltada ao acompanhamento diário da ingestão de macronutrientes, aliada a um sistema de \textit{feedback} sobre o bem-estar do usuário, configura-se como uma solução promissora. A proposta visa desenvolver uma aplicação que permita ao usuário registrar os alimentos consumidos ao longo do dia e acompanhar, em tempo real, o impacto desses alimentos em sua meta nutricional. A aplicação realizará automaticamente o cálculo da quantidade de macronutrientes disponíveis e consumidos, facilitando o planejamento alimentar e incentivando a adesão a uma dieta equilibrada.
+
+Para tornar o processo mais dinâmico e intuitivo, a aplicação contará com uma API responsável por acessar um banco de dados de alimentos pré-cadastrados, fornecendo informações detalhadas sobre os macronutrientes de cada item alimentício. Adicionalmente, o usuário terá a possibilidade de cadastrar novos alimentos no inventário, garantindo maior flexibilidade e personalização no acompanhamento de sua dieta.
+
+O principal diferencial da aplicação reside na capacidade de analisar a resposta individual do usuário após o consumo de cada refeição. Essa funcionalidade transcende o simples registro calórico e nutricional, oferecendo uma camada adicional de inteligência fundamentada no bem-estar subjetivo do usuário. Por meio de um sistema de \textit{feedback} recorrente, os usuários poderão informar como se sentiram após as refeições, avaliando aspectos como nível de energia, humor, disposição e eventuais desconfortos físicos.
+
+Com essa abordagem, espera-se que a aplicação contribua significativamente para a adesão a hábitos alimentares mais saudáveis, proporcionando aos usuários uma ferramenta eficiente e intuitiva para o monitoramento de sua alimentação diária.
+
+\section{Objetivo}
+\label{sec:objetivo}
+
+O objetivo deste trabalho relaciona-se diretamente à busca por uma solução eficaz para o problema identificado: a dificuldade enfrentada por muitos usuários ao monitorar de forma prática e personalizada sua ingestão diária de macronutrientes, especialmente quando possuem metas nutricionais específicas, como o ganho de massa muscular. Com base nisso, a aplicação visa atuar como facilitador no alcance dos objetivos nutricionais do usuário, proporcionando autonomia, organização e suporte contínuo ao longo de sua rotina alimentar de forma prática e rápida, sem comprometer a funcionalidade.
+
+\subsection{Objetivos Específicos}
+\label{subsec:objespecificos}
+
+\begin{itemize}
+    \item Propor uma solução que promova o acompanhamento nutricional individualizado, considerando critérios de escalabilidade, eficiência e acessibilidade por meio das ferramentas vistas ao longo do curso.
+
+    \item Estudar cálculos e diretrizes nutricionais reconhecidos pela literatura e por profissionais da área, com o objetivo de embasar a solução para o problema identificado com coerência.
+
+    \item Garantir que usuários tenham acesso a um banco de dados de alimentos confiável e flexível, permitindo tanto a consulta a alimentos preexistentes quanto o cadastro de novos, promovendo maior personalização no registro alimentar.
+
+     \item Promover o engajamento do usuário no registro alimentar diário por meio de uma experiência de uso intuitiva e centrada em suas rotinas.
+
+    \item Auxiliar o alcance de metas nutricionais pessoais por meio do acompanhamento automático e contínuo da ingestão de macronutrientes.
+    
+    \item Permitir que os usuários registrem suas sensações e percepções após as refeições ou ao fim do dia, fornecendo dados subjetivos que possam contribuir para uma futura recomendação personalizada.
+  
+    \item Avaliar a funcionalidade, usabilidade e adequação da aplicação a partir de testes com usuários, identificando pontos de melhoria que garantam sua efetividade como ferramenta de apoio nutricional.
+
+\end{itemize}
+
+\section{Organização do Trabalho}
+\label{sec:organizacao}
+
+Este trabalho está estruturado em capítulos que abordam de forma progressiva os aspectos teóricos, técnicos e práticos da aplicação desenvolvida. A seguir, apresenta-se um resumo do conteúdo de cada capítulo.
+
+O Capítulo~\ref{ch:introducao} apresenta a introdução do trabalho, contextualizando o problema enfrentado por pessoas que buscam monitorar a alimentação com foco em objetivos específicos, como ganho de massa muscular. São apresentados o problema, os objetivos da aplicação e a justificativa para sua construção.
+
+O Capítulo~\ref{ch:referencial_teorico} apresenta a fundamentação teórica que sustenta os principais cálculos adotados no desenvolvimento deste trabalho, com base na literatura científica pertinente à área.
+
+O Capítulo~\ref{ch:trabalhos_relacionados} descreve os principais trabalhos relacionados, incluindo aplicativos já existentes e estudos acadêmicos que abordam o uso de tecnologias na área da nutrição. Com base nessa análise, são destacados os pontos fortes e limitações de cada solução, buscando identificar oportunidades de inovação.
+
+O Capítulo~\ref{ch:solucao_proposta} detalha a proposta do sistema desenvolvido, abordando sua arquitetura, as funcionalidades principais e os diferenciais incorporados, como o sistema de feedback e a recomendação baseada em inteligência artificial. São também justificadas as escolhas tecnológicas utilizadas no projeto.
+
+O Capítulo~\ref{ch:desenvolvimento} tem por objetivo apresentar as etapas práticas da construção do código, trazendo as principais funções desenvolvidas e a lógica por trás das implementações até o momento em que tudo se conecta.
+
+O Capítulo~\ref{ch:conclusoes_trabalhos_futuso} entrega uma visão final dos objetivos previstos e alcançados, além de uma proposta de continuação que foi projetada ao longo do desenvolvimento, com possíveis versões melhoradas das funcionalidades desenvolvidas e também ideias inovadoras que só foram identificadas durante a efetiva realização da proposta.
+
+Além disso, ao longo do texto, são utilizadas imagens, tabelas e trechos de código-fonte para ilustrar e detalhar a construção da solução, contribuindo para a compreensão completa do funcionamento da aplicação.

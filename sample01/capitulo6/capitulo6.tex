@@ -1,0 +1,44 @@
+\chapter{Conclusões e perspectivas futuras}
+\label{ch:conclusoes_trabalhos_futuso}
+
+Com o intuito de facilitar a consulta e o acompanhamento de macronutrientes ao longo do dia, seja para atletas, usuários comuns ou profissionais da área do esporte, desenvolveu-se uma solução eficaz capaz de promover o acompanhamento nutricional individualizado, considerando critérios de eficiência, agilidade e funcionalidade. A primeira parte deste capítulo apresenta uma análise dos objetivos e resultados que se fez necessário alcançar para tornar a funcionalidade adequada. A segunda parte, respectivamente a parte final, tem o propósito de listar e descrever funcionalidades futuras identificadas ao longo do desenvolvimento deste projeto. Também se faz necessário listar adequações que foram necessárias durante o desenvolvimento e que não haviam sido previstas na versão inicial, mas que se mostraram imprescindíveis para a entrega de um projeto funcional sem comprometer suas características e objetivos principais.
+
+\section{Análise dos resultados obtidos}
+
+O desenvolvimento da aplicação BiteUp permitiu avaliar a viabilidade de uma ferramenta voltada ao acompanhamento nutricional aliado ao registro subjetivo de bem-estar, atendendo aos objetivos estabelecidos no início do projeto. De modo geral, os resultados demonstram que a solução foi capaz de entregar as funcionalidades essenciais para o monitoramento e acompanhamento diário de macronutrientes, além de oferecer ao usuário um meio intuitivo e rápido de registrar os efeitos de uma determinada refeição após a ingestão.
+
+A aplicação foi projetada para oferecer uma interface intuitiva, agradável e de uso simplificado, permitindo que o usuário registre e visualize suas informações nutricionais de maneira fluida e eficiente. Ao selecionar um alimento, seus macronutrientes são automaticamente adicionados ao componente de acompanhamento nutricional presente na tela inicial, sem a necessidade de atualizar a página ou realizar qualquer procedimento adicional. As informações podem ser visualizadas tanto em formato numérico quanto por meio de barras de progresso, facilitando a compreensão do quanto já foi consumido e do que ainda falta para atingir a meta diária.
+
+Outro destaque significativo da aplicação está no sistema de gerenciamento de refeições, que são cadastradas automaticamente com base no horário da inclusão. Essa funcionalidade elimina a necessidade de o usuário identificar manualmente cada refeição ou criar categorias repetitivas sempre que faz um novo registro, tornando o processo mais rápido e evitando interrupções na rotina.
+
+Além disso, a aplicação disponibiliza um banco de alimentos pré-cadastrados, oferecendo praticidade para o registro das refeições. No entanto, reconhecendo a diversidade das dietas e das particularidades alimentares, o sistema também permite que o usuário crie seus próprios alimentos. Dessa forma, é possível registrar combinações específicas ou receitas pessoais como \textit{whey protein} misturado com outro ingrediente, definir as quantidades e salvar o item para uso rápido nos próximos dias, ampliando a flexibilidade e independência do usuário em relação ao banco interno, permitindo o acompanhamento de qualquer dieta, seja ela definida por alimentos ou receitas.
+
+A aplicação também disponibiliza a \textit{view} 'daily' que desempenha o papel de exibir os alimentos registrados ao longo do dia. Nela, o usuário pode revisar suas escolhas alimentares, consultar detalhes nutricionais e excluir itens que tenham sido adicionados incorretamente, garantindo que o acompanhamento diário seja fiel, atualizado e totalmente sob controle do usuário.
+
+Na execução de testes foi perceptível uma clareza no que se diz respeito às informações nutricionais e à agilidade nos processos, como o registro de alimentos. O cálculo automático de macronutrientes, aliado ao controle visual do progresso diário, contribui significativamente para uma percepção clara das metas nutricionais. A possibilidade de os usuários cadastrarem alimentos mostrou-se importante para tornar a aplicação personalizável ao mesmo tempo que enriquece progressivamente o banco de dados.
+
+O sistema de \textit{feedback} implementado apresenta uma limitação inerente: a dependência do acúmulo de dados por parte do usuário, que alimenta o sistema ao efetuar avaliações sobre como se sentiu após determinadas refeições. Porém, quando dispõe de dados suficientes, o sistema demonstra capacidade de identificar correlações não óbvias, padrões de intolerância e sugerir \textit{insights} relevantes, podendo incluir recomendações como a troca do horário de consumo de algum alimento, a não ingestão ou até a substituição de um determinado alimento por outro. Dessa forma, o sistema é capaz de lidar com possíveis intolerâncias, substituindo alimentos problemáticos por alternativas com perfil nutricional semelhante, mantendo assim as metas estabelecidas.
+
+Alguns desafios foram identificados ao longo do desenvolvimento. Entre eles, destacam-se limitações relacionadas à quantidade de dados disponíveis para análise, necessidade de desenvolver outras formas de interação com a IA, e a dependência do preenchimento do usuário para o acúmulo de dados.
+
+% colocar imagem da tela inicial
+
+\section{Trabalhos futuros}
+
+Apesar dos resultados positivos alcançados com o desenvolvimento da aplicação, diversas oportunidades de aprimoramento podem ser exploradas em trabalhos futuros, ampliando significativamente sua eficiência, usabilidade e capacidade de personalização. Uma das direções mais promissoras diz respeito ao aperfeiçoamento do sistema de recomendação baseado em inteligência artificial. Em versões posteriores, a aplicação poderá empregar técnicas mais avançadas de aprendizado de máquina, testar novos modelos de coleta e estruturação de dados e implementar formas mais ricas de interação entre o usuário e a IA, tornando o processo de análise mais preciso e o retorno das recomendações mais alinhado ao perfil individual de cada pessoa.
+
+No que diz respeito à experiência do usuário, há amplo espaço para evolução. A criação de uma tela dedicada ao perfil do usuário, contendo uma jornada de uso mais completa, gráficos mensais de desempenho, indicadores de progresso e contadores visuais de atingimento de metas, poderia enriquecer profundamente a navegação e reforçar o acompanhamento nutricional. A adoção de técnicas de gamificação, como medalhas, níveis, metas diárias e desafios semanais também se apresenta como uma estratégia eficaz para aumentar o engajamento contínuo, tornando o uso da aplicação mais motivador e prazeroso. 
+
+Atualmente, os dados do usuário não podem ser alterados após o cadastro inicial, o que limita a flexibilidade e a adaptação do sistema a mudanças nos objetivos ou nas características pessoais. Trabalhos futuros podem incluir a possibilidade de edição segura desses dados, garantindo maior autonomia e precisão na personalização da experiência.
+
+Outra frente interessante para aprimorar a experiência do usuário seria a implementação de funcionalidades que permitam alternar facilmente entre objetivos nutricionais. Por exemplo, um módulo de ciclo de \textit{bulking/cutting} possibilitaria que o usuário trocasse seus objetivos macronutricionais com apenas um clique, ajustando automaticamente a distribuição de proteínas, carboidratos e gorduras de acordo com a fase atual. Essa funcionalidade tornaria o acompanhamento mais dinâmico e flexível, atendendo às necessidades de usuários que seguem ciclos de ganho de massa e perda de gordura de forma estruturada, como atletas de musculação, proporcionando uma experiência mais completa, motivadora e alinhada às metas individuais de cada usuário.
+
+O sistema também carece em módulos de segurança e privacidade que poderiam ser solucionados com implementação de criptografia avançada, autenticação multifatorial e protocolos de proteção. Tais medidas não apenas reforçam a segurança da informação, mas também aumentam a confiança do usuário ao lidar com dados sobre sua saúde, alimentação e bem-estar.
+
+
+
+
+
+
+
+
