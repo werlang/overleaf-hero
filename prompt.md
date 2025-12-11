@@ -214,9 +214,9 @@ grep -r "\\cite{" project/**/*.tex | cut -d'{' -f2 | cut -d'}' -f1 | sort -u
 # Comparar com entradas em references.bib
 ```
 
-### Fase 5: Relatório de Revisão (OPCIONAL - só se solicitado)
+### Fase 5: Relatório de Revisão (Relatório Crítico `.md` por padrão)
 
-Se o usuário pedir relatório, gerar com esta estrutura:
+Por padrão, gere um relatório `.md` com esta estrutura; caso o autor peça para não gerar, não crie o arquivo.
 
 ```markdown
 # Relatório de Revisão - [Nome do Trabalho]
