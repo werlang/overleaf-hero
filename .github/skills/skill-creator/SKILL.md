@@ -212,6 +212,23 @@ Skill creation involves these steps:
 
 Follow these steps in order, skipping only if there is a clear reason why they are not applicable.
 
+### Step 0: Review Official Guidelines (MANDATORY)
+
+**ALWAYS** start by fetching the official GitHub Copilot skills documentation:
+
+```
+fetch_webpage(
+  urls=["https://docs.github.com/en/copilot/concepts/agents/about-agent-skills"],
+  query="GitHub Copilot agent skills structure YAML frontmatter format guidelines best practices"
+)
+```
+
+This ensures your skill follows the official standard. Key requirements:
+- YAML frontmatter with `name` and `description` fields
+- File must be named `SKILL.md` (case-sensitive)
+- Skill directory name lowercase, hyphen-separated (e.g., `webapp-testing`)
+- Store in `.github/skills/` (project) or `~/.copilot/skills/` (personal)
+
 ### Step 1: Understanding the Skill with Concrete Examples
 
 Skip this step only when the skill's usage patterns are already clearly understood. It remains valuable even when working with an existing skill.
