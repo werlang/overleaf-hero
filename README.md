@@ -1,186 +1,93 @@
-# Workspace Overleaf Hero - Revisão de TCCs e Artigos Científicos
+# Overleaf Hero
 
-Este workspace está configurado para facilitar a revisão sistemática de trabalhos acadêmicos em LaTeX.
+Workspace para revisar, orientar e avaliar TCCs em LaTeX.
 
-## 📁 Estrutura do Workspace
+## Estrutura
 
+```text
+overleaf-hero/
+├── template/   # modelo base; nao edite
+├── sample*/    # exemplos de referencia; nao edite
+├── project/    # trabalho atual; trabalhe aqui
+├── .agents/    # skills e prompts para agentes
+└── tools/      # scripts auxiliares
 ```
-TEMPLATE_ANTEPROJETO___CRIE_UMA_CÓPIA/
-├── template/              # Template base (NUNCA modificar)
-├── sample/ (ou sample00/, sample01/, ...) # Projetos de exemplo já revisados (NUNCA modificar). Estes projetos são somente texto (imagens removidas).
-├── project/               # Seu projeto atual (TRABALHAR AQUI)
-├── prompt.md              # Instruções completas para o agente
-├── OVERLEAF_HERO_MODE.md  # Configuração do modo de agente
-└── README.md              # Este arquivo
+
+Use `project/` para colocar o trabalho que sera revisado. O arquivo principal esperado e `project/tcc.tex`, que aponta para pre-textuais, capitulos e apendices.
+
+Os diretorios `sample*` servem apenas como referencia textual. As imagens podem estar ausentes e nao devem ser usadas como base visual.
+
+## Como Usar
+
+Abra o projeto no agente e escolha o tipo de ajuda que voce precisa:
+
+- **Sou autor e quero revisar meu texto**: use `.agents/prompts/autor-revisar-trabalho.prompt.md`.
+- **Sou autor e quero escrever uma secao**: use `.agents/prompts/autor-construir-texto.prompt.md`.
+- **Sou orientador e quero comentar o trabalho**: use `.agents/prompts/orientador-corrigir-trabalho.prompt.md`.
+- **Sou avaliador/banca e quero um parecer**: use `.agents/prompts/avaliador-corrigir-trabalho.prompt.md`.
+
+Voce tambem pode pedir em linguagem natural:
+
+```text
+Revise o trabalho em project/ como autor, corrigindo gramatica, LaTeX e coesao.
 ```
 
-## 🚀 Como Usar
+```text
+Avalie o trabalho como banca e aponte os problemas mais importantes.
+```
 
-### 1. Prepare Seu Projeto
+```text
+Ajude a escrever a metodologia em LaTeX, mas nao invente citacoes.
+```
 
-Coloque os arquivos do seu TCC/artigo na pasta `project/`:
+## O Que Pode Ser Editado
+
+Normalmente o agente pode editar:
+
+- `project/**/*.tex`
+- `project/references.bib`, somente com verificacao de fonte
+- `project/citation-cheatsheet.md`, quando novas citacoes forem adicionadas
+
+O agente nao deve editar:
+
+- `template/`
+- `sample*`
+- arquivos LaTeX de configuracao, como `.cls`, `.sty`, `.def` e `.bst`, salvo pedido explicito
+
+## Citacoes e BibTeX
+
+Novas referencias precisam ser verificadas antes de entrar no texto.
+
+O agente deve:
+
+1. pesquisar a fonte na internet;
+2. confirmar que a fonte sustenta a afirmacao citada;
+3. inserir a entrada no `.bib` apenas se o suporte for claro;
+4. registrar a fonte em `project/citation-cheatsheet.md`.
+
+Se a fonte nao comprovar a afirmacao, ela nao deve ser usada como citacao.
+
+## Scripts Uteis
+
+Verificar citacoes do projeto:
 
 ```bash
-project/
-├── tcc.tex                    # Arquivo principal
-├── references.bib             # Referências bibliográficas
-├── pretextuais/
-│   ├── resumo.tex
-│   ├── abstract.tex
-│   └── ...
-├── capitulo1/
-│   └── capitulo1.tex
-├── capitulo2/
-│   └── capitulo2.tex
-└── ...
+python tools/check_cites.py
 ```
 
-### 2. Solicite a Revisão
+Extrair informacoes de PDFs, quando houver uma pasta de PDFs configurada:
 
-No VS Code com GitHub Copilot, simplesmente diga:
-
-```
-Revise todo o projeto seguindo as melhores práticas acadêmicas
-```
-
-Ou seja mais específico:
-
-```
-Faça uma revisão completa do projeto em project/, corrigindo gramática,
-formatação LaTeX, e garantindo qualidade acadêmica
+```bash
+python tools/extract_papers.py
+python tools/review_papers.py
 ```
 
-### 3. O Agente Vai:
+## Para Agentes
 
-✅ Mapear todos os arquivos `.tex` em `project/`  
-✅ Criar uma todo-list para tracking  
-✅ Revisar sistematicamente cada capítulo  
-✅ Corrigir erros ortográficos e gramaticais  
-✅ Padronizar formatação LaTeX e ABNT  
-✅ Verificar consistência terminológica  
-✅ Validar referências e citações  
-✅ Confirmar conclusão da revisão  
+As instrucoes canonicas ficam em:
 
-## 📋 O Que o Agente Revisa
+- `.agents/skills/`
+- `.agents/prompts/`
+- `AGENTS.md`
 
-### ✍️ Gramática e Ortografia
-- Acentuação correta
-- Concordância verbal e nominal
-- Uso adequado de crases
-- Pontuação acadêmica
-
-### 🎨 Formatação LaTeX
-- Figuras com caption, label e fonte
-- Tabelas formatadas corretamente
-- Citações no padrão ABNT
-- Termos técnicos em itálico
-
-### 📚 Qualidade Acadêmica
-- Impessoalidade do texto
-- Clareza e coesão
-- Estrutura lógica
-- Consistência terminológica
-
-### 📊 Elementos Estruturais
-- Resumo e Abstract (máx. 500 palavras)
-- Introdução com problema e objetivos
-- Fundamentação teórica adequada
-- Trabalhos relacionados com tabela comparativa
-- Metodologia clara
-- Resultados alinhados com objetivos
-- Conclusão consistente
-
-## 🔍 Arquivos de Referência
-
-### `prompt.md`
-Contém instruções detalhadas sobre:
-- Workflow de revisão completo
-- Checklist de elementos obrigatórios
-- Padrões de formatação LaTeX/ABNT
-- Erros comuns e como corrigi-los
-- Exemplos de código LaTeX
-
-### `OVERLEAF_HERO_MODE.md`
-Configuração do modo de agente para VS Code. Use este arquivo para:
-- Configurar o modo "Overleaf Hero"
-- Entender a filosofia de revisão
-- Ver exemplos de uso
-
-### `sample/` (ou `sample00/`, `sample01/`, ...)
-Projetos de exemplo já revisados. Use como referência para:
-- Ver formatação correta de tabelas e estrutura LaTeX (note que as imagens foram removidas das amostras)
-> Nota: Estes projetos de amostra são apenas texto — as imagens foram removidas intencionalmente para focar a revisão em conteúdo textual. Não utilize imagens dos samples como referência visual.
-- Entender estrutura de capítulos
-- Verificar padrões de citação
-- Comparar qualidade acadêmica
-
-## ⚙️ Configuração do Agente (Opcional)
-
-Se quiser configurar manualmente o modo "Overleaf Hero":
-
-1. Abra configurações do VS Code
-2. Procure por "Agent Modes"
-3. Crie novo modo chamado "Overleaf Hero"
-4. Cole o conteúdo de `OVERLEAF_HERO_MODE.md`
-5. Defina padrões de arquivo: `**/*.tex, **/*.bib, **/prompt.md`
-
-## 📖 Tipo de Trabalhos Suportados
-
-- ✅ TCC 1 (Anteprojeto)
-- ✅ TCC 2 (Trabalho Final)
-- ✅ Artigos Científicos
-- ✅ Dissertações
-- ✅ Teses
-
-## ⚠️ Importante
-
--### NUNCA Modificar:
-- ❌ Arquivos em `template/`
-- ❌ Arquivos em quaisquer diretórios `sample*` (ex.: `sample/`, `sample00/`, `sample01/`)
-- ❌ Arquivos de configuração LaTeX (`.cls`, `.sty`, `.def`, `.bst`)
-
-### TRABALHE APENAS em:
-- ✅ Arquivos `.tex` em `project/`
-- ✅ Seu arquivo `project/references.bib` (se necessário)
-
-## 🎯 Resultados Esperados
-
-Após a revisão, você terá:
-
-- ✅ Texto sem erros gramaticais ou ortográficos
-- ✅ Formatação LaTeX padronizada e correta
-- ✅ Referências verificadas e consistentes
-- ✅ Estrutura acadêmica completa
-- ✅ Qualidade apropriada para defesa/publicação
-
-## 📞 Dicas de Uso
-
-### Para Revisão Rápida
-```
-Revise apenas os pré-textuais (resumo e abstract)
-```
-
-### Para Capítulo Específico
-```
-Revise o Capítulo 3 focando em clareza e coesão
-```
-
-### Para Verificação Final
-```
-Execute verificações finais: erros de compilação, referências órfãs,
-e consistência terminológica
-```
-
-## 🧠 Filosofia
-
-O agente Overleaf Hero segue estes princípios:
-
-1. **Preservar a Voz do Autor**: Corrige, não reescreve
-2. **Mínima Intervenção**: Apenas correções necessárias
-3. **Qualidade Acadêmica**: Garante excelência formal
-4. **Sistematicidade**: Workflow completo e organizado
-5. **Transparência**: Todo o processo é trackeável
-
----
-
-**Pronto para começar?** Coloque seu projeto em `project/` e solicite a revisão! 🎓✨
+Comece por `AGENTS.md` e escolha o prompt adequado ao papel do usuario.

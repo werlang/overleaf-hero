@@ -1,51 +1,87 @@
 from __future__ import annotations
 
-from pathlib import Path
+import argparse
 import re
-from pdfminer.high_level import extract_text
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PAPERS = ROOT / "papers"
+DEFAULT_PDF_DIR = ROOT / "project" / "papers"
 
 
 def clean(text: str) -> str:
+    """Normalize whitespace in extracted PDF text."""
     return re.sub(r"\s+", " ", text).strip()
 
 
 def section(text: str, start: str, end: str | None = None) -> str:
-    pat_start = re.compile(start, re.I)
-    pat_end = re.compile(end, re.I) if end else None
-    m = pat_start.search(text)
-    if not m:
+    """Extract a section-like span using case-insensitive heading patterns."""
+    start_pattern = re.compile(start, re.I)
+    end_pattern = re.compile(end, re.I) if end else None
+    start_match = start_pattern.search(text)
+    if not start_match:
         return ""
-    s = m.end()
-    if pat_end:
-        m2 = pat_end.search(text, s)
-        if m2:
-            return clean(text[s:m2.start()])
-    return clean(text[s:])
+    section_start = start_match.end()
+    if end_pattern:
+        end_match = end_pattern.search(text, section_start)
+        if end_match:
+            return clean(text[section_start:end_match.start()])
+    return clean(text[section_start:])
 
 
-def extract_info(text: str) -> dict:
-    info = {}
-    info["title"] = clean(text.splitlines()[0]) if text.splitlines() else ""
-    info["abstract"] = section(text, r"\babstract\b", r"\bkeywords\b|\bindex terms\b|\bintroduction\b")
-    info["dataset"] = section(text, r"\bdataset\b|\bdata set\b|\bdatasets\b", r"\bmethod\b|\bmethodology\b|\bmaterials\b|\bexperimental\b")
-    info["method"] = section(text, r"\bmethod\b|\bmethodology\b", r"\bexperiment\b|\bresults\b|\bevaluation\b")
-    info["results"] = section(text, r"\bresults\b|\bevaluation\b|\bexperimental results\b", r"\bdiscussion\b|\bconclusion\b")
-    return info
+def extract_info(text: str) -> dict[str, str]:
+    """Extract coarse research-paper fields for literature triage."""
+    lines = text.splitlines()
+    return {
+        "title": clean(lines[0]) if lines else "",
+        "abstract": section(text, r"\babstract\b", r"\bkeywords\b|\bindex terms\b|\bintroduction\b"),
+        "dataset": section(text, r"\bdataset\b|\bdata set\b|\bdatasets\b", r"\bmethod\b|\bmethodology\b|\bmaterials\b|\bexperimental\b"),
+        "method": section(text, r"\bmethod\b|\bmethodology\b", r"\bexperiment\b|\bresults\b|\bevaluation\b"),
+        "results": section(text, r"\bresults\b|\bevaluation\b|\bexperimental results\b", r"\bdiscussion\b|\bconclusion\b"),
+    }
+
+
+def parse_args() -> argparse.Namespace:
+    """Parse the optional PDF directory path."""
+    parser = argparse.ArgumentParser(description="Extract coarse method/result fields from local PDF papers.")
+    parser.add_argument("--pdf-dir", default=str(DEFAULT_PDF_DIR), help="Directory containing PDF files.")
+    return parser.parse_args()
 
 
 def main() -> None:
-    pdfs = sorted(PAPERS.glob("*.pdf"))
+    """Print coarse structured information for every PDF in the chosen directory."""
+    args = parse_args()
+    pdf_dir = Path(args.pdf_dir)
+    if not pdf_dir.exists():
+        print(f"PDF directory not found: {pdf_dir}")
+        print("Pass --pdf-dir with the directory that contains the papers to inspect.")
+        return
+
+    pdfs = sorted(pdf_dir.glob("*.pdf"))
+    if not pdfs:
+        print(f"No PDF files found in: {pdf_dir}")
+        return
+
+    try:
+        from pdfminer.high_level import extract_text
+    except ModuleNotFoundError:
+        print("Missing dependency: pdfminer.six")
+        print("Install pdfminer.six or run this script in an environment that provides it.")
+        return
+
     for pdf in pdfs:
         print(f"=== {pdf.name} ===")
-        text = extract_text(str(pdf)) or ""
+        try:
+            text = extract_text(str(pdf)) or ""
+        except Exception as exc:
+            print(f"ERROR extracting text: {exc}")
+            print()
+            continue
         info = extract_info(text)
-        for k in ["title", "abstract", "dataset", "method", "results"]:
-            val = info.get(k, "")
-            if val:
-                print(f"{k.upper()}: {val[:1500]}{'...' if len(val) > 1500 else ''}")
+        for key in ["title", "abstract", "dataset", "method", "results"]:
+            value = info.get(key, "")
+            if value:
+                suffix = "..." if len(value) > 1500 else ""
+                print(f"{key.upper()}: {value[:1500]}{suffix}")
         print()
 
 
