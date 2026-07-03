@@ -1,0 +1,296 @@
+\chapter{Resultados Obtidos}
+\label{ch:resultados_esperados}
+
+Neste capítulo, estudamos a aplicação dos modelos descritos no Capítulo \ref{ch:solucao_proposta} na previsão de preços de ações. Analisamos seu desempenho e comparamos as previsões com dados reais, visando compreender sua eficácia na previsão de preços de ações.
+
+\section{LSTM}
+
+Neste estudo, utilizamos modelos LSTM para prever o comportamento de séries temporais de preços de ações. Os LSTMs são especialmente adequados para este tipo de tarefa devido à sua capacidade de manter informações ao longo de longas sequências temporais, permitindo a captura de padrões que influenciam os preços futuros. A seguir, relatamos os resultados obtidos nas diferentes implementações deste tipo de modelo.
+
+\subsection{LSTM Saída Simples}
+
+O modelo LSTM de saída simples recebe este nome por ser a saída imediatamente seguinte a janela temporal, por exemplo, a saída i é gerada por i-50. No treinamento, foram utilizadas as funções \textit{EarlyStopping} para evitar o \textit{Overfitting} quando o modelo não estiver mais aprendendo e \textit{ModelCheckpoint} que salva o melhor treinamento para o \textit{epoch} seguinte, após o treinamento, foram gerados dois arquivos csv, o "predict.csv", que contém os valores gerados pelo modelo e o "graph\_training.csv", que contém os valores que da curva de treinamento do modelo, o motivo pela criação de um arquivo csv com esses valores é porque os valores podem gerar uma melhor noção da evolução do treinamento do que apenas a imagem do gráfico em si, foram usadas também 3 camadas LSTM de tamanho 100, 80 e 60 respectivamente.
+\par No gráfico da Figura \ref{fig:LSTM_saida_simples_treinamento} vemos o desempenho do treinamento do modelo LSTM de saída simples, é possível avaliar que o treinamento segue uma curva de queda até por volta do \textit{epoch} 40 dos 100 \textit{epochs} de treinamento, essa queda gradual mostra que o modelo teve um bom comportamento durante o treinamento, pois essa queda indica que o modelo continuou aprendendo durante um período razoável, o que não indica sinal de \textit{Overfitting} até o \textit{EarlyStopping} parar o treinamento, sendo assim, o \textit{batch\_size} tamanho 256 usado neste treinamento é um bom tamanho, para fins de comparação, a Figura \ref{fig:LSTM_saida_simples_treinamento_overfitting} mostra o comportamento do treinamento do mesmo modelo com \textit{batch\_size} tamanho 512, onde é possível notar uma queda mais brusca no treinamento por volta do \textit{epoch} 15, indicando que nessas condições o modelo pode estar sofrendo \textit{Overfitting}.
+
+\begin{figure}
+    \centering
+    \caption{LSTM Saída Simples Treinamento}
+    \label{fig:LSTM_saida_simples_treinamento}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/LSTM_shuffle_false.png}
+    \end{minipage}
+\end{figure} 
+
+\begin{figure}
+    \centering
+    \caption{LSTM Saída Simples Exemplo Overfitting}
+    \label{fig:LSTM_saida_simples_treinamento_overfitting}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/LSTM_shuffle_overfitting.png}
+    \end{minipage}
+\end{figure} 
+
+\par No arquivo "graph\_training.csv" é mostrado o valor da perda em cada \textit{epoch} do treinamento, comparando os arquivos para os modelos com \textit{batch\_size} 256 e 512, onde na Figura \ref{fig:graph_training_256_512}(a), que mostra o comportamento da função de perda para o modelo com \textit{batch\_size} 256, é possível ver mais claramente a queda gradual da função de perda, no caso a \textit{mean\_squared\_error}, enquanto na Figura \ref{fig:graph_training_256_512}(b), para o modelo com \textit{batch\_size} 512, nota-se a queda mais brusca, indicando um possível \textit{Overfitting}.
+
+\begin{figure}
+    \centering
+    \caption{Arquivo graph\_training dos modelos (a) batch\_size 256 e (b) batch\_size 512.}
+    \label{fig:graph_training_256_512}
+    \begin{minipage}{0.9\textwidth}
+    \includegraphics[width=0.6\textwidth]{capitulo6/Graph_training_LSTM_batch_size_256_512.png}
+    \end{minipage}
+\end{figure} 
+
+\par Em relação aos valores gerados pelo modelo, o arquivo "predict.csv" contém os valores gerados após o treinamento, no gráfico da Figura \ref{fig:treinamento_valores_grafico} vemos a comparação dos valores gerados pelo modelo, representados pela linha vermelha, e os valores do mundo real, representados pela linha azul, nesse gráfico podemos notar que o modelo conseguiu prever com sucesso a tendência de comportamento do preço da ação AAPL apesar de algumas discrepâncias, que são normais dada a dificuldade de prever com 100\% de exatidão os valores de uma ação devido a fatores previamente explicados neste trabalho, na Figura \ref{fig:treinamento_valores_csv} vemos a comparação dos valores de \textit{Open} no arquivo "AAPL\_data.csv" a esquerda com os valores gerados pelo modelo no arquivo "predict.csv" a direita, onde podemos confirmar que o modelo está prevendo os valores próximos da sua realidade, tendo uma diferença muito pequena.
+
+\textbf{Pontos Positivos}: Comportamento do treinamento apresentando queda gradual, indicando que o modelo aprende de uma forma mais acurativa e também consegue capturar bem as dependências de longo prazo.
+\par\textbf{Pontos Negativos}: Requer mais memória durante o treinamento devido a possuir uma arquitetura mais complexa.
+
+\begin{figure}
+    \centering
+    \caption{Gráfico da comparação dos valores gerados com o mundo real }
+    \label{fig:treinamento_valores_grafico}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/LSTM_shuffle_false_valores.png}
+    \end{minipage}
+\end{figure} 
+
+\begin{figure}
+    \centering
+    \caption{Comparação entre os csv dos valores gerados com o mundo real }
+    \label{fig:treinamento_valores_csv}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/comparacao_valoresreais_valoresmodelo.png}
+    \end{minipage}
+\end{figure} 
+
+\subsection{LSTM Saída 20 períodos a frente}
+
+O modelo LSTM com saída para 20 períodos à frente é denominado assim porque a janela temporal de 50 períodos gera uma previsão para o período i+20. Esse formato permite uma análise mais robusta da capacidade do modelo em prever valores de longo prazo. Novamente, foram utilizadas as funções \textit{ModelCheckpoint} e \textit{EarlyStopping}, bem como os arquivos “graph\_training.csv” e “predict.csv”, para fornecer uma visão mais precisa do treinamento e da acurácia das previsões em comparação com os dados reais. Vale ressaltar que os mesmos tamanhos de camadas LSTM utilizados no modelo de saída simples foram empregados neste modelo.
+
+\par Na Figura \ref{fig:20_a_frente_treinamento}, que representa o treinamento do modelo, podemos notar a queda gradual da curva até por volta do \textit{epoch} 25 dos 100 \textit{epochs} de treinamento, se estabilizando até o \textit{epoch} 30, quando o treinamento é parado pela função \textit{EarlyStopping}, o tamanho do \textit{batch\_size} utilizado foi de 512, esse tamanho foi o escolhido porque foi o que apresentou uma curva de aprendizagem mais saudável em relação a outros tamanhos como o de 1024, exemplificado na Figura \ref{fig:20_a_frente_treinamento_overfitting},
+no gráfico que faz a comparação dos valores gerados pelo modelo com os valores do mundo real, representado pela Figura \ref{fig:20_a_frente_valores}, mostra que o modelo tem sucesso em prever a tendência de comportamento do preço, porém a discrepância entre os valores, principalmente entre os candles 1000 e 2000, é maior do que no modelo LSTM de saída simples, a um primeiro momento isso pode parecer uma desvantagem, mas como o modelo trata de previsões futuras, isso torna o modelo mais aplicável ao mundo real, dado a previsão sendo 20 períodos a frente da saída i, mesmo que os valores não sejam tão compativeis quanto no tipo de saída anterior.
+
+\begin{figure}
+    \centering
+    \caption{LSTM 20 a frente treinamento}
+    \label{fig:20_a_frente_treinamento}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/LSTM_20_a_frente_shuffle_false.png}
+    \end{minipage}
+\end{figure} 
+
+\begin{figure}
+    \centering
+    \caption{LSTM 20 a frente treinamento Overfitting}
+    \label{fig:20_a_frente_treinamento_overfitting}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/LSTM_20_1024.png}
+    \end{minipage}
+\end{figure} 
+
+\begin{figure}
+    \centering
+    \caption{LSTM 20 a frente comparação valores}
+    \label{fig:20_a_frente_valores}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/LSTM_20_a_frente_shuffle_false_valores.png}
+    \end{minipage}
+\end{figure}
+
+Na Figura \ref{fig:20_a_frente_valores_arquivos}, na comparação dos valores gerados no arquivo "predict.csv" pelo modelo com os valores do mundo real no arquivo "AAPL\_data.csv", podemo notar mais claramente essa discrepância, com a diferença dos valores superando os 10 dólares.
+
+\textbf{Pontos Positivos}: Resultados bastante similares ao LSTM de saída simples, mas como o valor previsto está 20 períodos a frente, essa tipo de saída torna o modelo mais aplicável ao mundo real.
+\par\textbf{Pontos Negativos}: Discrepância maior entre os valores gerados pelo modelo e os valores do mundo real devido a maior dificuldade de manter a precisão nesse tipo de saída.
+
+\begin{figure}
+    \centering
+    \caption{LSTM 20 a frente comparação valores arquivos csv}
+    \label{fig:20_a_frente_valores_arquivos}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/LSTM_20_a_frente_comparacao.png}
+    \end{minipage}
+\end{figure}
+
+\section{GRU}
+
+Além dos modelos LSTM, também exploramos as Redes Recorrentes GRU para a previsão de preços de ações. As GRUs oferecem uma arquitetura simplificada em relação às LSTMs, preservando a capacidade de capturar dependências temporais complexas. A seguir, apresentamos os resultados obtidos com as diferentes implementações desse modelo, destacando suas particularidades e comparando seu desempenho.
+
+\subsection{GRU Saída Simples}
+
+Para o modelo GRU, o mesmo método de treinamento para o LSTM foi usado, utilização das funções \textit{ModelCheckpoint} e \textit{EarlyStopping}, criação dos arquivos "graph\_training.csv" e "predict.csv", neste modelo de saída simples usa-se o modelo com a janela temporal i-50 gerando a saída i.
+\par Na Figura \ref{fig:gru_treinamento_saida_simples} vemos a curva de treinamento para o modelo GRU de saída simples, com \textit{batch\_size} tamanho 256, apresentar uma queda gradual até por volta do \textit{epoch} 35 seguindo com estabilidade até o \textit{epoch} 40, quando começa a crescer novamente até o \textit{EarlyStopping} parar o treinamento, evitando o \textit{Overfitting}, o que indica que este tamanho de \textit{batch\_size} apresenta melhor comportamento no treinamento do que o modelo com \textit{batch\_size} 512, como pode ser visto na Figura \ref{fig:gru_treinamento_saida_simples_overfitting}.
+\par Comparando os valores gerados pelo modelo com os valores da ação no mundo real, representado no gráfico da Figura \ref{fig:gru_valores_comparacao}, vemos que apesar de apresentar uma discrepância considerável entre os candles 1000 e 2000, o modelo consegue prever corretamente as tendências de alta e queda, chegando a valores muito próximos da realidade por volta dos candles 3000 a 5000.
+\par Os valores gerados pelo modelo estão no arquivo "predict.csv", onde é possível ver mais claramente a proximidade dos valores gerados com os valores de \textit{Open} no arquivo com os valores do mundo real na Figura \ref{fig:gru_valores_comparacao_arquivo}.
+
+\textbf{Pontos Positivos}: Aprendizado ocorrendo de forma sustentável durante o treinamento, execução mais rápido em comparação com os modelos LSTM e TCN.
+\par\textbf{Pontos Negativos}: Apesar dos valores gerados pelo modelo terem conseguido acompanhar com sucesso a tendência de comportamento dos preços, o modelo GRU pode não capturar tão bem as tendências de longo prazo para intervalos de tempo maiores.
+
+\begin{figure}
+    \centering
+    \caption{GRU Treinamento Saída Simples}
+    \label{fig:gru_treinamento_saida_simples}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/GRU_shuffle_false.png}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{GRU Treinamento Saída Simples Overfitting}
+    \label{fig:gru_treinamento_saida_simples_overfitting}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/GRU_shuffle_false_512.png}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{GRU Comparação valores modelo x mundo real}
+    \label{fig:gru_valores_comparacao}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/GRU_shuffle_false_valores.png}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{GRU Comparação valores modelo x mundo real arquivo csv}
+    \label{fig:gru_valores_comparacao_arquivo}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/GRU_comparacao.png}
+    \end{minipage}
+\end{figure}
+
+\subsection{GRU Saída 20 períodos a frente}
+
+O mesmo tipo de saída i+20 feita no modelo LSTM foi também utilizado como forma de saída no modelo GRU, devido a possibilidade de ser um tipo de saída mais aplicável por tratar de previsão de valores futuros de uma forma mais aplicável ao mundo real, o mesmo método com as funções \textit{ModelCheckpoint} e \textit{EarlyStopping} e com os arquivos "graph\_training.csv" e "predict.csv" foi usado no modelo.
+\par A Figura \ref{fig:gru_valores_20_a_frente_treinamento} mostra o comportamento da curva de perda durante o treinamento do modelo com \textit{batch\_size} 256, mostrando uma queda gradual até por volta do \textit{epoch} 35, seguindo com uma leve tendência de alta por volta do \textit{epoch} 40, quando a função \textit{EarlyStopping} para o treinamento, o que mostra um bom comportamento para o treinamento do modelo em comparação com o modelo com \textit{batch\_size} tamanho 512, que apresenta uma tendência de \textit{Overfitting} devido ao uma queda mais brusca por volta do \textit{epoch} 25 como é possível observar na Figura \ref{fig:gru_valores_20_a_frente_treinamento_overfitting}.
+\par Os valores gerados pelo modelo, como pode ser observado na Figura \ref{fig:gru_valores_20_a_frente_comparacao}, apesar de mostrar uma diferença grande entre os valores em alguns períodos, principalmente entre os candles 1000 e 3000, consegue acertar a tendência de alta ou queda dos valores, especialmente por volta do candle 5000.
+
+\textbf{Pontos Positivos}: Oferece resultados bastantes satisfatórios na comparação dos valores gerados com os valores do mundo real usando menos parâmetros de entrada que os outros modelos.
+\par\textbf{Pontos Negativos}: Apesar dos bons resultados, o modelo GRU pode não capturar tão bem as dependências de longo prazo quanto os outros modelos se tratando de intervalos de tempo maiores.
+
+\begin{figure}
+    \centering
+    \caption{GRU 20 a frente treinamento}
+    \label{fig:gru_valores_20_a_frente_treinamento}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/GRU_20_saidas_a_frente_shuffle_false.png}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{GRU 20 a frente treinamento overfitting}
+    \label{fig:gru_valores_20_a_frente_treinamento_overfitting}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/GRU_20_saidas_a_frente_512.png}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{GRU 20 a frente comparação valores modelo x mundo real}
+    \label{fig:gru_valores_20_a_frente_comparacao}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/GRU_20_saidas_a_frente_shuffle_false_valores.png}
+    \end{minipage}
+\end{figure}
+
+\section{TCN}
+
+\subsubsection{TCN Saída Simples}
+O modelo TCN, por também ser um modelo que trabalha com séries temporais, foi usado nesse trabalho, este modelo possui uma diferença comparado aos modelos LSTM e GRU citados anteriormente, enquanto esses dois modelos trabalham com redes recorrentes para a captura de dados sequenciais, o modelo TCN trabalha com dilatações convolucionais, sendo eficiente para capturar series que usam um longo período de tempo de intervalo.
+
+A maior parte da configuração dos modelos anteriores foi usada também para o modelo TCN, as funções \textit{ModelCheckpoint} e \textit{EarlyStopping} são utilizadas, os arquivos "graph\_training.csv" e "predict.csv" são criados, uma única camada TCN foi usada, \textit{nb\_filters} tamanho 64 e \textit{dilatations} tamanho 1,2,4,8, onde o tamanho do \textit{nb\_filters} representa quantas características diferentes serão absorvidas pela camada convolucional e o \textit{dilatations} determina como os filtros serão aplicados ao longo da sequência, onde o padrão de aumento exponencial, nesse caso 1,2,4 e 8, aumenta gradativamente o tamanho da rede, o que permite a rede capturar padrões em diferentes escalas temporais.
+
+O treinamento do modelo, representado pela Figura \ref{fig:tcn_treinamento}, mostra que o treinamento está ocorrendo de forma bem sucedida, pois há uma queda gradual na curva de validação até por volta do \textit{epoch} 25, quando ocorre a estabilização do treinamento antes de ser interrompido pelo \textit{EarlyStopping}, não existindo evidências claras de que o modelo pode estar sofrendo \textit{Overfitting}.
+
+\begin{figure}
+    \centering
+    \caption{TCN Treinamento}
+    \label{fig:tcn_treinamento}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/TCN_batch_size_256.png}
+    \end{minipage}
+\end{figure}
+
+Em relação a comparação entre os valores gerados pelo modelo com os valores do mundo real, mostrado na Figura \ref{fig:tcn_valores} onde os valores gerados pelo modelo são representados pela linha laranja enquanto os do mundo real são representados pela linha azul claro, podemos ver que o modelo obteve sucesso em prever valores que, de um modo geral, acompanhem a tendência dos valores do mundo real.
+
+\textbf{Pontos Positivos}: Curvas de validação e treinamento convergem na maior parte do treinamento, o que é mais um indicio de que o modelo não sofre \textit{Overfitting}, além das convoluções usadas pelo modelo TCN tornam mais precisas as capturas de dependências de longo prazo.
+\par\textbf{Pontos Negativos}: Treinamento mais longo comparado aos outros modelos, arquitetura mais complexas com a utilização de mais parâmetros de entrada. 
+
+\begin{figure}
+    \centering
+    \caption{TCN Valores}
+    \label{fig:tcn_valores}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/TCN_batch_size_256_valores.png}
+    \end{minipage}
+\end{figure}
+
+\subsection{TCN Saída 20 períodos a frente}
+
+Por o modelo TCN ser um modelo que trabalha muito bem com dependências de longo prazo, o tipo de saída i+20 também foi usado para o modelo.
+
+As mesmas configurações do modelo TCN de saída simples foram usadas nesse tipo de saída 20 períodos a frente, \textit{ModelCheckpoint} e \textit{EarlyStopping} usadas para melhorar a performance do modelo durante o treinamento, "graph\_training.csv" e "predict.csv" arquivos criados para ter uma melhor noção do treinamento e da previsão de valores respectivamente, \textit{nb\_filters} tamanho 64 e \textit{dilatations} 1,2,4,8.
+
+Na Figura \ref{fig:tcn_20_a_frente_treinamento}, vemos que o modelo consegue ter um bom processo de aprendizagem, sem sinais claros de \textit{Overfitting}, estabilizando a curva de validação por volta do \textit{epoch} 20.
+
+\begin{figure}
+    \centering
+    \caption{TCN 20 a frente treinamento}
+    \label{fig:tcn_20_a_frente_treinamento}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/TCN_20_a_frente_batch_size_256.png}
+    \end{minipage}
+\end{figure}
+
+Na comparação entre os valores gerados pelo modelo e os valores do mundo real, no gráfico da Figura \ref{fig:tcn_20_a_frente_valores}, é possível notar que o modelo conseguiu prever com sucesso a tendência de alta e queda dos preços da ação AAPL, apresentando uma discrepância pequena entre os valores.
+
+\textbf{Pontos Positivos}: Por se tratar de previsões 20 períodos a frente, a arquitetura do modelo TCN pode tornar esse tipo de saída ainda mais aplicável ao mundo real.
+\par\textbf{Pontos Negativos}: Tempo de treinamento do modelo mais longo do que os outros modelos.
+
+\begin{figure}
+    \centering
+    \caption{TCN 20 a frente valores}
+    \label{fig:tcn_20_a_frente_valores}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo6/TCN_20_a_frente_batch_size_256_valores.png}
+    \end{minipage}
+\end{figure}
+
+
+
+
+
+\chapter{Conclusão e Trabalhos Futuros}
+
+Os três modelos testados neste trabalho apresentaram resultados satisfatórios na comparação entre os valores gerados e os valores da ação AAPL no mundo real, em termos de arquitetura dos modelos, o GRU possui a arquitetura mais simples, com menos parâmetros de entrada, o que lhe dá vantagem em velocidade de treinamento em comparação com o modelo LSTM, que por sua vez já tem uma arquitetura mais simples e uma velocidade de treinamento mais rápida que o modelo TCN.
+
+Quando levamos em consideração o comportamento do treinamento, os três modelos mostram ter uma boa etapa de treinamento, com quedas graduais da curva de validação até terem uma convergência com a curva de treinamento, nesse sentido, o modelo TCN leva uma leve vantagem em comparação com o LSTM e o GRU por ter uma convergência mais clara entre as curvas de treinamento e validação.
+
+Em relação aos gráficos de comparação entre os valores gerados pelos modelos com os valores do mundo real, os gráficos do modelo TCN mostram que as discrepâncias entre os valores gerados pelo modelo com os valores reais da ação são bem pequenas, com os valores bem próximos da realidade, isso dá ao modelo uma vantagem em relação aos modelos LSTM e GRU, onde as discrepâncias são mais nítidas, principalmente entre os pontos mais extremos dos gráficos.
+
+Quanto aos tipos de saída adotados, os resultados dos gráficos de saída simples mostraram no geral resultados mais próximos da realidade do que os gráficos de saída 20 períodos a frente, porém, uma saída 20 períodos a frente de uma determinada data por si só já é uma previsão futura, sendo algo que testa melhor a eficácia do modelo perante o desafio proposto, o que pode dar ao modelo uma aplicabilidade melhor ao mundo real.
+
+Portanto, o modelo TCN, dada a sua maior facilidade de lidar com dependências de longo prazo aliado também ao comportamento do modelo durante a sua fase de treinamento e os valores gerados acompanharem bem os valores do mundo real, é o modelo que melhor resultado apresentou neste trabalho, aliada a saída 20 períodos a frente devido a sua melhor aplicabilidade ao mundo real. 
+
+Abaixo está a tabela que compara os resultados dos modelos e suas respectivas vantagens.
+
+Em relação aos próximos passos para este trabalho, surgiram diversas ideias que não puderam ser desenvolvidas devido a restrições de tempo. Uma das propostas é a integração com a web por meio do desenvolvimento de uma API capaz de fornecer as previsões do modelo mediante requisições de outros serviços. Além disso, a exploração de outros modelos que considerem diferentes dados de entrada, como média móvel, média móvel exponencial e índice de força relativa, também se mostra viável para aplicações no mundo real. Embora tenham sido realizados testes com essas entradas, os resultados preliminares não foram satisfatórios, pois não conseguiram prever os valores esperados. Adicionalmente, há a possibilidade de testar outros intervalos de tempo ainda não explorados, além dos 15 minutos utilizados neste trabalho, assim como analisar o comportamento de ações de empresas como \textit{Microsoft (MSFT)} e \textit{Amazon (AMZN)}. Outra hipótese que não foi desenvolvida é a utilização de arquiteturas distintas das redes neurais recorrentes, e também a arquitetura de blocos residuais representada pelo modelo \textit{ResNet}. Este modelo é particularmente eficaz em lidar com redes de muitas camadas, mitigando problemas como a lentidão na aprendizagem e o \textit{overfitting}. Além disso, a implementação de mecanismos de atenção que podem atribuir pesos diferenciados a partes da entrada, facilitando a aprendizagem, especialmente em dependências de entrada mais longas.
+
+\begin{center}
+\begin{tabular}{|| m{5em} m{5cm} m{5cm}}
+     \hline
+     Modelo & Desempenho & Resultado \\ [0.5ex]
+     \hline\hline
+     LSTM & Treinamento realizado entre 1 min e 1 min e 30 seg, curvas de treinamento e validação convergem a partir do epoch 20 & Modelo tem sucesso em prever a tendência dos preços a longo prazo, com poucas discrepâncias em relação aos dados de teste, a saída simples consegue ter desempenho melhor do que o da saída de 20 períodos a frente \\
+     \hline
+     GRU & Treinamento realizado entre 30 seg e 1 min, curvas de treinamento e validação convergem a partir do epoch 30 & Modelo consegue prever a tendência de comportamento dos preços a longo prazo, também com poucas discrepâncias em relação aos dados de teste, a saída simples apresentou um desempenho melhor do que o da saída 20 períodos a frente, entre os três modelos foi o que apresentou a maior distância entre os valores previstos com os valores do mundo real \\
+     \hline
+     TCN & Treinamento mais longo em comparação com os outros modelos, sendo realizado entre 10 e 15 min, curvas de treinamento e validação convergem melhor do que a dos outros modelos & Modelo consegue captar bem as tendências de longo prazo, a distância entre os valores previstos com os valores do mundo real é menor do que nos outros modelos, tanto a saída simples quanto a saída de 20 períodos a frente apresentaram comportamentos similares \\ [1ex]
+     \hline
+\end{tabular}
+\end{center}

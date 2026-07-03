@@ -1,0 +1,28 @@
+
+% Reitoria
+\providecommand{\nominataReit}{Prof.~Fl\'avio Luis Barbosa Nunes}
+\providecommand{\nominataReitname}{Reitor}
+\providecommand{\nominataPRCA}{Profa.~Adriane Maria Delgado Menezes}
+\providecommand{\nominataPRCAname}{Vice-Reitora}
+
+% PROEN
+\providecommand{\nominataPRAPG}{Prof.~Guilherme Ribeiro Rostas}
+\providecommand{\nominataPRAPGname}{Pr{\'o}-Reitor de Ensino}
+
+% CAMPUS
+\providecommand{\nominataDir}{Prof.~Jeferson Fernando de Souza Wolff}
+\providecommand{\nominataDirname}{Diretor do C\^ampus Charqueadas}
+
+% DEPEX
+\providecommand{\nominataDEPEX}{Prof.~Gl\'ederson Lessa dos Santos}
+\providecommand{\nominatanameDEPEX}{Chefe do Departamento de Ensino do C\^ampus Charqueadas}
+
+% TSI
+\providecommand{\nominataCoordTSI}{Prof.~Jo\~ao Orlando Oll\'e Corr\^ea}
+\providecommand{\nominataCoordnameTSI}{Coordenador do TSI}
+
+% Biblioteca
+\providecommand{\nominataBibchefe}{Fernando Scheid - CRB 10/1909}
+\providecommand{\nominataBibchefename}{Bibliotec{\'a}rio-chefe do C\^ampus Charqueadas}
+
+

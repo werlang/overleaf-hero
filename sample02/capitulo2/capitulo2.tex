@@ -1,0 +1,70 @@
+\chapter{Referencial Teórico}
+\label{ch:referencial_teorico}
+
+Este capítulo apresenta o referencial teórico necessário para compreender os fundamentos subjacentes ao desenvolvimento deste trabalho, abordando conceitos essenciais de Inteligência Artificial, Machine Learning, Redes Neurais e Deep Learning, também conceitos da área da economia necessários para o entendimento deste trabalho como o mercado de ações.
+
+\section{Mercado de Ações}
+
+O mercado de ações é um ambiente onde investidores compram e vendem ações, também conhecidas como ativos, que representam uma participação nos lucros das empresas. Essas ações são negociadas no mercado financeiro e são exclusivas das empresas de capital aberto, ou seja, as Sociedades Anônimas (SA). Empresas de capital aberto permitem que qualquer investidor compre ações e se torne um acionista, tendo assim direito a participação nos lucros. Por outro lado, empresas de capital fechado restringem essa participação apenas aos sócios majoritários. Esses investimentos fazem parte dos chamados investimentos de renda variável, que são investimentos no qual seus ganhos não podem ser estipulados previamente, pois são mais afetados por fatores externos, diferentemente dos investimentos de renda fixa, que normalmente são atrelados a algum juro pré-fixado ou índices como o IPCA (inflação acumulada ao longo de 12 meses) e a taxa básica de juros (taxa SELIC). Para as empresas, vender ações no mercado representa uma maneira vantajosa de captar recursos se comparada a outras opções, como empréstimos e financiamentos, que podem resultar em um grande endividamento a longo prazo (\cite{teweles1998stock}). Além disso, existe a possibilidade de aumento dos ganhos ao longo do tempo, especialmente se os resultados da empresa forem positivos e a confiança dos investidores aumentar.
+
+Do ponto de vista dos investidores, investir em ações oferece a oportunidade de receber parte dos lucros de uma empresa, de acordo com o capital investido. Um estudo publicado no site da B3, a Bolsa de Valores de São Paulo, indicou que em junho de 2023 o Brasil tinha 17,6 milhões de investidores, dos quais 5,3 milhões tinham investimentos em renda variável. Esse número representou um crescimento de 23\% no número de investidores em renda variável em relação ao ano anterior, seguindo a tendência de crescimento dos últimos anos.
+
+Esses resultados mostram que o mercado de ações estão atraindo cada vez mais novos investidores para o mundo dos investimentos, porém muitas vezes esses investidores que ainda não estão adaptados ao dia a dia do mercado de ações acabam tendo dificuldades em lidar com um dos principais problemas deste meio: A volatilidade, isto é, a frequência da mudança de cenários, valores e projeções dentro do mercado financeiro. Existem muitos fatores que podem fazer os preços das ações mudarem literalmente da noite para o dia (\cite{engle2013stock}), sendo que muitos desses fatores são imprevisíveis. Um exemplo recente de fator imprevisível foi a pandemia de COVID-19(2020-2022), a maior crise sanitária enfrentada na mundo nos últimos 100 anos, devido a impossibilidade de prever esse evento o preço das ações no mercado despencaram no mundo inteiro, apesar de não ter afetado os retornos financeiros de uma forma tão impactante, mas causou uma queda massiva nos preços das ações em mercados importantes como Estados Unidos, Reino Unido, China e França principalmente nos primeiros meses de 2020 quando a crise estourou (\cite{onali2020covid}). 
+
+Por mais que alguns fatores sejam imprevisíveis, existem fatores que afetam os preços de ações no mercado que são previsíveis e podem ser úteis para fazer previsões de valores e tendências de ações, um desses fatores é o histórico de preços de determinada ação ao longo de um período de tempo (\cite{xu2018stock}) que será o recurso utilizado neste trabalho para treinar a Inteligência Artificial. 
+\par Para finalidade de exemplo, na imagem da Figura \ref{fig:acaoAAPL} está o exemplo de desempenho de uma ação no mercado ao longo dos anos, a ação na imagem é a AAPL da Apple.
+\begin{figure}
+    \centering
+    \caption{Comportamento de uma ação ao longo do tempo}
+    \label{fig:acaoAAPL}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo2/açãoaapl.jpeg}
+    \end{minipage}
+\end{figure} 
+
+\section{Inteligência Artificial}
+
+A Inteligência Artificial, também conhecida pela abreviação IA, é o conceito que visa dotar as máquinas de capacidades de pensamento e tomada de decisões, inspiradas na forma como o cérebro humano realiza essas atividades (\cite{Muthukrishnan2020}). Esse conceito teve origem na década de 1950, quando diversos pesquisadores e cientistas da área da tecnologia, como Alan Turing, um matemático britânico notório por sua contribuição na quebra da criptografia do exército alemão durante a Segunda Guerra Mundial, passaram a vislumbrar a possibilidade de as máquinas utilizarem o mesmo raciocínio lógico humano para resolver problemas (\cite{Anyoha2017}). Com o tempo, esses conceitos demonstraram ser extremamente úteis devido à capacidade da Inteligência Artificial de processar grandes volumes de dados de maneira mais rápida do que a mente humana.
+
+Com o passar dos anos, a Inteligência Artificial deixou de ser apenas uma teoria e se tornou uma realidade amplamente aplicada em diversas áreas. Na medicina, por exemplo, a empresa AliveCor desenvolve dispositivos que utilizam Inteligência Artificial para monitorar a frequência cardíaca dos pacientes. O aplicativo Kardia, desenvolvido pela AliveCor para dispositivos móveis, tem se mostrado mais eficaz na detecção de fibrilação atrial em pacientes do que os exames de rotina convencionais (\cite{briganti2020artificial}).
+
+Na área da segurança pública, muitos países têm adotado sistemas de reconhecimento facial para auxiliar na identificação de criminosos. Mais recentemente, os chatbots de texto, tecnologias que utilizam Inteligência Artificial para simular conversas humanas, despertaram um grande interesse público. Um exemplo notável é o ChatGPT, um chatbot desenvolvido pela OpenAI e lançado em 2022. Ele se destaca por suas respostas bem elaboradas e pela capacidade de realizar atividades além da simples conversação, como a escrita de programas de computador.
+
+A Inteligência Artificial abrange os conceitos de Machine Learning (aprendizado de máquina) e Deep Learning (aprendizagem profunda) (\cite{Woschank2020}), em que o Machine Learning está inserido dentro da Inteligência Artificial, e o Deep Learning é uma subárea do Machine Learning. Isso pode ser observado na imagem da Figura \ref{fig:iaConceitos}. A Inteligência Artificial refere-se a programas com capacidade de aprender e raciocinar de forma inspirada no comportamento humano. O Machine Learning consiste em algoritmos capazes de aprender sem serem explicitamente programados para isso, enquanto o Deep Learning se baseia em redes neurais artificiais, que aprendem a partir de grandes volumes de dados. 
+\\
+\begin{figure}
+    \centering
+    \caption{Conceitos}
+    \label{fig:iaConceitos}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo2/IA.png}
+    \end{minipage}
+\end{figure} 
+
+\section{Machine Learning}
+
+Machine Learning, ou aprendizado de máquina em português, é um campo da Inteligência Artificial que se concentra em desenvolver algoritmos e técnicas que permitem aos computadores aprenderem a partir de grandes volumes de dados (\cite{Helm2020}) e realizar tarefas específicas sem serem explicitamente programados para cada uma delas. Essa abordagem permite que os sistemas aprendam padrões nos dados e façam previsões ou tomem decisões com base nesses padrões.
+
+Existem dois tipos principais de aprendizado em Machine Learning: supervisionado e não supervisionado. No aprendizado supervisionado, os algoritmos são treinados usando pares de entrada e saída, onde a entrada serve como modelo para a saída desejada (os rótulos ou resultados corretos). Durante o treinamento, o algoritmo ajusta seus parâmetros para minimizar a diferença entre as saídas previstas e as saídas reais. Esse tipo de aprendizado é comumente usado em tarefas como classificação e regressão.
+
+Por outro lado, no aprendizado não supervisionado, os algoritmos são treinados em dados que não possuem rótulos ou categorias conhecidas. O objetivo é encontrar estruturas nos dados, como grupos de pontos semelhantes ou padrões emergentes. Esse tipo de aprendizado é frequentemente usado em tarefas como agrupamento e redução de dimensionalidade.
+
+O aprendizado supervisionado é mais adequado para conjuntos de dados menores, onde é possível fornecer exemplos rotulados para treinamento. Já o aprendizado não supervisionado é mais útil para lidar com grandes volumes de dados, onde pode ser difícil ou impraticável rotular cada exemplo manualmente. (\cite{Mahesh2018}).
+
+
+\section{Redes Neurais}
+
+Redes Neurais desempenham um papel crucial no campo do Machine Learning, representando uma simulação computacional do funcionamento dos neurônios no cérebro humano. Essas redes, compostas por múltiplas camadas, desempenham um papel central em diversas aplicações. Destacam-se entre os diferentes tipos de redes neurais as Redes Neurais Convolucionais (CNNs), que encontram ampla aplicação em áreas como visão computacional e reconhecimento de imagem. Além disso, as Redes Neurais Recorrentes (RNNs) são dignas de nota, especialmente no contexto deste trabalho, por sua capacidade de lidar com dados sequenciais, como séries temporais. Essas redes são frequentemente utilizadas em previsões de tendências de vendas e valores de ações no mercado financeiro (\cite{IBM2020}).
+\par Os algoritmos usados no desenvolvimento das redes neurais, baseiam-se na utilização de camadas para o processamento de dados. Cada camada recebe os dados de entrada, os transforma através de funções não-lineares e transmite os valores resultantes como saída para a próxima camada. O desempenho de uma rede neural aprimorado com o aumento do número de camadas, tornando essa técnica a mais avançada em aplicações que exigem o processamento de grandes volumes de dados (\cite{Chassagnon2020}).
+
+\section{Deep Learning}
+
+\textit{Deep Learning} é um ramo de \textit{Machine Learning} onde algorítimos processam uma grande quantidade de dados transformando-os em funções lineares, em comparação com as redes neurais tradicionais, as redes \textit{Deep Learning} trabalham com um volume de dados maior. 
+
+Uma das bibliotecas mais utilizadas para o desenvolvimento de aplicações envolvendo Deep Learning é o \textit{TensorFlow}, uma biblioteca de código aberto desenvolvida pelo Google e lançada em 2015. O \textit{TensorFlow} é uma biblioteca flexível que permite o desenvolvimento dinâmico de aplicações de \textit{Machine Learning} utilizando a linguagem Python. Ele oferece várias APIs, ou interface de aplicação, úteis para o desenvolvimento de \textit{Machine Learning} (\cite{pang2020deep}).
+
+Uma dessas APIs é o \textit{Keras}, que será utilizado neste trabalho por sua facilidade de implementação proporcionada pelo seu alto nível de abstração. O Keras é desenvolvido em Python.
+
+\par As funções de ativação desempenham um papel crucial no contexto das redes neurais, pois são elas que determinam o tipo de resposta utilizada pela rede. Essas funções são responsáveis por receber o valor de saída de uma camada específica e utilizá-lo como entrada para a próxima camada. Existem várias funções de ativação comumente usadas, incluindo a \textit{Sigmoid}, \textit{Relu}, \textit{Binary Step Function} e \textit{Linear} (\cite{Sharma2020}). Cada uma delas tem características distintas e é escolhida de acordo com as necessidades específicas do problema em questão. Os valores das derivadas das funções de ativação são utilizados para guiar o treinamento da rede, quanto mais próximo de zero, menor será o ajuste de pesos e aprendizado na próxima camada. 
+
+\par Um problema comum que o treinamento de rede neural apresenta é o chamado \textit{Vanishing Gradient}, ele acontece quando a derivada da função de ativação se aproxima de zero, tornando o aprendizado da máquina mais difícil e eventualmente, a rede pode deixar de aprender, levando a um mau treinamento da rede. As redes \textit{Deep Learning} apresentam uma vantagem em lidar com esse problema em comparação com as redes neurais convencionais, pois possibilita realizar ajuste de pesos e dimensões das camadas ocultas de processamento, dessa forma, o caminha para a propagação dos gradientes seja mais curto.

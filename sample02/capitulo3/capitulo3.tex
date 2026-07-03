@@ -1,0 +1,27 @@
+\chapter{Trabalho Relacionados}
+\label{ch:trabalhos_relacionados}
+
+
+Para encontrar trabalhos relacionados ao tema deste trabalho de conclusão, foi feita pesquisa bibliográfica buscando artigos científicos que abordam os conceitos de \textit{Machine Learning}. A ferramenta utilizada para encontrar esses artigos é o \textit{Google Scholar} que é uma ferramenta que possibilita o acesso a diferentes fontes de pesquisa. Os critérios utilizados para a pesquisa de fontes são o número de citações feitas em outros trabalhos e palavras no título que indicam utilização de \textit{Machine Learning} na previsão de valores de ativos do mercado financeiro. As palavras chave foram: \textit{Machine Learning}, \textit{Stocks Prediction}, \textit{Deep Learning}, \textit{Algorithms}
+
+Um dos estudos analisados foi conduzido por Patel, Shah, Thakkar e Kotecha \cite{Patel2015}. O trabalho destaca o uso de \textit{Redes Neurais Artificiais} na previsão de tendências nos preços das ações. O modelo proposto consiste em uma rede neural de 3 camadas, sendo a camada de saída composta por um neurônio que utiliza a função de ativação \textit{sigmoid}. Os resultados, apresentados em uma escala de 0 a 1, indicam tendência de alta se maior ou igual a 0.5 e tendência de queda caso contrário. Com uma acurácia de 86,69\%, o estudo utilizou como base de dados os registros percentuais de aumento e queda nos preços dos índices CNX Nifty e SP BSE Senex.
+
+Outra contribuição relevante foi oferecida por Obthong, Tantisantiwong, Jeamwatthanachai e Wills\cite{Obthong2020}. Eles fizeram uma análise explorativa do uso de \textit{Machine Learning} para diferentes finalidades dentro do mercado financeiro, dentre elas a previsão de preços. Eles relataram que normalmente os investidores fazem dois tipos de análises para previsões de preços: A análise fundamentalista, que consiste em analisar fatores internos e externos que podem influir nos preços e a análise técnica, que analisa dados históricos e de comportamento de índices numéricos do mercado. É na análise técnica que o uso de \textit{Machine Learning} se aplica, usando como parâmetros de entrada os valores \textit{Open}(valor da ação no momento da abertura do dia), \textit{High}(maior valor da ação durante o dia), \textit{Low}(menor valor da ação durante o dia), \textit{Close}(valor da ação no momento do encerramento do dia), \textit{Volume}(valor quantitativo das ações negociadas no dia) e \textit{Adjusted Closed Prices}(preço da ação após a distribuição de dividendos). Usando como base de dados os valores do índice de preços da ação SEP 500 entre Janeiro de 2009 e Maio de 2019, eles destacaram que alguns modelos mostraram uma boa performance tendo como resultado baixas porcentagens de erro. Os modelos citados foram ANN (Artificial Neural Network), RNN (Recurrent Neural Network), LSTM (Long Short Therm Memory), SLSTM (Stacked Long Short Therm Memory) e BLSTM (Bidirectional Long Short Therm Memory), todos eles com acurácia superior a 70\% . O trabalho concluiu que por mais que seja impossível ter uma grande precisão de acerto devido a fatores imprevisíveis que podem afetar o mercado, os conceitos de \textit{Machine Learning} podem ajudar investidores a terem uma boa base de informações para seus investimentos.
+
+\textit{Deep Learning} também foi utilizado por Eapen e Verma \cite{Eapen2019} na comparação de modelos feita por eles para prever valores de ações. No trabalho deles foi feita a comparação entre três modelos, SVM (Support Vector Machine), CNN (Convolutional Neural Networks) e LSTM Bi-direcional e a partir dessa comparação, propor um modelo usando os melhores resultados dos três modelos treinados. A comparação mostrou que o desempenho das camadas de CNN combinadas com LSTM bi direcional foi superior ao desempenho do SVM, o trabalho também ressaltou que concatenando os melhores resultados dos pipelines de dados dos três modelos treinados obteve-se um melhor desempenho comparado que o pipeline de um único modelo, os dados utilizados por eles nesse trabalho foram os valores de abertura e encerramento do pregão (Open e Close) do indice SP 500 do período de 2 de Janeiro de 2008 até 27 de Novembro de 2018. A Figura \ref{fig:comparação} mostra uma comparação entre alguns trabalhos citados, levando em consideração os modelos que cada trabalho utilizou, os índices que foram utilizados para dados de entrada e os resultados.
+
+\begin{center}
+\begin{tabular}{||m{5em} m{4cm} m{4cm} m{4cm}||}
+     \hline
+     Trabalho & Modelo(s) Analisados & Dados de Entrada & Resultados \\ [0.5ex]
+     \hline\hline
+     \cite{Obthong2020} & LSTM, SLSTM, BLSTM, SVM & Valores do indice SeP 500 entre 1º de Janeiro de 2009 e 31 de Maio de 2019 & Modelos que envolveram LSTM tiveram bons índices de acurácia \\
+     \hline
+     \cite{Shah2022} & LSTM, CNN, ARIMA & Diferentes intervalos de tempo entre 1 e 10 anos & Modelos que envolveram LSTM foram mais efetivos para prever preços futuros. Modelos CNN foram mais efetivos para prever tendências. Modelo ARIMA não se mostrou efetivo \\
+     \hline
+     \cite{Eapen2019} & LSTM Bidirecional, CNN, SVM & Valores do índice SeP 500 entre 2 de Janeiro de 2008 e 27 de Novembro de 2018 & Combinação das camadas do modelo CNN e LSTM Bidirecional apresentaram resultados melhores que o SVM \\ [1ex]
+     \hline
+    
+\end{tabular}
+    
+\end{center} 

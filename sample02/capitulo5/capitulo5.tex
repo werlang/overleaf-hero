@@ -1,0 +1,289 @@
+\chapter{Modelos Desenvolvidos}
+\label{ch:solucao_proposta}
+
+Este trabalho se dedica ao desenvolvimento de diversos modelos de redes neurais artificiais, enfatizando a importância crucial da quantidade e qualidade dos dados utilizados para o treinamento na identificação de padrões.
+
+\section{Modelos}
+
+Alguns modelos de topologia de rede neural que são criados neste trabalho foram LSTM, GRU e TCN. LSTM (Long Short Therm Memory) é um modelo de topologia de rede neural que se baseia em RNN (Redes Neurais Recorrentes), RNNs são capazes de prever valores atuais baseados em valores passados e dados de entrada atuais \cite{Yu2019}, o modelo de LSTM é um modelo muito eficaz para prever valores em séries temporais em que o intervalo de tempo não é claro, o LSTM trabalha com três portões, que são responsáveis pelo gerenciamento da memória, o \textit{Input Gate}, responsável pela entrada de informações úteis para o modelo, informações essas reguladas pela função de ativação, o \textit{Output Gate}, responsável pela extração das informações úteis, e o \textit{Forget Gate}, responsável por descartar as informações não consideradas úteis para o modelo, sendo um modelo que tem se mostrado eficaz para resolver problemas do mundo real \cite{Duan2016}.
+
+GRU (Gated Recurrent Unit) também se baseia em RNN, este modelo consiste na utilização de dois vetores chamados de \textit{Update Gate} e \textit{Reset Gate}, o \textit{Update Gate} é responsável por determinar o quanto da informação presente na janela de tempo anterior poderá ser usada na próxima janela enquanto o \textit{Reset Gate} irá determinar o quanto da informação da janela de tempo passada irá ser descartada \cite{Kostadinov2017}.
+
+TCN (Temporal Convolutional Networks), o conceito deste modelo consiste na camada de saída gerar um valor para cada dado na camada de entrada em cada janela temporal presente no modelo, que exige que a camada de saída tenha o mesmo tamanho da camada de entrada \cite{He2019}.
+
+\section{Estudo de performance}
+
+A atividade seguinte consiste no estudo de desempenho das melhores redes elaboradas. Nesse estágio, a eficácia da rede é medida por meio de métricas como acurácia, precisão, \textit{recall}, score F1 e curva ROC. Essas métricas proporcionam \textit{insights} cruciais para determinar a eficácia do modelo na previsão de valores de ativos financeiros.
+
+Algoritmos de Deep Learning, como LSTM (Long Short Term Memory) e CNN (Convolution Neural Network), já demonstraram eficácia na previsão de valores de ativos do mercado, conforme evidenciado por Shah et al. \cite{Shah2022} e Obthong et al. \cite{Obthong2020}. Esses algoritmos atingiram uma porcentagem de erro inferior a 10\% na previsão de preços das empresas Infosys, TCS e Cipla \cite{Shah2022}.
+
+
+\section{Treinamento com LSTM}
+
+Para realizar o treinamento com o modelo LSTM é realizada a leitura do arquivo csv "AAPLdata", onde estão os resultados dos valores da ação AAPL da Apple ao longo do período de 4 anos entre Junho de 2019 e Junho de 2023 utilizando a biblioteca Pandas, presente na linguagem Python, muito utilizada para análise e manipulação de dados, depois disso, os valores das ações são colocados em uma escala de valores entre 0 a 1, onde os maiores valores estão próximos de 1 e os menores próximos de 0, isso é feito para facilitar o treinamento do modelo visto que os modelos de Machine Learning são treinados de forma mais rápida quando são utilizados valores normalizados.
+Após os valores serem colocados na escala, é feita a divisão dos dados para treinamento, validação e teste, sendo 85\% dos dados para treinamento e validação, e 15\% para teste \\
+\begin{figure}
+    \centering
+    \caption{Divisão dos dados de treinamento}
+    \label{fig:divisao-treinamento}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/escalaedivisaoLSTM.png}
+    \end{minipage}
+\end{figure} 
+
+Como a Figura \ref{fig:divisao-treinamento} mostra, após a divisão dos dados, são criados dois vetores. Um vetor é utilizado para receber os valores de entrada da janela do LSTM, enquanto o outro vetor recebe o valor de saída gerado com base nos valores de entrada do vetor anterior. No modelo LSTM usado neste projeto, a janela do primeiro vetor possui 50 valores e a do segundo vetor contém um valor. Ou seja, 50 valores de entrada gerarão um valor de saída.
+Essa janela de 50 valores é denominada janela de tempo, que é a memória considerada pelo modelo ao gerar o valor de saída. A janela de tempo é atualizada a cada novo valor de saída gerado. Por exemplo, os valores situados entre 0 e 49 gerarão o valor de saída 0, os valores entre 1 e 50 gerarão o valor de saída 1, e assim por diante.
+
+\begin{figure}
+    \centering
+    \caption{Camadas de Processamento}
+    \label{fig:processamento}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/LSTMcamadas.png}
+    \end{minipage}
+\end{figure} 
+
+Na Figura \ref{fig:processamento} podemos ver que as 3 primeiras camadas possuem tamanho 100 com um \textit{dropout} de 20\%, esse \textit{dropout} significa que uma determinada porcentagem dos dados na camada, nesse caso 20\%, serão excluídas das atualizações de peso da camada, esse é um método eficaz para evitar o \textit{Overfitting}, isto é, o supertreinamento dos dados reconhecidos apenas no período de treinamento, o que o torna inaplicável no mundo real, em outras palavras, o \textit{Overfitting} acontece quando o modelo se torna tão adaptado aos dados de treinamento que ele não consegue não consegue performar adequadamente quando exposto a outros dados fora do conjunto em que ele foi treinado. Em relação as camadas, a primeira camada é a camada de entrada dos dados, as camadas seguintes são as chamadas camadas escondidas, onde ocorre a transformações dos dados em funções lineares e a readequação dos pesos de acordo com o avanço do treinamento, a última camada é a camada de saída, que possuí tamanho 1 já que a saída desse modelo é de 1 valor.
+
+Na função fit, que inicia o treinamento, também é realizada a divisão dos dados de validação dentro do conjunto de dados de treinamento, com 30\% dos dados reservados para validação e os outros 70\% usados para treinamento. A função de perda escolhida foi a \textit{mean\_squared\_error}, que calcula o erro médio quadrado do modelo durante os \textit{epochs} de treinamento. Essa função foi selecionada devido ao seu desempenho positivo em modelos de regressão e em previsões de séries contínuas.
+
+Além disso, foram utilizadas duas funções de \textit{callback} para melhorar o treinamento da rede: \textit{EarlyStopping} e \textit{ModelCheckpoint}. A função EarlyStopping interrompe o treinamento quando a função de perda não apresenta mais melhorias após um determinado número de \textit{epochs}, que neste caso é de sete \textit{epochs}. A função \textit{ModelCheckpoint} armazena os melhores pesos obtidos durante o treinamento, garantindo que os melhores resultados sejam preservados para fins de reprodutibilidade ou em caso de necessidade da continuação do treinamento do modelo.
+
+O \textit{batch\_size}, que é o tamanho dos exemplos de treinamento usados em cada \textit{epoch}, foi definido como 1500, e foram utilizadas 50 \textit{epochs} para o treinamento da rede.
+
+Após o treinamento, os 15\% dos dados, mostrados na Figura \ref{fig:divisao-teste}, iniciais que foram reservados para teste são utilizados para realizar uma nova predição pela IA para avaliar se o modelo desenvolvido é suficientemente generalizável, ou seja, aplicável ao mundo real. Antes dessa comparação final, a função \textit{inverse\_transform} é utilizada para retornar os valores, que estavam normalizados entre 0 e 1, ao seu formato original.
+
+\begin{figure}
+    \centering
+    \caption{Divisão dos dados de teste}
+    \label{fig:divisao-teste}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/LSTMdivisao_teste.png}
+    \end{minipage}
+\end{figure} 
+
+Depois dessas etapas é mostrado um gráfico que mostra a comparação dos valores gerados pela IA com os valores do mundo real da divisão de teste, que não tiveram nenhum contato com os dados de treinamento e validação. Os valores gerados pela IA são colocados no arquivo "predict.csv".
+
+\begin{figure}
+    \centering
+    \caption{Treinamento LSTM 1500}
+    \label{fig:LSTM1500}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/LSTM_batch_size_1500.png}
+    \end{minipage}
+\end{figure}
+
+O gráfico da Figura \ref{fig:LSTM1500} ilustra o comportamento do modelo durante o treinamento, utilizando a função de perda como parâmetro. A linha azul representa a fase de treinamento, enquanto a linha laranja corresponde à fase de validação. Observa-se que, inicialmente, a linha laranja apresenta um alto valor de erro, indicando que o modelo ainda não conseguiu identificar corretamente os padrões dos dados. À medida que os \textit{epochs} avançam, o índice de erro diminui, evidenciando a evolução do modelo. Após o décimo \textit{epoch}, a função de perda estabiliza, sugerindo que o modelo atingiu seu limite de aprendizado e não apresentará mais melhorias. Essa situação destaca a importância da função “EarlyStopping”, mencionada anteriormente, que previne o treinamento excessivo e, consequentemente, o \textit{overfitting}.
+
+
+O comportamento ideal da função de perda é caracterizado por uma queda gradual da linha de validação, indicando uma clara evolução no aprendizado do modelo. Nas Figuras \ref{fig:LSTM500} e \ref{fig:LSTM2000}, observamos que a melhoria na curva de perda é mais pronunciada, com um término de queda mais abrupto, o que pode indicar um maior grau de \textit{overfitting}. No gráfico da figura \ref{fig:LSTM500}, onde o \textit{batch\_size} foi de 500, a linha de validação apresenta uma queda brusca. Da mesma forma, no gráfico da Figura \ref{fig:LSTM2000}, com um \textit{batch\_size} de 2000, os valores altos na linha de validação indicam uma similaridade de comportamento.
+
+\begin{figure}
+    \centering
+    \caption{LSTM 500}
+    \label{fig:LSTM500}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/LSTM_batch_size_500.png}
+    \end{minipage}
+\end{figure} 
+\begin{figure}
+    \centering
+    \caption{LSTM 2000}
+    \label{fig:LSTM2000}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/LSTM_batch_size_2000.png}
+    \end{minipage}
+\end{figure} 
+
+\footnote{https://colab.research.google.com/drive/1n4YaNZIGmaIIiBy6KjpBg5U8PPYGdbc5}
+
+\section{Treinamento com LSTM de 20 saídas á frente}
+
+A diferença do modelo LSTM com múltiplas saídas, no caso 20 saídas, é bastante semelhante ao modelo LSTM original. A principal diferença é que, enquanto o modelo LSTM original citado anteriormente neste trabalho apresenta um valor de saída corresponde ao valor \textit{i} imediatamente anterior, o modelo com saídas á frente possui valores de saída com o tempo \textit{i+20} á frente. Portanto, se no modelo original 50 valores de entrada geram um valor de saída correspondente a \textit{i}, neste modelo 50 valores de entrada valores de saída correspondentes a \textit{i+20}.
+
+O motivo pela escolha desse tipo de saída para o modelo foi a possibilidade de gerar um intervalo de valores, que possibilita uma compreensão melhor sobre a tendência de comportamento do valor da ação em comparação com a saída convencional de um valor. enquanto a saída convencional oferece uma possibilidade de saída correspondente ao \textit{candle} imediatamente anterior, o modelo com 20 saídas oferece 20 possibilidades diferentes, esse tipo de saída de dados testa a capacidade do modelo de prever valores sucessivos, onde a comparação não se dá com o valor imediatamente anterior.
+
+O processo de construção do treinamento deste modelo foi muito parecido com o treinamento do modelo LSTM de 1 valor de saída, o mesmo arquivo "AAPLdata.csv" foi utilizado, a mesma divisão dos dados de 85\% para treinamento e validação e 15\% para teste foi definida.\\
+\begin{figure}
+    \centering
+    \caption{LSTM 20 Outputs Estrutura}
+    \label{fig:LSTM20OutputsEstrutura}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/LSTM_20_estrutura.png}
+    \end{minipage}
+\end{figure} 
+\par A construção das camadas é muito parecida com o do modelo LSTM original, a mesma função "mean\_squared\_error" foi usada como função de perda, as funções "EarlyStopping" e "ModelCheckpoint" também são usadas \\
+\begin{figure}
+    \centering
+    \caption{LSTM 20 Outputs Camadas}
+    \label{fig:LSTM20OutputsCamadas}
+    \begin{minipage}{1\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/LSTM_20_camadas.png}
+    \end{minipage}
+\end{figure} 
+\par O tamanho do batch\_size utilizado é de 1024, sendo o tamanho no qual o aprendizado foi mais efetivo como podemos ver nas comparações do gráfico da Figura \ref{fig:LSTM20Outputs1024}, com batch\_size 1024 com o gráfico da Figura \ref{fig:LSTM20Outputs512}, da tentativa com batch\_size 512, os valores gerados pela IA também foram colocados no arquivo "predict.csv"
+
+\begin{figure}
+    \centering
+    \caption{LSTM 20 Outputs 1024}
+    \label{fig:LSTM20Outputs1024}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/LSTM_20_1024.png}
+    \end{minipage}
+\end{figure} 
+\begin{figure}
+    \centering
+    \caption{LSTM 20 Outputs 512}
+    \label{fig:LSTM20Outputs512}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/LSTM20Ouputs_batch_size_1000.png}
+    \end{minipage}
+\end{figure}
+
+Outras vantagens desse tipo de saída é a precisão da previsão, sendo que previsões de valores a longo prazo tendem a ser menos voláteis que os valores a curto prazo, também ajudando a mitigar riscos.  
+
+
+\footnote{https://colab.research.google.com/drive/1Q1NjvcxtEhw\_4hFMHDAkbUcpAfCAAt1O}
+
+\section{Treinamento com GRU}
+
+O treinamento com o modelo GRU se assemelha bastante com o modelo LSTM, os valores retirados do "AAPLdata" são colocados na escala entre 0 e 1, os vetores de entrada e saída são definidos na mesma forma que no LSTM, 50 valores de entrada geram 1 valor de saída, a maior diferença entre os modelos está na construção das camadas de processamento, são 3 camadas de tamanho 100, 80 e 50 respectivamente, uma camada de tamanho 30 para o papel do \textit{Reset Gate}, que filtra quais valores são aproveitados para o próximo \textit{epoch} de treinamento, e, uma camada de saída de tamanho 1, o mesmo \textit{dropout} de 20\% foi declarado nas camadas, "mean\_squared\_error" foi a função de perda utilizada, assim como as funções "EarlyStopping" e "ModelCheckpoint".
+\begin{figure}
+    \centering
+    \caption{GRU Camadas}
+    \label{fig:GRUCamadas}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/GRUCamadas.png}
+    \end{minipage}
+\end{figure} 
+\par O \textit{batch\_size} usado foi de tamanho 2000 em 50 \textit{epochs} de treinamento, foi o tamanho que apresentou melhor resultado comparado a outros tamanhos de \textit{batch\_size}, abaixo, podemos ver a comparação do treinamento do gráfico \ref{fig:GRU2000}(\textit{batch\_size} 2000) com \ref{fig:GRU500}(\textit{batch\_size} 500) e \ref{fig:GRU3000}(\textit{batch\_size} 3000).
+\begin{figure}
+    \centering
+    \caption{GRU 2000}
+    \label{fig:GRU2000}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/GRU_batch_size_2000.png}
+    \end{minipage}
+\end{figure} 
+\begin{figure}
+    \centering
+    \caption{GRU 500}
+    \label{fig:GRU500}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/GRU_batch_size_500.png}
+    \end{minipage}
+\end{figure} 
+\begin{figure}
+    \centering
+    \caption{GRU 3000}
+    \label{fig:GRU3000}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/GRU_batch_size_3000.png}
+    \end{minipage}
+\end{figure} 
+
+\footnote{https://colab.research.google.com/drive/1BWatS8TovKcflx5BpGsfNUtLRErthD8j}
+
+\section{Treinamento com GRU de 20 saídas á frente}
+
+O treinamento do modelo GRU com 20 saídas á frente é muito similar o do GRU com valor de saída convencional, a maior diferença está na construção dos vetores que representam os valores de entrada e saída, onde o vetor de saída receberá valores correspondentes a 20 \textit{candles} á frente semelhante ao que foi feito no modelo LSTM com 20 saídas á frente, o restante é igual ao GRU convencional, as camadas possuem o mesmo tamanho, "EarlyStopping" e "ModelCheckpoint" são as funções \textit{callback} utilizadas e "mean\_squared\_error" é a função de perda, o \textit{batch\_size} de tamanho 1024, no  gráfico da figura \ref{fig:GRU20Outputs1024}, tem desempenho superior o de tamanho 512, no gráfico \ref{fig:GRU20Outputs512}, e 3000, no gráfico \ref{fig:GRU20Outputs3000}.
+\begin{figure}
+    \centering
+    \caption{GRU 20 Outputs 1024}
+    \label{fig:GRU20Outputs1024}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/GRU_20_1024.png}
+    \end{minipage}
+\end{figure} 
+\begin{figure}
+    \centering
+    \caption{GRU 20 Outputs 512}
+    \label{fig:GRU20Outputs512}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/GRU_20_512.png}
+    \end{minipage}
+\end{figure} 
+\begin{figure}
+    \centering
+    \caption{GRU 20 Outputs 3000}
+    \label{fig:GRU20Outputs3000}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/GRU20Outputs_batch_size3000.png}
+    \end{minipage}
+\end{figure} 
+
+\footnote{https://colab.research.google.com/drive/14cb819ZU\_JS-ji9YgnIxqbMijKN-0kfg}
+
+\section{Treinamento com TCN}
+
+O modelo TCN(Temporal Convolution Network) é um outro modelo de rede neural que trabalha com séries temporais, uma das vantagens do modelo TCN é trabalhar com convoluções dilatadas, isto é, o modelo consegue cobrir grandes janelas temporais sem aumentar a complexidade computacional, graças a essas convoluções dilatadas o campo receptivo (Receptive Field), que é a quantidade de entradas passadas para uma camada convolucional, pode ser bem grande, o que permite que o modelo capture dependências de longo prazo de forma eficiente, outra vantagem desse modelo é a estabilidade durante o treinamento devido a atuação das conexões residuais e as convoluções, que diminuem a probabilidade de problemas comuns em treinamentos, como o desparecimento de gradiente, acontecerem.
+\par A arquitetura do modelo TCN possui a entrada, as camadas convolucionais dilatadas, as conexões residuais, que são usadas para melhorar a performance durante o treinamento, a normalização por \textit{batchs} e as funções de ativação usadas após cada convolução e a camada de saída. Diferentemente do LSTM e do GRU, o TCN não utiliza portas em sua estrutura para lidar com a memória de longo prazo, no TCN esse papel é feito pelas camadas convolucionais, devido a dinâmica das conexões residuais e das camadas convolucionais, o modelo TCN geralmente possui um treinamento mais estável que o LSTM e o GRU.
+\par No modelo utilizado no trabalho, o mesmo arquivo "AAPLData.csv" com os valores da ação AAPL entre 2019 e 2023 foi utilizado, a mesma normalização dos valores entre 0 e 1 foi feita para o treinamento, a variável \textit{n\_steps} contém o tamanho da janela temporal, que no caso é 50, a função \textit{sequences} faz a divisão dos vetores de entrada e saída de dados para o modelo, a divisão dos dados para treinamento, validação e teste é de 80\% para treinamento e validação e 20\% para teste como mostra a Figura \ref{fig:TCN_Divisão_dados}.
+\begin{figure}
+    \centering
+    \caption{TCN divisão dos dados}
+    \label{fig:TCN_Divisão_dados}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/TCN_treinamento_divisao.png}
+    \end{minipage}
+\end{figure} 
+\par Uma camada TCN foi utilizada para o treinamento, com um \textit{dropout} de 20\%, uma camada \textit{Dense} tamanho 1 para saída, a função "mean\_squared\_error" foi usada, as funções callbacks EarlyStopping, que evita o \textit{overfitting} quando o modelo para de aprender e ModelCheckpoint, para que os melhores pesos de treinamento sejam mantidos atráves dos \textit{epochs} como pode ser visto na Figura \ref{fig:TCN_Camadas}.
+\begin{figure}
+    \centering
+    \caption{TCN camdas}
+    \label{fig:TCN_Camadas}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/TCN_treinamento_camadas.png}
+    \end{minipage}
+\end{figure} 
+\par Com um \textit{batch\_size} tamanho 256, o gráfico de treinamento mostra um treinamento estável na figura \ref{fig:TCN_treinamento_batch_size256}, um pouco mais estável que com batch\_size 128 na figure \ref{fig:TCN_treinamento_batch_size128}
+\begin{figure}
+    \centering
+    \caption{TCN Batch\_size 256}
+    \label{fig:TCN_treinamento_batch_size256}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/TCN_batch_size_256.png}
+    \end{minipage}
+\end{figure} 
+\begin{figure}
+    \centering
+    \caption{TCN Batch\_size 128}
+    \label{fig:TCN_treinamento_batch_size128}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/TCN_batch_size_128.png}
+    \end{minipage}
+\end{figure} 
+
+\footnote{https://colab.research.google.com/drive/1ipNynPNJt3A1bLS0JRLV5W7b4Q6wcESR}
+
+\section{Treinamento com TCN de saída 20 a frente}
+A costrução do modelo TCN com saída i+20, ou seja, 20 tempos a frente, é igual ao modelo TCN com saída imediatamente anterior, a única diferença é a mudança do valor do vetor que representa a saída de i para i+20 como pode ser visto na figura\ref{fig:TCN_20aFrenteTreinamento}
+\par O treinamento com batch\_size 256 também obteve um comportamento bem estável como pode ser visto na Figura \ref{fig:TCN_20aFrente_batch_size256}
+\begin{figure}
+    \centering
+    \caption{TCN 20 a frente divisão}
+    \label{fig:TCN_20aFrenteTreinamento}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/TCN_20_a_frente_treinamento.png}
+    \end{minipage}
+\end{figure} 
+\begin{figure}
+    \centering
+    \caption{TCN 20 a frente Batch\_size 256}
+    \label{fig:TCN_20aFrente_batch_size256}
+    \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=1\textwidth]{capitulo5/TCN_20_a_frente_batch_size_256.png}
+    \end{minipage}
+\end{figure} 
+
+ \footnote{https://colab.research.google.com/drive/1FF5V\_whpFCzP7WchKct-WzLnLMjN0wft}
+
+% \subsection{Atividades}
+
+% \begin{itemize}
+%     \item \textbf{Atividade 1:} Coleta dos dados necessários para o treinamento das redes
+%     \item \textbf{Atividade 2:} Pré-processamento dos dados coletados
+%     \item \textbf{Atividade 3:} Treinamento e validação das redes que modelam o problema
+%     \item \textbf{Atividade 4:} Estudo de desempenho das melhores redes elaboradas
+%     \item \textbf{Atividade 5:} Elaboração do documento com os resultados obtidos
+% \end{itemize}
