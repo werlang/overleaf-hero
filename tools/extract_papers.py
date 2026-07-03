@@ -34,13 +34,18 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
-    """Print title and abstract candidates for every PDF in the chosen directory."""
+    """Print title and abstract candidates for local PDF triage."""
     args = parse_args()
     pdf_dir = Path(args.pdf_dir)
     if not pdf_dir.exists():
         print(f"PDF directory not found: {pdf_dir}")
         print("Pass --pdf-dir with the directory that contains the papers to inspect.")
+        print("PDF triage only: no citation support was verified.")
         return
+
+    print("PDF triage only: this output does not verify that a source supports a citation claim.")
+    print("Use bibtex-verified-citations before citing any candidate in the TCC.")
+    print()
 
     pdfs = sorted(pdf_dir.glob("*.pdf"))
     if not pdfs:

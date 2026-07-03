@@ -15,6 +15,8 @@ overleaf-hero/
 
 Use `project/` para colocar o trabalho que sera revisado. O arquivo principal esperado e `project/tcc.tex`, que aponta para pre-textuais, capitulos e apendices.
 
+Em um checkout novo, `project/` pode estar vazio. Sem `project/tcc.tex`, o agente nao deve revisar nem editar o TCC e tambem nao deve usar `template/` ou `sample*` como substitutos; ele deve avisar que o trabalho ainda nao foi carregado ou entregar apenas rascunho em chat quando for apropriado.
+
 Os diretorios `sample*` servem apenas como referencia textual. As imagens podem estar ausentes e nao devem ser usadas como base visual.
 
 ## Como Usar
@@ -37,8 +39,18 @@ Avalie o trabalho como banca e aponte os problemas mais importantes.
 ```
 
 ```text
+Sou orientador: comente o trabalho, separe correcoes formais de decisoes do autor e aponte proximas acoes.
+```
+
+```text
+Avalie como banca de TCC2, com severidade, rubrica e recomendacao final.
+```
+
+```text
 Ajude a escrever a metodologia em LaTeX, mas nao invente citacoes.
 ```
+
+Para revisao como autor, o modo padrao e `moderada`: o agente pode corrigir forma e clareza local, mas deve devolver argumento, metodo, resultados e evidencias como pendencias quando exigirem decisao do autor.
 
 ## O Que Pode Ser Editado
 
@@ -72,15 +84,19 @@ Se a fonte nao comprovar a afirmacao, ela nao deve ser usada como citacao.
 Verificar citacoes do projeto:
 
 ```bash
-python tools/check_cites.py
+python3 -B tools/check_cites.py
 ```
+
+Em `project/` vazio, essa checagem informa que nao ha TCC carregado e sai sem erro. Quando houver citacoes no texto, ela falha se faltar BibTeX, linha valida no cheatsheet ou `Status == Supported`.
 
 Extrair informacoes de PDFs, quando houver uma pasta de PDFs configurada:
 
 ```bash
-python tools/extract_papers.py
-python tools/review_papers.py
+python3 -B tools/extract_papers.py
+python3 -B tools/review_papers.py
 ```
+
+Esses scripts fazem triagem de PDFs locais; a saida deles nao comprova que uma fonte sustenta uma citacao.
 
 ## Para Agentes
 

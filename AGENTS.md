@@ -10,9 +10,9 @@ Este workspace apoia revisao, orientacao, avaliacao e escrita de TCCs em LaTeX. 
 - Trabalhar em `project/` quando o usuario pedir mudancas no TCC atual.
 - Nao inserir citacoes novas sem verificacao online e registro em `project/citation-cheatsheet.md`.
 
-## Estrutura Real
+## Estrutura Esperada
 
-- `project/tcc.tex`: arquivo principal.
+- `project/tcc.tex`: arquivo principal quando o TCC estiver carregado.
 - `project/pretextuais/`: resumo, abstract e listas.
 - `project/capitulo*/`: capitulos do trabalho.
 - `project/apendices/`: apendices.
@@ -42,12 +42,14 @@ Este workspace apoia revisao, orientacao, avaliacao e escrita de TCCs em LaTeX. 
 ## Fluxo Padrao
 
 1. Identificar o papel do usuario.
-2. Ler `project/tcc.tex` e mapear os arquivos realmente incluidos.
-3. Selecionar as skills adequadas.
-4. Para autor, aplicar correcoes diretas quando solicitado.
-5. Para orientador, separar correcao objetiva de recomendacao academica.
-6. Para avaliador, produzir parecer por padrao e nao editar arquivos.
-7. Rodar validacoes aplicaveis antes de finalizar.
+2. Verificar se `project/tcc.tex` existe.
+3. Se `project/tcc.tex` nao existir, parar, reportar projeto nao inicializado e nao usar `template/` ou `sample*` como substituto.
+4. Ler `project/tcc.tex` e mapear os arquivos realmente incluidos.
+5. Selecionar as skills adequadas.
+6. Para autor, aplicar correcoes diretas objetivas quando solicitado e separar decisoes academicas como pendencias.
+7. Para orientador, entregar diagnostico com evidencias, perguntas ao autor e decisoes que o agente nao deve tomar.
+8. Para avaliador, produzir parecer por padrao, declarar nivel TCC1/TCC2 ou `nivel nao determinado`, e nao editar arquivos.
+9. Rodar validacoes aplicaveis antes de finalizar.
 
 ## Politica de Citacoes
 
@@ -58,7 +60,7 @@ Toda citacao nova deve passar por `bibtex-verified-citations`:
 - comparar a fonte com a afirmacao especifica;
 - inserir somente se o suporte for `Supported`;
 - atualizar `project/citation-cheatsheet.md`;
-- rodar `python tools/check_cites.py`.
+- rodar `python3 -B tools/check_cites.py`.
 
 Se nao houver internet ou acesso suficiente, bloqueie a insercao e diga por que.
 
@@ -67,9 +69,9 @@ Se nao houver internet ou acesso suficiente, bloqueie a insercao e diga por que.
 Antes de finalizar mudancas em docs, skills ou scripts:
 
 ```bash
-python -m py_compile tools/check_cites.py tools/extract_papers.py tools/review_papers.py
-python tools/check_cites.py
+python3 -B -m py_compile tools/check_cites.py tools/extract_papers.py tools/review_papers.py
+python3 -B tools/check_cites.py
 git diff --check
 ```
 
-Quando revisar texto LaTeX, tambem confira se `template/` e `sample*` permanecem intocados.
+`python3 -B tools/check_cites.py` deve sair sem erro em projeto vazio e falhar quando houver citacao sem BibTeX, sem cheatsheet valido ou sem `Status == Supported`. Quando revisar texto LaTeX, tambem confira se `template/` e `sample*` permanecem intocados. Compilacao TeX e opcional: se `latexmk`, `pdflatex`, `xelatex` ou `tectonic` nao estiverem disponiveis, declare essa limitacao.

@@ -24,7 +24,11 @@ Depois escolha o prompt adequado:
 ## Regras Essenciais
 
 - Edite apenas `project/`, salvo pedido explicito.
+- Se `project/tcc.tex` nao existir, pare e informe que nao ha TCC ativo carregado.
+- Nao use `template/` ou `sample*` como substitutos do trabalho ativo.
 - Nunca altere `template/` ou `sample*`.
 - Para novas citacoes, use `bibtex-verified-citations` e atualize `project/citation-cheatsheet.md`.
+- Valide citacoes com `python3 -B tools/check_cites.py`.
+- Para orientador, comente e recomende por padrao; edite apenas correcoes formais solicitadas.
 - Para avaliacao, produza parecer por padrao; nao edite arquivos sem pedido.
-- Para autor, aplique correcoes textuais e LaTeX diretamente quando solicitado.
+- Para autor, aplique correcoes textuais e LaTeX objetivas quando solicitado; deixe decisoes academicas como pendencias.

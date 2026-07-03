@@ -16,11 +16,16 @@ Use esta skill para manter o projeto LaTeX compilavel, padronizado e adequado ao
 
 ## Workflow
 
-1. Ler `project/tcc.tex` para entender a ordem real de `\input` e `\include`.
-2. Mapear arquivos `.tex` ativos no `project/`; arquivos existentes mas nao incluidos devem ser tratados como possivel legado.
-3. Corrigir sintaxe LaTeX preservando texto e intencao do autor.
-4. Validar labels, refs, captions, fontes e citacoes.
-5. Rodar verificacoes textuais e, se houver ambiente TeX, compilar ou usar o validador disponivel.
+1. Verificar se `project/tcc.tex` existe; se nao existir, reportar projeto nao inicializado e nao inferir estrutura por `template/` ou `sample*`.
+2. Ler `project/tcc.tex` para entender a ordem real de `\input` e `\include`.
+3. Mapear arquivos `.tex` ativos no `project/`; arquivos existentes mas nao incluidos devem ser tratados como possivel legado.
+4. Corrigir sintaxe LaTeX preservando texto e intencao do autor.
+5. Validar labels, refs, captions, fontes e citacoes.
+6. Rodar verificacoes textuais somente quando houver arquivos ativos e, se houver ambiente TeX, compilar ou usar o validador disponivel.
+
+## Modo avaliador
+
+Quando estiver avaliando ou em modo somente leitura, nao corrigir LaTeX diretamente. Reportar problemas formais, de compilacao ou ABNT com severidade, evidencia localizavel e recomendacao.
 
 ## Figuras
 
@@ -49,7 +54,8 @@ Toda tabela deve ter `\caption`, `\label`, corpo consistente e fonte. Para compa
 \label{tab:nome_tabela}
 \begin{tabular}{|l|l|l|}
 \hline
-... conteudo ... \\hline
+... conteudo ... \\
+\hline
 \end{tabular}
 \footnotesize{Fonte: autoria propria}
 \end{table}
@@ -67,6 +73,7 @@ Toda tabela deve ter `\caption`, `\label`, corpo consistente e fonte. Para compa
 - Termos estrangeiros em PT-BR: `\textit{back-end}`, `\textit{front-end}`, `\textit{offline}`, `\textit{framework}`.
 - Aspas LaTeX: ``texto''.
 - Referencias cruzadas: nao escrever numeros fixos como `Figura 3`; usar `\ref`.
+- Labels: usar prefixos consistentes como `ch:`, `sec:`, `subsec:`, `fig:` e `tab:`; manter labels unicos e colocar `\label` depois de `\caption` em figuras e tabelas.
 - Codigo-fonte: usar ambiente existente do template, como `\jsoncode`, `\jscode`, `\htmlcode` ou `minted`, quando disponivel.
 
 ## Validacoes textuais
@@ -78,3 +85,5 @@ Buscar em `project/**/*.tex`:
 - aspas retas em texto corrido
 - `back-end|front-end|offline|framework|middleware` sem `\textit`
 - `foi realizados|foram realizado|foi implementados|foram implementado`
+
+Registre validacoes puladas quando nao houver `project/tcc.tex`, arquivos ativos, `project/references.bib` ou ambiente TeX.

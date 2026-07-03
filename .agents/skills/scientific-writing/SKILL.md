@@ -19,11 +19,12 @@ Use esta skill para escrever texto academico em PT-BR por padrao. Use ingles som
 ## Workflow
 
 1. Identificar papel do usuario: autor, orientador ou avaliador.
-2. Mapear objetivo da secao, leitor esperado e ponto que a secao deve provar.
-3. Se a estrutura estiver fraca, propor primeiro um esqueleto em topicos.
-4. Converter topicos em parágrafos curtos e coesos.
-5. Marcar lacunas de evidencia em vez de preencher com citacoes nao verificadas.
-6. Revisar transicoes, consistencia terminologica e aderencia ao objetivo da secao.
+2. Neste workspace, identificar o arquivo ativo pelo `project/tcc.tex` antes de escrever em arquivo; se o destino for ambiguo, entregar esqueleto e pergunta objetiva.
+3. Mapear objetivo da secao, leitor esperado, tese da secao, fatos fornecidos pelo autor, evidencias disponiveis, estagio TCC1/TCC2 e limites do que nao pode ser afirmado.
+4. Se a estrutura estiver fraca, propor primeiro um esqueleto em topicos.
+5. Converter topicos em paragrafos curtos e coesos quando houver base suficiente.
+6. Marcar lacunas de evidencia em vez de preencher com citacoes nao verificadas.
+7. Revisar transicoes, consistencia terminologica e aderencia ao objetivo da secao.
 
 ## Padroes por secao
 
@@ -46,6 +47,7 @@ Escrever para reprodutibilidade: ferramentas, ambiente, dados, fluxo, criterio d
 ### Resultados
 
 Apresentar evidencias, depois interpreta-las. Evitar resultado puramente narrativo quando uma tabela, quadro ou criterio de avaliacao for necessario.
+Nao escrever resultados como realizados quando o autor forneceu apenas proposta, plano ou expectativa.
 
 ### Conclusao
 
@@ -61,4 +63,4 @@ Retomar objetivos, sintetizar contribuicoes, reconhecer limitacoes e propor trab
 
 ## Saida
 
-Quando escrever diretamente em arquivo, alterar apenas arquivos permitidos pelo projeto. Quando o usuario pedir planejamento ou orientacao, entregar topicos acionaveis antes de redigir texto completo.
+Quando escrever diretamente em arquivo, alterar apenas arquivos permitidos pelo projeto. Quando o usuario pedir planejamento, quando faltar destino claro ou quando houver lacunas de evidencia, entregar topicos acionaveis antes de redigir texto completo.

@@ -10,8 +10,8 @@ Use esta skill para revisar texto academico existente. Ela corrige, mas nao subs
 ## Modos de intervencao
 
 - `minima`: corrigir erros objetivos de ortografia, gramatica, pontuacao e LaTeX.
-- `moderada`: modo padrao para autor; tambem melhora fluidez, conectivos e clareza sem mudar o argumento.
-- `critica`: separar correcoes aplicadas de recomendacoes academicas que exigem decisao do autor.
+- `moderada`: modo padrao para autor; permite reescrita local de frase ou paragrafo curto para melhorar fluidez, conectivos e clareza sem mudar argumento, resultado ou voz autoral.
+- `critica`: modo padrao para orientador/avaliador; comentarios primeiro, com correcoes formais locais apenas quando solicitadas.
 
 Se o usuario nao escolher modo, usar `moderada` para autor e `critica` para orientador/avaliador.
 
@@ -21,11 +21,18 @@ Se o usuario nao escolher modo, usar `moderada` para autor e `critica` para orie
 2. Mapear termos tecnicos e manter uma forma padrao.
 3. Aplicar correcoes locais e incrementais.
 4. Nao remover citacoes, dados, limitacoes ou escolhas metodologicas.
-5. Ao final, validar buscas comuns e resumir os tipos de ajuste feitos.
+5. Quando o sentido tecnico ou academico estiver ambiguo, nao reescrever; registrar pergunta ou pendencia.
+6. Ao final, validar buscas comuns e resumir os tipos de ajuste feitos.
+
+## Fronteira de autoria
+
+Pode corrigir diretamente: ortografia, gramatica, pontuacao, conectivos, coesao local, padronizacao terminologica e problemas LaTeX locais.
+
+Nao corrigir sem decisao do autor: tese, objetivos, metodo, resultados, interpretacao, contribuicao, limitacoes, afirmacoes fortes e novas evidencias.
 
 ## O que corrigir
 
-- Acentuacao e grafia: `especifica` -> `especifica` apenas quando for verbo; usar `específica` quando for adjetivo; `atraves` -> `através` quando mantido, preferindo `por meio de` para meio.
+- Acentuacao e grafia: manter `especifica` quando for verbo; usar `específica` quando for adjetivo; `atraves` -> `através` quando mantido, preferindo `por meio de` para meio.
 - Concordancia verbal e nominal.
 - Pontuacao em frases com citacao: `Segundo \cite{autor}, ...`.
 - Crase indevida: `orientada à objetos` -> `orientada a objetos`.
@@ -58,4 +65,4 @@ Evitar:
 
 ## Saida
 
-Quando editar arquivos, informar categorias de mudanca e validacoes. Quando revisar sem editar, usar comentarios objetivos com localizacao aproximada e sugestao acionavel.
+Quando editar arquivos, informar categorias de mudanca e validacoes. Quando revisar sem editar, usar comentarios objetivos com localizacao aproximada, severidade, motivo pedagogico e sugestao acionavel.
