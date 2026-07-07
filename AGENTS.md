@@ -69,7 +69,7 @@ Se nao houver internet ou acesso suficiente, bloqueie a insercao e diga por que.
 Antes de finalizar mudancas em docs, skills ou scripts:
 
 ```bash
-python3 -B -m py_compile tools/check_cites.py tools/extract_papers.py tools/review_papers.py
+python3 -B -m py_compile tools/check_cites.py tools/extract_papers.py tools/review_papers.py tools/pdf_to_text.py tools/render_pdf_pages.py
 python3 -B tools/check_cites.py
 git diff --check
 ```

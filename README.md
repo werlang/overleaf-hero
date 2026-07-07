@@ -98,6 +98,20 @@ python3 -B tools/review_papers.py
 
 Esses scripts fazem triagem de PDFs locais; a saida deles nao comprova que uma fonte sustenta uma citacao.
 
+Converter um PDF de TCC para texto revisavel, gerando arquivos com e sem marcadores de pagina em `tmp/pdfs/`:
+
+```bash
+python3 -B tools/pdf_to_text.py "project/trabalho.pdf"
+```
+
+Renderizar paginas de um PDF para PNG para conferencia visual:
+
+```bash
+python3 -B tools/render_pdf_pages.py "project/trabalho.pdf" --first 1 --last 3
+```
+
+`tools/pdf_to_text.py` precisa de `pdfplumber` ou `pypdf` no Python em uso. `tools/render_pdf_pages.py` precisa do Poppler (`pdftoppm`).
+
 ## Para Agentes
 
 As instrucoes canonicas ficam em:
