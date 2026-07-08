@@ -72,31 +72,68 @@ Quando o usuario nao fornecer rubrica, usar conceitos `Adequado`, `Parcial`, `In
 
 ## Formato de parecer
 
+O parecer de avaliação deve ser salvo no arquivo `project/parecer_avaliador.md`. O parecer deve ser altamente detalhado e estruturado da seguinte forma:
+
 ```markdown
-# Parecer Academico
+# Parecer do Avaliador (Detalhamento Completo)
 
 ## Sintese
-[avaliacao geral em um paragrafo]
+[Uma sintese robusta sobre o trabalho, destacando o tema, solucao proposta, pontos fortes e pontos fracos gerais.]
 
-## Decisao ou Classificacao
-[nao avaliavel, aprovado, aprovado com ajustes, aprovado com correcoes obrigatorias, revisar profundamente, ou classificacao solicitada]
+## Escopo Avaliado e Nivel Assumido
+- **Manuscrito:** [Nome do arquivo PDF ou do arquivo principal LaTeX]
+- **Texto Extraido:** [Caminho do arquivo txt, se aplicavel]
+- **Nivel Assumido:** [TCC1, TCC2, Dissertacao, etc.]
 
-## Escopo e Limitacoes
-[arquivos avaliados, nivel assumido, validacoes executadas e limites da avaliacao]
+## Decisao / Classificacao
+[Decisao recomendada: Aprovado, Aprovado com correcoes obrigatorias, Nao Aprovado, etc., acompanhada de justificativa academica.]
 
-## Rubrica
-[conceitos por dimensao avaliada]
+## Rubrica Qualitativa
 
-## Principais Achados
-- [Severidade] arquivo/secao: problema, evidencia e impacto.
+| Dimensao | Conceito | Evidencia | Observacoes e Paginas |
+|---|---|---|---|
+| Problema e objetivos | adequado/parcial/insuficiente/nao avaliavel | ... | ... |
+| Fundamentacao | adequado/parcial/insuficiente/nao avaliavel | ... | ... |
+| Trabalhos relacionados | adequado/parcial/insuficiente/nao avaliavel | ... | ... |
+| Metodo | adequado/parcial/insuficiente/nao avaliavel | ... | ... |
+| Resultados e analise | adequado/parcial/insuficiente/nao avaliavel | ... | ... |
+| Citacoes e evidencias | adequado/parcial/insuficiente/nao avaliavel | ... | ... |
+| Forma e LaTeX | adequado/parcial/insuficiente/nao avaliavel | ... | ... |
+
+## Achados por Severidade e Detalhamento Técnico
+
+Para cada achado registrado, forneça:
+1. **Página(s) no PDF:** Local exato onde o problema ocorre.
+2. **Descrição do Problema:** Descrição clara e direta do erro/inconsistência.
+3. **Discussão Técnica e Acadêmica:** Discussão aprofundada mostrando o impacto teórico/técnico desse problema na qualidade do TCC (ex. impactos em reprodutibilidade, validade estatística, clareza científica).
+4. **Sugestão de Adequação / Reescrita:** Sugestão concreta de texto de reescrita, correções de sintaxe LaTeX, modelos de tabelas ou orientações específicas para o autor adotar.
+
+### Achados de Severidade Alta / Crítica
+#### [Nome do Achado 1]
+- **Página(s) no PDF:** ...
+- **Descrição do Problema:** ...
+- **Discussão Técnica e Acadêmica:** ...
+- **Sugestão de Adequação / Reescrita:** ...
+
+### Achados de Severidade Média
+#### [Nome do Achado 1]
+...
+
+### Achados de Severidade Baixa (Revisão Textual e Formatação)
+#### [Nome do Achado 1]
+...
 
 ## Recomendacoes Prioritarias
-1. Acao concreta.
-2. Acao concreta.
+1. [Acao prioritária 1]
+2. [Acao prioritária 2]
 
-## Observacoes de Forma
-[pontos de LaTeX, ABNT, gramatica e consistencia]
+## Citacoes Auditadas ou Pendentes (se aplicavel)
+[Tabela de citacoes com Local, Afirmacao, Chave, Status, Evidencia acessada, Risco de overclaim e Recomendacao]
+
+## Limitacoes da Avaliacao
+[Explicitar as limitacoes de acesso do avaliador (ex: sem acesso ao codigo-fonte completo, sem execucao local do modelo, etc.)]
 ```
+
 
 ## Cuidados
 

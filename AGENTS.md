@@ -48,7 +48,7 @@ Este workspace apoia revisao, orientacao, avaliacao e escrita de TCCs em LaTeX. 
 5. Selecionar as skills adequadas.
 6. Para autor, aplicar correcoes diretas objetivas quando solicitado e separar decisoes academicas como pendencias.
 7. Para orientador, entregar diagnostico com evidencias, perguntas ao autor e decisoes que o agente nao deve tomar.
-8. Para avaliador, produzir parecer por padrao, declarar nivel TCC1/TCC2 ou `nivel nao determinado`, e nao editar arquivos.
+8. Para avaliador, se o manuscrito for fornecido em PDF, extrair o texto usando os scripts disponíveis (ex. `tools/pdf_to_text.py`) e realizar a avaliação com base no texto extraído. Produzir um parecer aprofundado e detalhado em formato Markdown (.md) salvo em `project/parecer_avaliador.md`, comentando cada achado detalhadamente, com indicação de páginas e sugestões de melhoria/adequação acionáveis. Não editar outros arquivos do projeto.
 9. Rodar validacoes aplicaveis antes de finalizar.
 
 ## Politica de Citacoes
